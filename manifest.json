@@ -1,0 +1,23 @@
+{
+  "Group": "VeilCore",
+  "Id": "VeilCore",
+  "Version": "1.0.0",
+  "Name": "VeilCore",
+  "Description": "A Hytale server plugin",
+  "Authors": [
+    {
+      "Name": "VeilCore Team"
+    }
+  ],
+  "License": "All Rights Reserved",
+  "Environment": "server",
+  "Entrypoints": {
+    "Main": [
+      "com.veilcore.VeilCorePlugin"
+    ]
+  },
+  "Depends": {
+    "hytale": "*"
+  },
+  "IncludesAssestPack": true
+}

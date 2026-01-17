@@ -1,0 +1,7 @@
+{
+  "Group": "VeilCore",
+  "Name": "VeilCore",
+  "Version": "1.0.0",
+  "Main": "com.veilcore.VeilCorePlugin",
+  "IncludesAssetPack": true
+}
