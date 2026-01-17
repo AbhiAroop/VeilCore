@@ -1,6 +1,6 @@
-# VeilCore Hytale Plugin
+# VeilCore
 
-A professional Hytale plugin built with Gradle.
+Hytale MMO Server - A professional Hytale plugin built with Gradle.
 
 ## Project Structure
 
@@ -9,12 +9,11 @@ VeilCore/
 ├── src/main/java/com/veilcore/
 │   ├── VeilCorePlugin.java       # Main plugin class
 │   ├── commands/                  # Command implementations
-│   ├── events/                    # Event listeners
-│   ├── utils/                     # Utility classes
-│   ├── config/                    # Configuration management
-│   └── managers/                  # Manager classes
+│   ├── pages/                     # Custom UI pages
+│   └── ui/                        # UI components
 ├── src/main/resources/
-│   └── manifest.json              # Plugin manifest
+│   ├── manifest.json              # Plugin manifest
+│   └── Common/UI/Custom/Pages/    # UI definition files
 ├── build.gradle.kts               # Gradle build configuration
 ├── settings.gradle.kts            # Gradle settings
 └── gradle.properties              # Plugin metadata
