@@ -40,13 +40,45 @@ public class ProfileCommand extends AbstractPlayerCommand {
             .getProfiles(player.getUuid());
         
         if (profiles.isEmpty()) {
-            // No profiles - open creation page
-            ProfileCreationPage page = new ProfileCreationPage(playerRef);
+            // No profiles - open FORCED creation page (cannot cancel)
+            ProfileCreationPage page = new ProfileCreationPage(playerRef, false);
             player.getPageManager().openCustomPage(ref, store, page);
         } else {
-            // Has profiles - open selection page
-            ProfileSelectionPage page = new ProfileSelectionPage(playerRef, profiles);
-            player.getPageManager().openCustomPage(ref, store, page);
+            // Has profiles - check if player has an active profile loaded
+            Profile activeProfile = VeilCorePlugin.getInstance().getProfileManager()
+                .getActiveProfile(player.getUuid());
+            
+            if (activeProfile == null) {
+                // No active profile - try to load last active profile
+                java.util.UUID lastActiveId = VeilCorePlugin.getInstance().getProfileManager()
+                    .getLastActiveProfileId(player.getUuid());
+                
+                if (lastActiveId != null) {
+                    Profile lastProfile = VeilCorePlugin.getInstance().getProfileManager()
+                        .getProfile(player.getUuid(), lastActiveId);
+                    
+                    if (lastProfile != null) {
+                        // Load the last active profile
+                        VeilCorePlugin.getInstance().getProfileManager()
+                            .setActiveProfile(player.getUuid(), lastProfile.getProfileId());
+                        VeilCorePlugin.getInstance().getStateManager()
+                            .loadProfileStateToPlayer(ref, store, player, lastProfile);
+                        
+                        // Open selection page to show the loaded profile
+                        ProfileSelectionPage page = new ProfileSelectionPage(playerRef, profiles);
+                        player.getPageManager().openCustomPage(ref, store, page);
+                        return;
+                    }
+                }
+                
+                // No last active profile or it was deleted - open selection page
+                ProfileSelectionPage page = new ProfileSelectionPage(playerRef, profiles);
+                player.getPageManager().openCustomPage(ref, store, page);
+            } else {
+                // Has active profile - open selection page
+                ProfileSelectionPage page = new ProfileSelectionPage(playerRef, profiles);
+                player.getPageManager().openCustomPage(ref, store, page);
+            }
         }
     }
 }

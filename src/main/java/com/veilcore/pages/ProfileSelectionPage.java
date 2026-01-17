@@ -212,8 +212,8 @@ public class ProfileSelectionPage extends InteractiveCustomUIPage<ProfileSelecti
                         if (isDeletingActive) {
                             // Deleted the active profile
                             if (updatedProfiles.isEmpty()) {
-                                // No profiles left - open creation page
-                                ProfileCreationPage creationPage = new ProfileCreationPage(playerRef);
+                                // No profiles left - open FORCED creation page (cannot cancel)
+                                ProfileCreationPage creationPage = new ProfileCreationPage(playerRef, false);
                                 player.getPageManager().openCustomPage(ref, store, creationPage);
                             } else {
                                 // Switch to first available profile
@@ -244,8 +244,8 @@ public class ProfileSelectionPage extends InteractiveCustomUIPage<ProfileSelecti
                 playerRef.sendMessage(Message.raw("§cInvalid profile ID!"));
             }
         } else if ("CreateNew".equals(data.action)) {
-            // Open profile creation page directly
-            ProfileCreationPage creationPage = new ProfileCreationPage(playerRef);
+            // Open profile creation page - cancellable since they already have profiles
+            ProfileCreationPage creationPage = new ProfileCreationPage(playerRef, true);
             player.getPageManager().openCustomPage(ref, store, creationPage);
         }
     }

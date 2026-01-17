@@ -26,6 +26,9 @@ import javax.annotation.Nonnull;
  */
 public class ProfileCreationPage extends InteractiveCustomUIPage<ProfileCreationPage.ProfileCreationEventData> {
 
+    private final boolean cancellable;
+    private boolean profileCreated = false;
+
     /**
      * Event data for profile creation.
      */
@@ -46,8 +49,20 @@ public class ProfileCreationPage extends InteractiveCustomUIPage<ProfileCreation
                 .build();
     }
 
-    public ProfileCreationPage(@Nonnull PlayerRef playerRef) {
-        super(playerRef, CustomPageLifetime.CanDismissOrCloseThroughInteraction, ProfileCreationEventData.CODEC);
+    /**
+     * Create a profile creation page.
+     * 
+     * @param playerRef The player reference
+     * @param cancellable If true, player can cancel (used when creating additional profiles).
+     *                    If false, UI cannot be cancelled via ESC or cancel button.
+     */
+    public ProfileCreationPage(@Nonnull PlayerRef playerRef, boolean cancellable) {
+        // Use CanDismissOrCloseThroughInteraction when cancellable
+        // Use CanDismiss when NOT cancellable (counterintuitive but CanDismiss = can only dismiss through interaction)
+        super(playerRef, 
+            cancellable ? CustomPageLifetime.CanDismissOrCloseThroughInteraction : CustomPageLifetime.CanDismiss,
+            ProfileCreationEventData.CODEC);
+        this.cancellable = cancellable;
     }
 
     @Override
@@ -60,6 +75,11 @@ public class ProfileCreationPage extends InteractiveCustomUIPage<ProfileCreation
         // Load the UI layout
         commandBuilder.append("Pages/ProfileCreationPage.ui");
 
+        // Update title based on whether it's cancellable
+        if (!cancellable) {
+            commandBuilder.set("#TitleText.Text", "Create Your Profile (Required)");
+        }
+
         // Bind Create button with profile name input
         eventBuilder.addEventBinding(
             CustomUIEventBindingType.Activating,
@@ -69,12 +89,41 @@ public class ProfileCreationPage extends InteractiveCustomUIPage<ProfileCreation
                 .append("@ProfileName", "#ProfileNameInput.Value")
         );
 
-        // Bind Cancel button
-        eventBuilder.addEventBinding(
-            CustomUIEventBindingType.Activating,
-            "#CancelButton",
-            new EventData().append("Action", "Cancel")
-        );
+        // Bind Cancel button only if cancellable
+        if (cancellable) {
+            eventBuilder.addEventBinding(
+                CustomUIEventBindingType.Activating,
+                "#CancelButton",
+                new EventData().append("Action", "Cancel")
+            );
+        }
+        // Note: When not cancellable, we don't create the cancel button at all
+    }
+
+    @Override
+    public void onDismiss(
+        @Nonnull Ref<EntityStore> ref,
+        @Nonnull Store<EntityStore> store
+    ) {
+        // If not cancellable and profile wasn't created, reopen after a brief delay
+        if (!cancellable && !profileCreated) {
+            playerRef.sendMessage(Message.raw("§cYou must create a profile to continue!"));
+            
+            Player player = store.getComponent(ref, Player.getComponentType());
+            if (player != null) {
+                // Use a separate thread with delay to avoid immediate recursion
+                new Thread(() -> {
+                    try {
+                        Thread.sleep(100); // 100ms delay
+                        // Reopen the UI
+                        ProfileCreationPage newPage = new ProfileCreationPage(playerRef, false);
+                        player.getPageManager().openCustomPage(ref, store, newPage);
+                    } catch (InterruptedException e) {
+                        // Ignore
+                    }
+                }).start();
+            }
+        }
     }
 
     @Override
@@ -107,6 +156,9 @@ public class ProfileCreationPage extends InteractiveCustomUIPage<ProfileCreation
                 VeilCorePlugin.getInstance().getProfileManager()
                     .setActiveProfile(player.getUuid(), newProfile.getProfileId());
                 
+                // Mark profile as created so onDismiss doesn't reopen
+                profileCreated = true;
+                
                 // Reset player to spawn (clear inventory, reset stats, teleport)
                 VeilCorePlugin.getInstance().getStateManager()
                     .resetPlayerToSpawn(ref, store, player);
@@ -117,10 +169,16 @@ public class ProfileCreationPage extends InteractiveCustomUIPage<ProfileCreation
                 player.getPageManager().setPage(ref, store, Page.None);
             } else {
                 playerRef.sendMessage(Message.raw("§cFailed to create profile. You may have reached the maximum (3) or the name already exists."));
+                // Close UI so player can try again
+                player.getPageManager().setPage(ref, store, Page.None);
             }
         } else {
-            // Cancel - just close the UI
-            player.getPageManager().setPage(ref, store, Page.None);
+            // Cancel - only close if cancellable
+            if (cancellable) {
+                player.getPageManager().setPage(ref, store, Page.None);
+            } else {
+                playerRef.sendMessage(Message.raw("§cYou must create a profile to continue!"));
+            }
         }
     }
 }
