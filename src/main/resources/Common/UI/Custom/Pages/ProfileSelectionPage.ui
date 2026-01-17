@@ -1,0 +1,215 @@
+$C = "../Common.ui";
+
+@SelectButtonStyle = TextButtonStyle(
+  Default: (Background: #3a7bd5, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #4a8be5, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #2a6bc5, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+@DeleteButtonStyle = TextButtonStyle(
+  Default: (Background: #8b3a3a, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #9b4a4a, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #7b2a2a, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+@CreateButtonStyle = TextButtonStyle(
+  Default: (Background: #2a8b5a, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #3a9b6a, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #1a7b4a, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+Group {
+  Anchor: (Width: 550, Height: 520);
+  Background: #141c26(0.98);
+  LayoutMode: Top;
+  Padding: (Full: 25);
+
+  Label {
+    Text: "Select Profile";
+    Anchor: (Height: 45);
+    Style: (FontSize: 28, TextColor: #ffffff, HorizontalAlignment: Center, RenderBold: true);
+  }
+
+  Label {
+    Text: "Choose a profile to play with";
+    Anchor: (Height: 24);
+    Style: (FontSize: 13, TextColor: #96a9be, HorizontalAlignment: Center);
+  }
+
+  Group { Anchor: (Height: 1); Background: #2b3542; }
+
+  Group { Anchor: (Height: 20); }
+
+  // Profile 1
+  Group #Profile1Container {
+    LayoutMode: Left;
+    Anchor: (Height: 90);
+    Background: #1e2832;
+    Padding: (Full: 15);
+
+    Group {
+      LayoutMode: Top;
+      FlexWeight: 1;
+
+      Label #Profile1Name {
+        Text: "Profile 1";
+        Anchor: (Height: 28);
+        Style: (FontSize: 18, TextColor: #ffffff, RenderBold: true);
+      }
+
+      Label #Profile1Level {
+        Text: "Level 1";
+        Anchor: (Height: 22);
+        Style: (FontSize: 14, TextColor: #96a9be);
+      }
+
+      Label #Profile1LastPlayed {
+        Text: "Last: Never";
+        Anchor: (Height: 18);
+        Style: (FontSize: 11, TextColor: #4a5568);
+      }
+    }
+
+    Group { Anchor: (Width: 10); }
+
+    Group {
+      LayoutMode: Left;
+      Anchor: (Width: 170);
+
+      TextButton #Profile1SelectButton {
+        Text: "SELECT";
+        Anchor: (Width: 80, Height: 35);
+        Style: @SelectButtonStyle;
+      }
+
+      Group { Anchor: (Width: 5); }
+
+      TextButton #Profile1DeleteButton {
+        Text: "DELETE";
+        Anchor: (Width: 80, Height: 35);
+        Style: @DeleteButtonStyle;
+      }
+    }
+  }
+
+  Group { Anchor: (Height: 12); }
+
+  // Profile 2
+  Group #Profile2Container {
+    LayoutMode: Left;
+    Anchor: (Height: 90);
+    Background: #1e2832;
+    Padding: (Full: 15);
+
+    Group {
+      LayoutMode: Top;
+      FlexWeight: 1;
+
+      Label #Profile2Name {
+        Text: "Profile 2";
+        Anchor: (Height: 28);
+        Style: (FontSize: 18, TextColor: #ffffff, RenderBold: true);
+      }
+
+      Label #Profile2Level {
+        Text: "Level 1";
+        Anchor: (Height: 22);
+        Style: (FontSize: 14, TextColor: #96a9be);
+      }
+
+      Label #Profile2LastPlayed {
+        Text: "Last: Never";
+        Anchor: (Height: 18);
+        Style: (FontSize: 11, TextColor: #4a5568);
+      }
+    }
+
+    Group { Anchor: (Width: 10); }
+
+    Group {
+      LayoutMode: Left;
+      Anchor: (Width: 170);
+
+      TextButton #Profile2SelectButton {
+        Text: "SELECT";
+        Anchor: (Width: 80, Height: 35);
+        Style: @SelectButtonStyle;
+      }
+
+      Group { Anchor: (Width: 5); }
+
+      TextButton #Profile2DeleteButton {
+        Text: "DELETE";
+        Anchor: (Width: 80, Height: 35);
+        Style: @DeleteButtonStyle;
+      }
+    }
+  }
+
+  Group { Anchor: (Height: 12); }
+
+  // Profile 3
+  Group #Profile3Container {
+    LayoutMode: Left;
+    Anchor: (Height: 90);
+    Background: #1e2832;
+    Padding: (Full: 15);
+
+    Group {
+      LayoutMode: Top;
+      FlexWeight: 1;
+
+      Label #Profile3Name {
+        Text: "Profile 3";
+        Anchor: (Height: 28);
+        Style: (FontSize: 18, TextColor: #ffffff, RenderBold: true);
+      }
+
+      Label #Profile3Level {
+        Text: "Level 1";
+        Anchor: (Height: 22);
+        Style: (FontSize: 14, TextColor: #96a9be);
+      }
+
+      Label #Profile3LastPlayed {
+        Text: "Last: Never";
+        Anchor: (Height: 18);
+        Style: (FontSize: 11, TextColor: #4a5568);
+      }
+    }
+
+    Group { Anchor: (Width: 10); }
+
+    Group {
+      LayoutMode: Left;
+      Anchor: (Width: 170);
+
+      TextButton #Profile3SelectButton {
+        Text: "SELECT";
+        Anchor: (Width: 80, Height: 35);
+        Style: @SelectButtonStyle;
+      }
+
+      Group { Anchor: (Width: 5); }
+
+      TextButton #Profile3DeleteButton {
+        Text: "DELETE";
+        Anchor: (Width: 80, Height: 35);
+        Style: @DeleteButtonStyle;
+      }
+    }
+  }
+
+  Group { FlexWeight: 1; }
+
+  Group {
+    LayoutMode: Center;
+    Anchor: (Height: 45);
+
+    TextButton #CreateNewButton {
+      Text: "+ CREATE NEW PROFILE";
+      Anchor: (Width: 220, Height: 45);
+      Style: @CreateButtonStyle;
+    }
+  }
+}
