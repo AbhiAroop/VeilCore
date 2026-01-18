@@ -44,9 +44,6 @@ public class VeilCorePlugin extends JavaPlugin {
         getEventRegistry().registerGlobal(PlayerReadyEvent.class, PlayerEventListener::onPlayerReady);
         getEventRegistry().registerGlobal(PlayerDisconnectEvent.class, PlayerEventListener::onPlayerDisconnect);
         
-        // Note: Death tracking via ECS system requires API classes not yet available to plugins
-        // (EntityTickingSystem, DeathComponent, etc.). Will be added in future API update.
-        
         getLogger().at(Level.INFO).log("Event listeners registered");
 
         // Register commands
