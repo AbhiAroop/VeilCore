@@ -9,6 +9,8 @@ import com.hypixel.hytale.server.core.event.events.player.PlayerReadyEvent;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.veilcore.commands.DiscordCommand;
+import com.veilcore.commands.EntitySpawnCommand;
+import com.veilcore.commands.NameplateTestCommand;
 import com.veilcore.commands.ProfileCommand;
 import com.veilcore.commands.StatsCommand;
 import com.veilcore.commands.TestUICommand;
@@ -52,6 +54,8 @@ public class VeilCorePlugin extends JavaPlugin {
         getCommandRegistry().registerCommand(new ProfileCommand());
         getCommandRegistry().registerCommand(new StatsCommand(this));
         getCommandRegistry().registerCommand(new DiscordCommand());
+        getCommandRegistry().registerCommand(new EntitySpawnCommand());
+        getCommandRegistry().registerCommand(new NameplateTestCommand());
         
         // Start playtime tracker (runs every second)
         playtimeScheduler = java.util.concurrent.Executors.newSingleThreadScheduledExecutor();
@@ -91,6 +95,10 @@ public class VeilCorePlugin extends JavaPlugin {
     
     public ProfileStateManager getStateManager() {
         return stateManager;
+    }
+    
+    public java.util.concurrent.ScheduledExecutorService getScheduler() {
+        return playtimeScheduler;
     }
     
     private java.io.File getDataFolder() {

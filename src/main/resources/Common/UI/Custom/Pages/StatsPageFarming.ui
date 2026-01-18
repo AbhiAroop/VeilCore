@@ -35,7 +35,7 @@ Group {
     Label {
       Text: "CATEGORIES";
       Anchor: (Height: 30);
-      Style: (FontSize: 11, TextColor: #96a9be, RenderBold: true, HorizontalAlignment: Center);
+      Style: (FontSize: 11, TextColor: #2c3e50, RenderBold: true, HorizontalAlignment: Center);
     }
 
     Group { Anchor: (Height: 10); }
@@ -98,7 +98,7 @@ Group {
       Anchor: (Height: 40);
       Style: (
         FontSize: 26,
-        TextColor: #00d4ff,
+        TextColor: #1a1a1a,
         HorizontalAlignment: Center,
         RenderBold: true
       );
@@ -106,20 +106,20 @@ Group {
 
     Group { 
       Anchor: (Height: 3);
-      Background: #00d4ff(0.6);
+      Background: #ffffff(0.8);
     }
 
     Group { Anchor: (Height: 15); }
 
     Group {
       LayoutMode: Top;
-      Background: #1e2a3a(0.5);
+      Background: #1e2a3a(0.85);
       Padding: (Full: 20);
       
       Label {
         Text: "FARMING STATISTICS";
         Anchor: (Height: 32);
-        Style: (FontSize: 18, TextColor: #90ee90, RenderBold: true, HorizontalAlignment: Center);
+        Style: (FontSize: 18, TextColor: #1a1a1a, RenderBold: true, HorizontalAlignment: Center);
       }
 
       Group { Anchor: (Height: 15); }
@@ -131,7 +131,7 @@ Group {
         Label {
           Text: "Farming Fortune:";
           Anchor: (Width: 200);
-          Style: (FontSize: 14, TextColor: #96a9be, VerticalAlignment: Center);
+          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #FarmingFortune {
