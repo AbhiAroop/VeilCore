@@ -112,30 +112,30 @@ Group {
     Group {
       LayoutMode: Top;
       Background: #1e2a3a(0.5);
-      Padding: (Full: 15);
+      Padding: (Full: 20);
       
       Label {
-        Text: "[ FARMING STATS ]";
-        Anchor: (Height: 28);
-        Style: (FontSize: 16, TextColor: #a8a8a8, RenderBold: true);
+        Text: "FARMING STATS";
+        Anchor: (Height: 32);
+        Style: (FontSize: 18, TextColor: #90ee90, RenderBold: true, HorizontalAlignment: Center);
       }
 
-      Group { Anchor: (Height: 10); }
+      Group { Anchor: (Height: 15); }
 
       Group {
         LayoutMode: Left;
-        Anchor: (Height: 26);
+        Anchor: (Height: 28);
         
         Label {
           Text: "Farming Fortune:";
-          Anchor: (Width: 160);
-          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+          Anchor: (Width: 200);
+          Style: (FontSize: 14, TextColor: #96a9be, VerticalAlignment: Center);
         }
         
         Label #FarmingFortune {
           Text: "1.00";
           Anchor: (Width: 100);
-          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #ffd700, RenderBold: true);
         }
       }
     }

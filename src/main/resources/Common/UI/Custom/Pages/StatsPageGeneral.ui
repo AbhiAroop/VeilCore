@@ -112,15 +112,15 @@ Group {
     Group {
       LayoutMode: Top;
       Background: #1e2a3a(0.5);
-      Padding: (Full: 15);
+      Padding: (Full: 20);
       
       Label {
-        Text: "[ GENERAL STATS ]";
-        Anchor: (Height: 28);
-        Style: (FontSize: 16, TextColor: #a8a8a8, RenderBold: true);
+        Text: "GENERAL STATS";
+        Anchor: (Height: 32);
+        Style: (FontSize: 18, TextColor: #ab47bc, RenderBold: true, HorizontalAlignment: Center);
       }
 
-      Group { Anchor: (Height: 10); }
+      Group { Anchor: (Height: 12); }
 
       Group {
         LayoutMode: Left;

@@ -112,15 +112,15 @@ Group {
     Group {
       LayoutMode: Top;
       Background: #1e2a3a(0.5);
-      Padding: (Full: 15);
+      Padding: (Full: 20);
       
       Label {
-        Text: "[ FISHING STATS ]";
-        Anchor: (Height: 28);
-        Style: (FontSize: 16, TextColor: #a8a8a8, RenderBold: true);
+        Text: "FISHING STATS";
+        Anchor: (Height: 32);
+        Style: (FontSize: 18, TextColor: #4fc3f7, RenderBold: true, HorizontalAlignment: Center);
       }
 
-      Group { Anchor: (Height: 10); }
+      Group { Anchor: (Height: 12); }
 
       Group {
         LayoutMode: Left;

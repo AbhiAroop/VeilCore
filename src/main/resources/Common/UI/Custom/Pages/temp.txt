@@ -1,0 +1,2098 @@
+$C = "../Common.ui";
+
+@CreateButtonStyle = TextButtonStyle(
+  Default: (Background: #3a7bd5, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #4a8be5, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #2a6bc5, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+@CancelButtonStyle = TextButtonStyle(
+  Default: (Background: #8b3a3a, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #9b4a4a, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #7b2a2a, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+Group {
+  Anchor: (Width: 420, Height: 280);
+  Background: #141c26(0.98);
+  LayoutMode: Top;
+  Padding: (Full: 25);
+
+  Label #TitleText {
+    Text: "Create New Profile";
+    Anchor: (Height: 45);
+    Style: (
+      FontSize: 26,
+      TextColor: #ffffff,
+      HorizontalAlignment: Center,
+      RenderBold: true
+    );
+  }
+
+  Group { Anchor: (Height: 1); Background: #2b3542; }
+
+  Group { Anchor: (Height: 20); }
+
+  Label {
+    Text: "Profile Name";
+    Anchor: (Height: 24);
+    Style: (FontSize: 14, TextColor: #96a9be);
+  }
+
+  Group { Anchor: (Height: 8); }
+
+  $C.@TextField #ProfileNameInput {
+    Anchor: (Height: 40);
+    PlaceholderText: "Enter profile name...";
+  }
+
+  Group { Anchor: (Height: 8); }
+
+  Label {
+    Text: "Maximum 20 characters";
+    Anchor: (Height: 16);
+    Style: (FontSize: 11, TextColor: #4a5568);
+  }
+
+  Group { FlexWeight: 1; }
+
+  Group {
+    LayoutMode: Center;
+    Anchor: (Height: 44);
+
+    TextButton #CreateButton {
+      Text: "CREATE";
+      Anchor: (Width: 120, Height: 40);
+      Style: @CreateButtonStyle;
+    }
+
+    Group { Anchor: (Width: 12); }
+
+    TextButton #CancelButton {
+      Text: "CANCEL";
+      Anchor: (Width: 120, Height: 40);
+      Style: @CancelButtonStyle;
+    }
+  }
+}
+
+$C = "../Common.ui";
+
+@SelectButtonStyle = TextButtonStyle(
+  Default: (Background: #3a7bd5, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #4a8be5, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #2a6bc5, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+@DeleteButtonStyle = TextButtonStyle(
+  Default: (Background: #8b3a3a, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #9b4a4a, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #7b2a2a, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+@CreateButtonStyle = TextButtonStyle(
+  Default: (Background: #2a8b5a, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #3a9b6a, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #1a7b4a, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+Group {
+  Anchor: (Width: 550, Height: 520);
+  Background: #141c26(0.98);
+  LayoutMode: Top;
+  Padding: (Full: 25);
+
+  Label {
+    Text: "Select Profile";
+    Anchor: (Height: 45);
+    Style: (FontSize: 28, TextColor: #ffffff, HorizontalAlignment: Center, RenderBold: true);
+  }
+
+  Label {
+    Text: "Choose a profile to play with";
+    Anchor: (Height: 24);
+    Style: (FontSize: 13, TextColor: #96a9be, HorizontalAlignment: Center);
+  }
+
+  Group { Anchor: (Height: 1); Background: #2b3542; }
+
+  Group { Anchor: (Height: 20); }
+
+  // Profile 1
+  Group #Profile1Container {
+    LayoutMode: Left;
+    Anchor: (Height: 90);
+    Background: #1e2832;
+    Padding: (Full: 15);
+
+    Group {
+      LayoutMode: Top;
+      FlexWeight: 1;
+
+      Label #Profile1Name {
+        Text: "Profile 1";
+        Anchor: (Height: 28);
+        Style: (FontSize: 18, TextColor: #ffffff, RenderBold: true);
+      }
+
+      Label #Profile1Level {
+        Text: "Level 1";
+        Anchor: (Height: 22);
+        Style: (FontSize: 14, TextColor: #96a9be);
+      }
+
+      Label #Profile1LastPlayed {
+        Text: "Last: Never";
+        Anchor: (Height: 18);
+        Style: (FontSize: 11, TextColor: #4a5568);
+      }
+    }
+
+    Group { Anchor: (Width: 10); }
+
+    Group {
+      LayoutMode: Left;
+      Anchor: (Width: 170);
+
+      TextButton #Profile1SelectButton {
+        Text: "SELECT";
+        Anchor: (Width: 80, Height: 35);
+        Style: @SelectButtonStyle;
+      }
+
+      Group { Anchor: (Width: 5); }
+
+      TextButton #Profile1DeleteButton {
+        Text: "DELETE";
+        Anchor: (Width: 80, Height: 35);
+        Style: @DeleteButtonStyle;
+      }
+    }
+  }
+
+  Group { Anchor: (Height: 12); }
+
+  // Profile 2
+  Group #Profile2Container {
+    LayoutMode: Left;
+    Anchor: (Height: 90);
+    Background: #1e2832;
+    Padding: (Full: 15);
+
+    Group {
+      LayoutMode: Top;
+      FlexWeight: 1;
+
+      Label #Profile2Name {
+        Text: "Profile 2";
+        Anchor: (Height: 28);
+        Style: (FontSize: 18, TextColor: #ffffff, RenderBold: true);
+      }
+
+      Label #Profile2Level {
+        Text: "Level 1";
+        Anchor: (Height: 22);
+        Style: (FontSize: 14, TextColor: #96a9be);
+      }
+
+      Label #Profile2LastPlayed {
+        Text: "Last: Never";
+        Anchor: (Height: 18);
+        Style: (FontSize: 11, TextColor: #4a5568);
+      }
+    }
+
+    Group { Anchor: (Width: 10); }
+
+    Group {
+      LayoutMode: Left;
+      Anchor: (Width: 170);
+
+      TextButton #Profile2SelectButton {
+        Text: "SELECT";
+        Anchor: (Width: 80, Height: 35);
+        Style: @SelectButtonStyle;
+      }
+
+      Group { Anchor: (Width: 5); }
+
+      TextButton #Profile2DeleteButton {
+        Text: "DELETE";
+        Anchor: (Width: 80, Height: 35);
+        Style: @DeleteButtonStyle;
+      }
+    }
+  }
+
+  Group { Anchor: (Height: 12); }
+
+  // Profile 3
+  Group #Profile3Container {
+    LayoutMode: Left;
+    Anchor: (Height: 90);
+    Background: #1e2832;
+    Padding: (Full: 15);
+
+    Group {
+      LayoutMode: Top;
+      FlexWeight: 1;
+
+      Label #Profile3Name {
+        Text: "Profile 3";
+        Anchor: (Height: 28);
+        Style: (FontSize: 18, TextColor: #ffffff, RenderBold: true);
+      }
+
+      Label #Profile3Level {
+        Text: "Level 1";
+        Anchor: (Height: 22);
+        Style: (FontSize: 14, TextColor: #96a9be);
+      }
+
+      Label #Profile3LastPlayed {
+        Text: "Last: Never";
+        Anchor: (Height: 18);
+        Style: (FontSize: 11, TextColor: #4a5568);
+      }
+    }
+
+    Group { Anchor: (Width: 10); }
+
+    Group {
+      LayoutMode: Left;
+      Anchor: (Width: 170);
+
+      TextButton #Profile3SelectButton {
+        Text: "SELECT";
+        Anchor: (Width: 80, Height: 35);
+        Style: @SelectButtonStyle;
+      }
+
+      Group { Anchor: (Width: 5); }
+
+      TextButton #Profile3DeleteButton {
+        Text: "DELETE";
+        Anchor: (Width: 80, Height: 35);
+        Style: @DeleteButtonStyle;
+      }
+    }
+  }
+
+  Group { FlexWeight: 1; }
+
+  Group {
+    LayoutMode: Center;
+    Anchor: (Height: 45);
+
+    TextButton #CreateNewButton {
+      Text: "+ CREATE NEW PROFILE";
+      Anchor: (Width: 220, Height: 45);
+      Style: @CreateButtonStyle;
+    }
+  }
+}
+
+$C = "../Common.ui";
+
+@CloseButtonStyle = TextButtonStyle(
+  Default: (Background: #8b3a3a, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #9b4a4a, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #7b2a2a, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+Group {
+  Anchor: (Width: 750, Height: 600);
+  Background: #141c26(0.98);
+  LayoutMode: Top;
+  Padding: (Left: 20, Right: 20, Top: 20, Bottom: 20);
+
+  Label #ProfileName {
+    Text: "Profile Name";
+    Anchor: (Height: 40);
+    Style: (
+      FontSize: 26,
+      TextColor: #00d4ff,
+      HorizontalAlignment: Center,
+      RenderBold: true
+    );
+  }
+
+  Group { 
+    Anchor: (Height: 3);
+    Background: #00d4ff(0.6);
+  }
+
+  Group { Anchor: (Height: 15); }
+
+  Group { Anchor: (Height: 15); }
+
+  Group {
+    LayoutMode: Top;
+    Background: #1e2a3a(0.5);
+    Padding: (Full: 15);
+    
+    Label {
+      Text: "[ COMBAT STATS ]";
+      Anchor: (Height: 28);
+      Style: (FontSize: 16, TextColor: #ff6b6b, RenderBold: true);
+    }
+
+    Group { Anchor: (Height: 8); }
+
+  Group {
+    LayoutMode: Left;
+    Anchor: (Height: 24);
+    
+    Label {
+      Text: "Health:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #Health {
+      Text: "100";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+    
+    Label {
+      Text: "Stamina:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #Stamina {
+      Text: "100";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+  }
+
+  Group { Anchor: (Height: 4); }
+
+  Group {
+    LayoutMode: Left;
+    Anchor: (Height: 24);
+    
+    Label {
+      Text: "Mana:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #Mana {
+      Text: "100/100";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+    
+    Label {
+      Text: "Armor:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #Armor {
+      Text: "0";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+  }
+
+  Group { Anchor: (Height: 4); }
+
+  Group {
+    LayoutMode: Left;
+    Anchor: (Height: 24);
+    
+    Label {
+      Text: "Speed:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #Speed {
+      Text: "0.10";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+    
+    Label {
+      Text: "Crit Dmg:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #CritDamage {
+      Text: "1.5x";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+  }
+
+  Group { Anchor: (Height: 4); }
+
+  Group {
+    LayoutMode: Left;
+    Anchor: (Height: 24);
+    
+    Label {
+      Text: "Crit Chance:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #CritChance {
+      Text: "0.0%";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+    
+    Label {
+      Text: "Atk Speed:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #AttackSpeed {
+      Text: "0.50";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+  }
+  
+  }
+
+  Group { Anchor: (Height: 15); }
+
+  Group {
+    LayoutMode: Top;
+    Background: #1e2a3a(0.5);
+    Padding: (Full: 10);
+    
+    Label {
+      Text: "[ FORTUNE STATS ]";
+      Anchor: (Height: 28);
+      Style: (FontSize: 16, TextColor: #ffd700, RenderBold: true);
+    }
+
+    Group { Anchor: (Height: 8); }
+
+  Group {
+    LayoutMode: Left;
+    Anchor: (Height: 24);
+    
+    Label {
+      Text: "Mining:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #MiningFortune {
+      Text: "1.00";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+    
+    Label {
+      Text: "Farming:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #FarmingFortune {
+      Text: "0.00";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+  }
+
+  Group { Anchor: (Height: 4); }
+
+  Group {
+    LayoutMode: Left;
+    Anchor: (Height: 24);
+    
+    Label {
+      Text: "Fishing:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #FishingFortune {
+      Text: "0.00";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+    
+    Label {
+      Text: "Looting:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #LootingFortune {
+      Text: "1.00";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+  }
+  
+  }
+
+  Group { Anchor: (Height: 15); }
+
+  Group {
+    LayoutMode: Top;
+    Background: #1e2a3a(0.5);
+    Padding: (Full: 10);
+    
+    Label {
+      Text: "[ RESOURCE STATS ]";
+      Anchor: (Height: 28);
+      Style: (FontSize: 16, TextColor: #4ecdc4, RenderBold: true);
+    }
+
+    Group { Anchor: (Height: 8); }
+
+  Group {
+    LayoutMode: Left;
+    Anchor: (Height: 24);
+    
+    Label {
+      Text: "Mana Regen:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #ManaRegen {
+      Text: "1";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+    
+    Label {
+      Text: "Luck:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #Luck {
+      Text: "0";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+  }
+  
+  }
+
+  Group { Anchor: (Height: 15); }
+
+  Group {
+    LayoutMode: Top;
+    Background: #1e2a3a(0.5);
+    Padding: (Full: 10);
+    
+    Label {
+      Text: "[ GAMEPLAY STATS ]";
+      Anchor: (Height: 28);
+      Style: (FontSize: 16, TextColor: #ff9800, RenderBold: true);
+    }
+
+    Group { Anchor: (Height: 8); }
+
+  Group {
+    LayoutMode: Left;
+    Anchor: (Height: 24);
+    
+    Label {
+      Text: "Mining:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #MiningFortune {
+      Text: "1.00";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+    
+    Label {
+      Text: "Fishing:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #FishingFortune {
+      Text: "0%";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+  }
+
+  Group {
+    LayoutMode: Left;
+    Anchor: (Height: 24);
+    
+    Label {
+      Text: "Kills:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #Kills {
+      Text: "0";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+    
+    Label {
+      Text: "Deaths:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #Deaths {
+      Text: "0";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+  }
+  
+  }
+
+  Group { FlexWeight: 1; }
+
+  Group {
+    LayoutMode: Center;
+    Anchor: (Height: 44);
+
+    TextButton #CloseButton {
+      Text: "CLOSE";
+      Anchor: (Width: 120, Height: 40);
+      Style: @CloseButtonStyle;
+    }
+  }
+}
+
+
+$C = "../Common.ui";
+
+@CloseButtonStyle = TextButtonStyle(
+  Default: (Background: #8b3a3a, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #9b4a4a, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #7b2a2a, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+Group {
+  Anchor: (Width: 750, Height: 600);
+  Background: #141c26(0.98);
+  LayoutMode: Top;
+  Padding: (Left: 20, Right: 20, Top: 20, Bottom: 20);
+
+  Label #ProfileName {
+    Text: "Profile Name";
+    Anchor: (Height: 40);
+    Style: (
+      FontSize: 26,
+      TextColor: #00d4ff,
+      HorizontalAlignment: Center,
+      RenderBold: true
+    );
+  }
+
+  Group { 
+    Anchor: (Height: 3);
+    Background: #00d4ff(0.6);
+  }
+
+  Group { Anchor: (Height: 15); }
+
+  Group {
+    LayoutMode: Top;
+    Background: #1e2a3a(0.5);
+    Padding: (Full: 15);
+    
+    Label {
+      Text: "[ ADDITIONAL STATS ]";
+      Anchor: (Height: 28);
+      Style: (FontSize: 16, TextColor: #9b59b6, RenderBold: true);
+    }
+
+    Group { Anchor: (Height: 10); }
+
+    Label {
+      Text: "More stats will be displayed here...";
+      Anchor: (Height: 24);
+      Style: (FontSize: 14, TextColor: #96a9be, HorizontalAlignment: Center);
+    }
+
+    Group { Anchor: (Height: 10); }
+
+    Label {
+      Text: "This is Page 2 of Stats";
+      Anchor: (Height: 24);
+      Style: (FontSize: 14, TextColor: #96a9be, HorizontalAlignment: Center);
+    }
+  }
+
+  Group { FlexWeight: 1; }
+
+  Group {
+    LayoutMode: Left;
+    Anchor: (Height: 44);
+    Padding: (Left: 10, Right: 10);
+
+    TextButton #PrevButton {
+      Text: "< BACK";
+      Anchor: (Width: 120, Height: 40);
+      Style: @CloseButtonStyle;
+    }
+
+    Group { FlexWeight: 1; }
+
+    TextButton #CloseButton {
+      Text: "CLOSE";
+      Anchor: (Width: 120, Height: 40);
+      Style: @CloseButtonStyle;
+    }
+  }
+}
+
+$C = "../Common.ui";
+
+@CloseButtonStyle = TextButtonStyle(
+  Default: (Background: #8b3a3a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #9b4a4a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #7b2a2a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+@NavButtonStyle = TextButtonStyle(
+  Default: (Background: #2c3e50, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: false, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #34495e, LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #1a252f, LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+@ActiveNavButtonStyle = TextButtonStyle(
+  Default: (Background: #00d4ff(0.3), LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #00d4ff(0.4), LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #00d4ff(0.2), LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+Group {
+  LayoutMode: Left;
+  Anchor: (Width: 800, Height: 600);
+  Background: #141c26(0.98);
+
+  // Left Sidebar
+  Group {
+    LayoutMode: Top;
+    Anchor: (Width: 150);
+    Background: #0d1117(0.9);
+    Padding: (Full: 15);
+
+    Label {
+      Text: "CATEGORIES";
+      Anchor: (Height: 30);
+      Style: (FontSize: 11, TextColor: #96a9be, RenderBold: true, HorizontalAlignment: Center);
+    }
+
+    Group { Anchor: (Height: 10); }
+
+    TextButton #CombatButton {
+      Text: "Combat";
+      Anchor: (Height: 36);
+      Style: @ActiveNavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #MiningButton {
+      Text: "Mining";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #FarmingButton {
+      Text: "Farming";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #FishingButton {
+      Text: "Fishing";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #GeneralButton {
+      Text: "General";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { FlexWeight: 1; }
+
+    TextButton #CloseButton {
+      Text: "CLOSE";
+      Anchor: (Height: 40);
+      Style: @CloseButtonStyle;
+    }
+  }
+
+  // Main Content Area
+  Group {
+    LayoutMode: Top;
+    FlexWeight: 1;
+    Padding: (Left: 20, Right: 20, Top: 20, Bottom: 20);
+
+    Label #ProfileName {
+      Text: "Profile Name";
+      Anchor: (Height: 40);
+      Style: (
+        FontSize: 26,
+        TextColor: #00d4ff,
+        HorizontalAlignment: Center,
+        RenderBold: true
+      );
+    }
+
+    Group { 
+      Anchor: (Height: 3);
+      Background: #00d4ff(0.6);
+    }
+
+    Group { Anchor: (Height: 15); }
+
+    Group {
+      LayoutMode: Top;
+      Background: #1e2a3a(0.5);
+      Padding: (Full: 20);
+      
+      Label {
+        Text: "COMBAT STATS";
+        Anchor: (Height: 32);
+        Style: (FontSize: 18, TextColor: #ff6b6b, RenderBold: true, HorizontalAlignment: Center);
+      }
+
+      Group { 
+        Anchor: (Height: 2);
+        Background: #ff6b6b(0.4);
+      }
+
+      Group { Anchor: (Height: 15); }
+      
+      // Core Stats Section
+      Label {
+        Text: "Core Attributes";
+        Anchor: (Height: 22);
+        Style: (FontSize: 11, TextColor: #96a9be(0.7), RenderBold: true);
+      }
+      
+      Group { Anchor: (Height: 8); }
+
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 26);
+        
+        Label {
+          Text: "Health:";
+          Anchor: (Width: 110);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #Health {
+          Text: "100";
+          Anchor: (Width: 80);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+
+        Label {
+          Text: "Stamina:";
+          Anchor: (Width: 110);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #Stamina {
+          Text: "100";
+          Anchor: (Width: 80);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+      }
+
+      Group { Anchor: (Height: 4); }
+
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 26);
+        
+        Label {
+          Text: "Mana:";
+          Anchor: (Width: 110);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #Mana {
+          Text: "100/100";
+          Anchor: (Width: 80);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+
+        Label {
+          Text: "Armor:";
+          Anchor: (Width: 110);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #Armor {
+          Text: "0";
+          Anchor: (Width: 80);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+      }
+
+      Group { Anchor: (Height: 4); }
+
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 26);
+        
+        Label {
+          Text: "Magic Resist:";
+          Anchor: (Width: 110);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #MagicResist {
+          Text: "0";
+          Anchor: (Width: 80);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+
+        Label {
+          Text: "Speed:";
+          Anchor: (Width: 110);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #Speed {
+          Text: "0.10";
+          Anchor: (Width: 80);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+      }
+
+      Group { Anchor: (Height: 12); }
+      
+      // Damage Stats Section
+      Label {
+        Text: "Offensive Power";
+        Anchor: (Height: 22);
+        Style: (FontSize: 11, TextColor: #96a9be(0.7), RenderBold: true);
+      }
+      
+      Group { Anchor: (Height: 8); }
+
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 26);
+        
+        Label {
+          Text: "Phys Dmg:";
+          Anchor: (Width: 110);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #PhysDmg {
+          Text: "5";
+          Anchor: (Width: 80);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+
+        Label {
+          Text: "Magic Dmg:";
+          Anchor: (Width: 110);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #MagicDmg {
+          Text: "5";
+          Anchor: (Width: 80);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+      }
+
+      Group { Anchor: (Height: 4); }
+
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 26);
+        
+        Label {
+          Text: "Ranged Dmg:";
+          Anchor: (Width: 110);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #RangedDmg {
+          Text: "5";
+          Anchor: (Width: 80);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+
+        Label {
+          Text: "Atk Speed:";
+          Anchor: (Width: 110);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #AttackSpeed {
+          Text: "0.50";
+          Anchor: (Width: 80);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+      }
+
+      Group { Anchor: (Height: 12); }
+      
+      // Critical Stats Section
+      Label {
+        Text: "Critical Mechanics";
+        Anchor: (Height: 22);
+        Style: (FontSize: 11, TextColor: #96a9be(0.7), RenderBold: true);
+      }
+      
+      Group { Anchor: (Height: 8); }
+
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 26);
+        
+        Label {
+          Text: "Crit Dmg:";
+          Anchor: (Width: 110);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #CritDamage {
+          Text: "150.0%";
+          Anchor: (Width: 80);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+
+        Label {
+          Text: "Crit Chance:";
+          Anchor: (Width: 110);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #CritChance {
+          Text: "0.0%";
+          Anchor: (Width: 80);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+      }
+
+      Group { Anchor: (Height: 4); }
+
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 26);
+        
+        Label {
+          Text: "Burst Dmg:";
+          Anchor: (Width: 110);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #BurstDmg {
+          Text: "2.0x";
+          Anchor: (Width: 80);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+
+        Label {
+          Text: "Burst Chance:";
+          Anchor: (Width: 110);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #BurstChance {
+          Text: "1.0%";
+          Anchor: (Width: 80);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+      }
+
+      Group { Anchor: (Height: 12); }
+      
+      // Sustain & Utility Section
+      Label {
+        Text: "Sustain & Utility";
+        Anchor: (Height: 22);
+        Style: (FontSize: 11, TextColor: #96a9be(0.7), RenderBold: true);
+      }
+      
+      Group { Anchor: (Height: 8); }
+
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 26);
+        
+        Label {
+          Text: "CDR:";
+          Anchor: (Width: 110);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #CDR {
+          Text: "0";
+          Anchor: (Width: 80);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+
+        Label {
+          Text: "Life Steal:";
+          Anchor: (Width: 110);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #LifeSteal {
+          Text: "0.0%";
+          Anchor: (Width: 80);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+      }
+
+      Group { Anchor: (Height: 4); }
+
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 26);
+        
+        Label {
+          Text: "Omnivamp:";
+          Anchor: (Width: 110);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #Omnivamp {
+          Text: "0.0%";
+          Anchor: (Width: 80);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+
+        Label {
+          Text: "Health Regen:";
+          Anchor: (Width: 110);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #HealthRegen {
+          Text: "0.3";
+          Anchor: (Width: 80);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+      }
+    }
+
+    Group { FlexWeight: 1; }
+  }
+}
+
+$C = "../Common.ui";
+
+@CloseButtonStyle = TextButtonStyle(
+  Default: (Background: #8b3a3a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #9b4a4a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #7b2a2a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+@NavButtonStyle = TextButtonStyle(
+  Default: (Background: #2c3e50, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: false, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #34495e, LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #1a252f, LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+@ActiveNavButtonStyle = TextButtonStyle(
+  Default: (Background: #00d4ff(0.3), LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #00d4ff(0.4), LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #00d4ff(0.2), LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+Group {
+  LayoutMode: Left;
+  Anchor: (Width: 800, Height: 600);
+  Background: #141c26(0.98);
+
+  // Left Sidebar
+  Group {
+    LayoutMode: Top;
+    Anchor: (Width: 150);
+    Background: #0d1117(0.9);
+    Padding: (Full: 15);
+
+    Label {
+      Text: "CATEGORIES";
+      Anchor: (Height: 30);
+      Style: (FontSize: 11, TextColor: #96a9be, RenderBold: true, HorizontalAlignment: Center);
+    }
+
+    Group { Anchor: (Height: 10); }
+
+    TextButton #CombatButton {
+      Text: "Combat";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #MiningButton {
+      Text: "Mining";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #FarmingButton {
+      Text: "Farming";
+      Anchor: (Height: 36);
+      Style: @ActiveNavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #FishingButton {
+      Text: "Fishing";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #GeneralButton {
+      Text: "General";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { FlexWeight: 1; }
+
+    TextButton #CloseButton {
+      Text: "CLOSE";
+      Anchor: (Height: 40);
+      Style: @CloseButtonStyle;
+    }
+  }
+
+  // Main Content Area
+  Group {
+    LayoutMode: Top;
+    FlexWeight: 1;
+    Padding: (Left: 20, Right: 20, Top: 20, Bottom: 20);
+
+    Label #ProfileName {
+      Text: "Profile Name";
+      Anchor: (Height: 40);
+      Style: (
+        FontSize: 26,
+        TextColor: #00d4ff,
+        HorizontalAlignment: Center,
+        RenderBold: true
+      );
+    }
+
+    Group { 
+      Anchor: (Height: 3);
+      Background: #00d4ff(0.6);
+    }
+
+    Group { Anchor: (Height: 15); }
+
+    Group {
+      LayoutMode: Top;
+      Background: #1e2a3a(0.5);
+      Padding: (Full: 20);
+      
+      Label {
+        Text: "FARMING STATS";
+        Anchor: (Height: 32);
+        Style: (FontSize: 18, TextColor: #90ee90, RenderBold: true, HorizontalAlignment: Center);
+      }
+
+      Group { 
+        Anchor: (Height: 2);
+        Background: #90ee90(0.4);
+      }
+
+      Group { Anchor: (Height: 20); }
+
+      Group {
+        LayoutMode: Top;
+        Background: #2a3a4a(0.3);
+        Padding: (Full: 15);
+        
+        Group {
+          LayoutMode: Left;
+          Anchor: (Height: 32);
+          
+          Label {
+            Text: "Farming Fortune";
+            Anchor: (Width: 200);
+            Style: (FontSize: 14, TextColor: #96a9be, VerticalAlignment: Center);
+          }
+          
+          Label #FarmingFortune {
+            Text: "1.00";
+            FlexWeight: 1;
+            Style: (FontSize: 14, TextColor: #ffd700, RenderBold: true, HorizontalAlignment: Right);
+          }
+        }
+      }
+    }
+
+    Group { FlexWeight: 1; }
+  }
+}
+
+$C = "../Common.ui";
+
+@CloseButtonStyle = TextButtonStyle(
+  Default: (Background: #8b3a3a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #9b4a4a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #7b2a2a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+@NavButtonStyle = TextButtonStyle(
+  Default: (Background: #2c3e50, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: false, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #34495e, LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #1a252f, LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+@ActiveNavButtonStyle = TextButtonStyle(
+  Default: (Background: #00d4ff(0.3), LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #00d4ff(0.4), LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #00d4ff(0.2), LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+Group {
+  LayoutMode: Left;
+  Anchor: (Width: 800, Height: 600);
+  Background: #141c26(0.98);
+
+  // Left Sidebar
+  Group {
+    LayoutMode: Top;
+    Anchor: (Width: 150);
+    Background: #0d1117(0.9);
+    Padding: (Full: 15);
+
+    Label {
+      Text: "CATEGORIES";
+      Anchor: (Height: 30);
+      Style: (FontSize: 11, TextColor: #96a9be, RenderBold: true, HorizontalAlignment: Center);
+    }
+
+    Group { Anchor: (Height: 10); }
+
+    TextButton #CombatButton {
+      Text: "Combat";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #MiningButton {
+      Text: "Mining";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #FarmingButton {
+      Text: "Farming";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #FishingButton {
+      Text: "Fishing";
+      Anchor: (Height: 36);
+      Style: @ActiveNavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #GeneralButton {
+      Text: "General";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { FlexWeight: 1; }
+
+    TextButton #CloseButton {
+      Text: "CLOSE";
+      Anchor: (Height: 40);
+      Style: @CloseButtonStyle;
+    }
+  }
+
+  // Main Content Area
+  Group {
+    LayoutMode: Top;
+    FlexWeight: 1;
+    Padding: (Left: 20, Right: 20, Top: 20, Bottom: 20);
+
+    Label #ProfileName {
+      Text: "Profile Name";
+      Anchor: (Height: 40);
+      Style: (
+        FontSize: 26,
+        TextColor: #00d4ff,
+        HorizontalAlignment: Center,
+        RenderBold: true
+      );
+    }
+
+    Group { 
+      Anchor: (Height: 3);
+      Background: #00d4ff(0.6);
+    }
+
+    Group { Anchor: (Height: 15); }
+
+    Group {
+      LayoutMode: Top;
+      Background: #1e2a3a(0.5);
+      Padding: (Full: 20);
+      
+      Label {
+        Text: "FISHING STATS";
+        Anchor: (Height: 32);
+        Style: (FontSize: 18, TextColor: #4fc3f7, RenderBold: true, HorizontalAlignment: Center);
+      }
+
+      Group { 
+        Anchor: (Height: 2);
+        Background: #4fc3f7(0.4);
+      }
+
+      Group { Anchor: (Height: 15); }
+      
+      // Fortune Section
+      Label {
+        Text: "Loot Multiplier";
+        Anchor: (Height: 22);
+        Style: (FontSize: 11, TextColor: #96a9be(0.7), RenderBold: true);
+      }
+      
+      Group { Anchor: (Height: 8); }
+
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 26);
+        
+        Label {
+          Text: "Fishing Fortune:";
+          Anchor: (Width: 160);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #FishingFortune {
+          Text: "1.00";
+          FlexWeight: 1;
+          Style: (FontSize: 13, TextColor: #ffd700, RenderBold: true);
+        }
+      }
+
+      Group { Anchor: (Height: 12); }
+      
+      // Core Fishing Mechanics
+      Label {
+        Text: "Core Mechanics";
+        Anchor: (Height: 22);
+        Style: (FontSize: 11, TextColor: #96a9be(0.7), RenderBold: true);
+      }
+      
+      Group { Anchor: (Height: 8); }
+
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 26);
+        
+        Label {
+          Text: "Lure Potency:";
+          Anchor: (Width: 160);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #LurePotency {
+          Text: "1.00";
+          Anchor: (Width: 80);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+
+        Label {
+          Text: "Resilience:";
+          Anchor: (Width: 140);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #FishingResilience {
+          Text: "1.00";
+          FlexWeight: 1;
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+      }
+
+      Group { Anchor: (Height: 6); }
+
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 26);
+        
+        Label {
+          Text: "Fishing Focus:";
+          Anchor: (Width: 160);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #FishingFocus {
+          Text: "1.00";
+          Anchor: (Width: 80);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+
+        Label {
+          Text: "Precision:";
+          Anchor: (Width: 140);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #FishingPrecision {
+          Text: "1.00";
+          FlexWeight: 1;
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+      }
+
+      Group { Anchor: (Height: 12); }
+      
+      // Special Bonuses
+      Label {
+        Text: "Special Bonuses";
+        Anchor: (Height: 22);
+        Style: (FontSize: 11, TextColor: #96a9be(0.7), RenderBold: true);
+      }
+      
+      Group { Anchor: (Height: 8); }
+
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 26);
+        
+        Label {
+          Text: "Sea Monster Affinity:";
+          Anchor: (Width: 200);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #SeaMonsterAffinity {
+          Text: "1.00";
+          FlexWeight: 1;
+          Style: (FontSize: 13, TextColor: #ff6b6b, RenderBold: true);
+        }
+      }
+
+      Group { Anchor: (Height: 6); }
+
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 26);
+        
+        Label {
+          Text: "Treasure Sense:";
+          Anchor: (Width: 160);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #TreasureSense {
+          Text: "1.00";
+          Anchor: (Width: 100);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+      }
+    }
+
+    Group { FlexWeight: 1; }
+  }
+}
+
+$C = "../Common.ui";
+
+@CloseButtonStyle = TextButtonStyle(
+  Default: (Background: #8b3a3a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #9b4a4a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #7b2a2a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+@NavButtonStyle = TextButtonStyle(
+  Default: (Background: #2c3e50, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: false, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #34495e, LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #1a252f, LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+@ActiveNavButtonStyle = TextButtonStyle(
+  Default: (Background: #00d4ff(0.3), LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #00d4ff(0.4), LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #00d4ff(0.2), LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+Group {
+  LayoutMode: Left;
+  Anchor: (Width: 800, Height: 600);
+  Background: #141c26(0.98);
+
+  // Left Sidebar
+  Group {
+    LayoutMode: Top;
+    Anchor: (Width: 150);
+    Background: #0d1117(0.9);
+    Padding: (Full: 15);
+
+    Label {
+      Text: "CATEGORIES";
+      Anchor: (Height: 30);
+      Style: (FontSize: 11, TextColor: #96a9be, RenderBold: true, HorizontalAlignment: Center);
+    }
+
+    Group { Anchor: (Height: 10); }
+
+    TextButton #CombatButton {
+      Text: "Combat";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #MiningButton {
+      Text: "Mining";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #FarmingButton {
+      Text: "Farming";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #FishingButton {
+      Text: "Fishing";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #GeneralButton {
+      Text: "General";
+      Anchor: (Height: 36);
+      Style: @ActiveNavButtonStyle;
+    }
+
+    Group { FlexWeight: 1; }
+
+    TextButton #CloseButton {
+      Text: "CLOSE";
+      Anchor: (Height: 40);
+      Style: @CloseButtonStyle;
+    }
+  }
+
+  // Main Content Area
+  Group {
+    LayoutMode: Top;
+    FlexWeight: 1;
+    Padding: (Left: 20, Right: 20, Top: 20, Bottom: 20);
+
+    Label #ProfileName {
+      Text: "Profile Name";
+      Anchor: (Height: 40);
+      Style: (
+        FontSize: 26,
+        TextColor: #00d4ff,
+        HorizontalAlignment: Center,
+        RenderBold: true
+      );
+    }
+
+    Group { 
+      Anchor: (Height: 3);
+      Background: #00d4ff(0.6);
+    }
+
+    Group { Anchor: (Height: 15); }
+
+    Group {
+      LayoutMode: Top;
+      Background: #1e2a3a(0.5);
+      Padding: (Full: 20);
+      
+      Label {
+        Text: "GENERAL STATS";
+        Anchor: (Height: 32);
+        Style: (FontSize: 18, TextColor: #ab47bc, RenderBold: true, HorizontalAlignment: Center);
+      }
+
+      Group { 
+        Anchor: (Height: 2);
+        Background: #ab47bc(0.4);
+      }
+
+      Group { Anchor: (Height: 15); }
+      
+      // Fortune & Utility Section
+      Label {
+        Text: "Fortune & Utility";
+        Anchor: (Height: 22);
+        Style: (FontSize: 11, TextColor: #96a9be(0.7), RenderBold: true);
+      }
+      
+      Group { Anchor: (Height: 8); }
+
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 26);
+        
+        Label {
+          Text: "Looting Fortune:";
+          Anchor: (Width: 160);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #LootingFortune {
+          Text: "1.00";
+          Anchor: (Width: 80);
+          Style: (FontSize: 13, TextColor: #ffd700, RenderBold: true);
+        }
+
+        Label {
+          Text: "Mana Regen:";
+          Anchor: (Width: 140);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #ManaRegen {
+          Text: "1.00";
+          FlexWeight: 1;
+          Style: (FontSize: 13, TextColor: #4fc3f7, RenderBold: true);
+        }
+      }
+
+      Group { Anchor: (Height: 6); }
+
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 26);
+        
+        Label {
+          Text: "Luck:";
+          Anchor: (Width: 160);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #Luck {
+          Text: "0";
+          FlexWeight: 1;
+          Style: (FontSize: 13, TextColor: #90ee90, RenderBold: true);
+        }
+      }
+
+      Group { Anchor: (Height: 12); }
+      
+      // Player Statistics
+      Label {
+        Text: "Player Statistics";
+        Anchor: (Height: 22);
+        Style: (FontSize: 11, TextColor: #96a9be(0.7), RenderBold: true);
+      }
+      
+      Group { Anchor: (Height: 8); }
+
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 26);
+        
+        Label {
+          Text: "Kills:";
+          Anchor: (Width: 160);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #Kills {
+          Text: "0";
+          Anchor: (Width: 80);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+
+        Label {
+          Text: "Deaths:";
+          Anchor: (Width: 140);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #Deaths {
+          Text: "0";
+          FlexWeight: 1;
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+      }
+
+      Group { Anchor: (Height: 6); }
+
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 26);
+        
+        Label {
+          Text: "Deaths:";
+          Anchor: (Width: 160);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #Deaths {
+          Text: "0";
+          Anchor: (Width: 100);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+
+        Label {
+          Text: "Play Time:";
+          Anchor: (Width: 160);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+        }
+        
+        Label #PlayTime {
+          Text: "0h 0m";
+          Anchor: (Width: 100);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        }
+      }
+    }
+
+    Group { FlexWeight: 1; }
+  }
+}
+
+$C = "../Common.ui";
+
+@CloseButtonStyle = TextButtonStyle(
+  Default: (Background: #8b3a3a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #9b4a4a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #7b2a2a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+@NavButtonStyle = TextButtonStyle(
+  Default: (Background: #2c3e50, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: false, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #34495e, LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #1a252f, LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+@ActiveNavButtonStyle = TextButtonStyle(
+  Default: (Background: #00d4ff(0.3), LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #00d4ff(0.4), LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #00d4ff(0.2), LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+Group {
+  LayoutMode: Left;
+  Anchor: (Width: 800, Height: 600);
+  Background: #141c26(0.98);
+
+  // Left Sidebar
+  Group {
+    LayoutMode: Top;
+    Anchor: (Width: 150);
+    Background: #0d1117(0.9);
+    Padding: (Full: 15);
+
+    Label {
+      Text: "CATEGORIES";
+      Anchor: (Height: 30);
+      Style: (FontSize: 11, TextColor: #96a9be, RenderBold: true, HorizontalAlignment: Center);
+    }
+
+    Group { Anchor: (Height: 10); }
+
+    TextButton #CombatButton {
+      Text: "Combat";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #MiningButton {
+      Text: "Mining";
+      Anchor: (Height: 36);
+      Style: @ActiveNavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #FarmingButton {
+      Text: "Farming";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #FishingButton {
+      Text: "Fishing";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #GeneralButton {
+      Text: "General";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { FlexWeight: 1; }
+
+    TextButton #CloseButton {
+      Text: "CLOSE";
+      Anchor: (Height: 40);
+      Style: @CloseButtonStyle;
+    }
+  }
+
+  // Main Content Area
+  Group {
+    LayoutMode: Top;
+    FlexWeight: 1;
+    Padding: (Left: 20, Right: 20, Top: 20, Bottom: 20);
+
+    Label #ProfileName {
+      Text: "Profile Name";
+      Anchor: (Height: 40);
+      Style: (
+        FontSize: 26,
+        TextColor: #00d4ff,
+        HorizontalAlignment: Center,
+        RenderBold: true
+      );
+    }
+
+    Group { 
+      Anchor: (Height: 3);
+      Background: #00d4ff(0.6);
+    }
+
+    Group { Anchor: (Height: 15); }
+
+    Group {
+      LayoutMode: Top;
+      Background: #1e2a3a(0.5);
+      Padding: (Full: 20);
+      
+      Label {
+        Text: "MINING STATS";
+        Anchor: (Height: 32);
+        Style: (FontSize: 18, TextColor: #8b7355, RenderBold: true, HorizontalAlignment: Center);
+      }
+
+      Group { 
+        Anchor: (Height: 2);
+        Background: #8b7355(0.4);
+      }
+
+      Group { Anchor: (Height: 20); }
+
+      Group {
+        LayoutMode: Top;
+        Background: #2a3a4a(0.3);
+        Padding: (Full: 15);
+        
+        Group {
+          LayoutMode: Left;
+          Anchor: (Height: 32);
+          
+          Label {
+            Text: "Mining Speed";
+            Anchor: (Width: 200);
+            Style: (FontSize: 14, TextColor: #96a9be, VerticalAlignment: Center);
+          }
+          
+          Label #MiningSpeed {
+            Text: "0.50";
+            FlexWeight: 1;
+            Style: (FontSize: 14, TextColor: #8b7355, RenderBold: true, HorizontalAlignment: Right);
+          }
+        }
+        
+        Group { 
+          Anchor: (Height: 1);
+          Background: #96a9be(0.2);
+        }
+        
+        Group { Anchor: (Height: 8); }
+
+        Group {
+          LayoutMode: Left;
+          Anchor: (Height: 32);
+          
+          Label {
+            Text: "Mining Fortune";
+            Anchor: (Width: 200);
+            Style: (FontSize: 14, TextColor: #96a9be, VerticalAlignment: Center);
+          }
+          
+          Label #MiningFortune {
+            Text: "1.00";
+            FlexWeight: 1;
+            Style: (FontSize: 14, TextColor: #ffd700, RenderBold: true, HorizontalAlignment: Right);
+          }
+        }
+      }
+    }
+
+    Group { FlexWeight: 1; }
+  }
+}
+
+Group {
+    Anchor: (Width: 400, Height: 250);
+    Background: #1a1a2e(0.95);
+    LayoutMode: Top;
+    Padding: (Full: 20);
+
+    Label #Title {
+        Text: "Hello World";
+        Anchor: (Height: 40);
+        Style: (FontSize: 24, TextColor: #ffffff, Alignment: Center);
+    }
+}

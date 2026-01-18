@@ -112,42 +112,42 @@ Group {
     Group {
       LayoutMode: Top;
       Background: #1e2a3a(0.5);
-      Padding: (Full: 15);
+      Padding: (Full: 20);
       
       Label {
-        Text: "[ MINING STATS ]";
-        Anchor: (Height: 28);
-        Style: (FontSize: 16, TextColor: #a8a8a8, RenderBold: true);
+        Text: "MINING STATS";
+        Anchor: (Height: 32);
+        Style: (FontSize: 18, TextColor: #d4a574, RenderBold: true, HorizontalAlignment: Center);
       }
 
-      Group { Anchor: (Height: 10); }
+      Group { Anchor: (Height: 15); }
 
       Group {
         LayoutMode: Left;
-        Anchor: (Height: 26);
+        Anchor: (Height: 28);
         
         Label {
           Text: "Mining Speed:";
-          Anchor: (Width: 160);
-          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+          Anchor: (Width: 180);
+          Style: (FontSize: 14, TextColor: #96a9be, VerticalAlignment: Center);
         }
         
         Label #MiningSpeed {
           Text: "0.50";
           Anchor: (Width: 100);
-          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
         }
 
         Label {
           Text: "Mining Fortune:";
-          Anchor: (Width: 160);
-          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
+          Anchor: (Width: 180);
+          Style: (FontSize: 14, TextColor: #96a9be, VerticalAlignment: Center);
         }
         
         Label #MiningFortune {
           Text: "1.00";
           Anchor: (Width: 100);
-          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #ffd700, RenderBold: true);
         }
       }
     }
