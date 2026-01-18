@@ -1,37 +1,25 @@
 package com.veilcore.listeners;
 
-import com.hypixel.hytale.server.core.entity.entities.Player;
-import com.hypixel.hytale.server.core.event.events.player.DrainPlayerFromWorldEvent;
-import com.veilcore.VeilCorePlugin;
-import com.veilcore.profile.Profile;
-
-import java.util.UUID;
-
 /**
- * Tracks player deaths by monitoring when players leave worlds with zero health.
- * Note: This is a workaround until a proper PlayerDeathEvent is available.
+ * Placeholder for player death tracking.
+ * 
+ * IMPLEMENTATION NOTE:
+ * Automatic death tracking requires ECS system registration which is not yet available in the plugin API.
+ * The proper implementation would be:
+ * 
+ * 1. Extend EntityTickingSystem<EntityStore>
+ * 2. Query for entities with Player + DeathComponent
+ * 3. Register via getEntityStoreRegistry().registerSystem()
+ * 
+ * Current limitations:
+ * - No PlayerDeathEvent in the event system
+ * - ECS system classes (EntityTickingSystem, ArchetypeChunk, etc.) not accessible to plugins
+ * - DeathComponent not accessible from plugin code
+ * 
+ * Workaround:
+ * - Use /kill command to manually track deaths
+ * - Wait for API update with PlayerDeathEvent or ECS system registration support
  */
 public class PlayerDeathListener {
-    
-    /**
-     * When a player is drained from world, check if they had zero health (indicating death).
-     */
-    public static void onPlayerDrainFromWorld(DrainPlayerFromWorldEvent event) {
-        VeilCorePlugin plugin = VeilCorePlugin.getInstance();
-        if (plugin == null) {
-            return;
-        }
-        
-        // Note: This event fires when players leave a world for any reason,
-        // not just death. Without access to health component or death state,
-        // we cannot accurately track deaths through events alone.
-        // 
-        // The proper solution requires either:
-        // 1. A PlayerDeathEvent in the API (not yet available)
-        // 2. Registering an ECS system that checks for DeathComponent
-        // 3. Using the damage system with health checks
-        //
-        // For now, death tracking is not implemented automatically.
-        // Players can use the /death command or /kill to manually track deaths.
-    }
+    // Placeholder - will be implemented when ECS API is available to plugins
 }
