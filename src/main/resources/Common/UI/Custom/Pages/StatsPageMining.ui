@@ -1,5 +1,7 @@
 $C = "../Common.ui";
 
+@BackgroundImage = PatchStyle(TexturePath: "../stats_background.png");
+
 @CloseButtonStyle = TextButtonStyle(
   Default: (Background: #8b3a3a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
   Hovered: (Background: #9b4a4a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
@@ -21,7 +23,7 @@ $C = "../Common.ui";
 Group {
   LayoutMode: Left;
   Anchor: (Width: 800, Height: 600);
-  Background: #141c26(0.98);
+  Background: @BackgroundImage;
 
   // Left Sidebar
   Group {
