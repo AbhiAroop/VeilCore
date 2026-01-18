@@ -520,6 +520,10 @@ public class ProfileStats {
         this.deaths = deaths;
     }
     
+    public void incrementDeaths() {
+        this.deaths++;
+    }
+    
     public long getPlayTime() {
         return playTime;
     }

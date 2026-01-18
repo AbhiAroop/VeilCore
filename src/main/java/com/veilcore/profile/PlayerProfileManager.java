@@ -31,6 +31,9 @@ public class PlayerProfileManager {
     // Track active profile per online player (in-memory only)
     private final Map<UUID, UUID> activeProfiles; // playerUUID -> profileUUID
     
+    // Cache loaded profiles in memory to avoid constant disk I/O
+    private final Map<String, Profile> profileCache; // "playerUUID:profileUUID" -> Profile
+    
     // Track last active profile per player (persisted to disk)
     private final Map<String, String> lastActiveProfiles; // playerUUID.toString() -> profileUUID.toString()
     private final File lastActiveFile;
@@ -42,6 +45,7 @@ public class PlayerProfileManager {
         this.logger = logger;
         this.dataFolder = dataFolder;
         this.activeProfiles = new ConcurrentHashMap<>();
+        this.profileCache = new ConcurrentHashMap<>();
         this.lastActiveProfiles = new HashMap<>();
         this.lastActiveFile = new File(dataFolder, "last_active_profiles.json");
         this.gson = new GsonBuilder().setPrettyPrinting().create();
@@ -100,7 +104,7 @@ public class PlayerProfileManager {
     }
     
     /**
-     * Load a specific profile.
+     * Load a specific profile (uses cache to avoid disk I/O).
      *
      * @param playerUUID The player's UUID
      * @param profileId The profile's UUID
@@ -108,7 +112,20 @@ public class PlayerProfileManager {
      */
     @Nullable
     public Profile getProfile(@Nonnull UUID playerUUID, @Nonnull UUID profileId) {
-        return repository.loadProfile(playerUUID, profileId);
+        String cacheKey = playerUUID.toString() + ":" + profileId.toString();
+        
+        // Check cache first
+        Profile cached = profileCache.get(cacheKey);
+        if (cached != null) {
+            return cached;
+        }
+        
+        // Load from disk and cache it
+        Profile profile = repository.loadProfile(playerUUID, profileId);
+        if (profile != null) {
+            profileCache.put(cacheKey, profile);
+        }
+        return profile;
     }
     
     /**
@@ -174,11 +191,20 @@ public class PlayerProfileManager {
     
     /**
      * Clear the active profile for a player (on disconnect).
+     * Also saves and removes the profile from cache.
      *
      * @param playerUUID The player's UUID
      */
     public void clearActiveProfile(@Nonnull UUID playerUUID) {
-        activeProfiles.remove(playerUUID);
+        UUID profileId = activeProfiles.remove(playerUUID);
+        if (profileId != null) {
+            // Save and remove from cache
+            String cacheKey = playerUUID.toString() + ":" + profileId.toString();
+            Profile profile = profileCache.remove(cacheKey);
+            if (profile != null) {
+                repository.saveProfile(profile);
+            }
+        }
     }
     
     /**
