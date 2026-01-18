@@ -182,6 +182,16 @@ public class PlayerProfileManager {
     }
     
     /**
+     * Get all players with active profiles.
+     *
+     * @return Set of player UUIDs with active profiles
+     */
+    @Nonnull
+    public java.util.Set<UUID> getActivePlayers() {
+        return activeProfiles.keySet();
+    }
+    
+    /**
      * Save a profile.
      *
      * @param profile The profile to save
