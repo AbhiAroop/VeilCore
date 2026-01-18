@@ -59,10 +59,10 @@ public class StatsPageGeneral extends InteractiveCustomUIPage<StatsPageGeneral.S
         cmd.set("#Kills.Text", String.valueOf(stats.getKills()));
         cmd.set("#Deaths.Text", String.valueOf(stats.getDeaths()));
         
-        // Format play time as hours and minutes
-        long playTimeMinutes = stats.getPlayTime();
-        long hours = playTimeMinutes / 60;
-        long minutes = playTimeMinutes % 60;
+        // Format play time as hours and minutes (playtime is stored in seconds)
+        long playTimeSeconds = stats.getPlayTime();
+        long hours = playTimeSeconds / 3600;
+        long minutes = (playTimeSeconds % 3600) / 60;
         cmd.set("#PlayTime.Text", String.format("%dh %dm", hours, minutes));
         
         // Event bindings for navigation

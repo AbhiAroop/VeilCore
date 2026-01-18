@@ -29,6 +29,8 @@ public class PlaytimeTracker implements Runnable {
                     if (profile != null) {
                         // Increment playtime by 1 second
                         profile.getStats().incrementPlayTime(1);
+                        // Save the profile to persist the playtime change
+                        plugin.getProfileManager().saveProfile(profile);
                     }
                 }
             }
