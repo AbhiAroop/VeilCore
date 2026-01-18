@@ -52,7 +52,9 @@ public class StatsPageMining extends InteractiveCustomUIPage<StatsPageMining.Sta
         
         ProfileStats stats = profile.getStats();
         
-        cmd.set("#ProfileName.Text", profile.getProfileName() + "'s Mining Stats");
+        com.hypixel.hytale.server.core.entity.entities.Player player = store.getComponent(ref, com.hypixel.hytale.server.core.entity.entities.Player.getComponentType());
+        String displayName = player != null ? player.getDisplayName() : "Player";
+        cmd.set("#ProfileName.Text", displayName + "'s Stats");
         cmd.set("#MiningSpeed.Text", String.format("%.2f", stats.getMiningSpeed()));
         cmd.set("#MiningFortune.Text", String.format("%.2f", stats.getMiningFortune()));
         

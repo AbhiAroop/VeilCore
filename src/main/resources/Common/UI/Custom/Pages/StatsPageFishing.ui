@@ -115,7 +115,7 @@ Group {
       Padding: (Full: 20);
       
       Label {
-        Text: "FISHING STATS";
+        Text: "FISHING STATISTICS";
         Anchor: (Height: 32);
         Style: (FontSize: 18, TextColor: #4fc3f7, RenderBold: true, HorizontalAlignment: Center);
       }

@@ -54,7 +54,9 @@ public class StatsPageCombat extends InteractiveCustomUIPage<StatsPageCombat.Sta
         
         ProfileStats stats = profile.getStats();
         
-        cmd.set("#ProfileName.Text", profile.getProfileName());
+        Player player = store.getComponent(ref, Player.getComponentType());
+        String displayName = player != null ? player.getDisplayName() : "Player";
+        cmd.set("#ProfileName.Text", displayName + "'s Stats");
         
         // Combat Stats
         cmd.set("#Health.Text", String.valueOf(stats.getHealth()));

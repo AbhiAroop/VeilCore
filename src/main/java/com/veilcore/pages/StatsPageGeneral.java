@@ -52,7 +52,9 @@ public class StatsPageGeneral extends InteractiveCustomUIPage<StatsPageGeneral.S
         
         ProfileStats stats = profile.getStats();
         
-        cmd.set("#ProfileName.Text", profile.getProfileName() + "'s General Stats");
+        com.hypixel.hytale.server.core.entity.entities.Player player = store.getComponent(ref, com.hypixel.hytale.server.core.entity.entities.Player.getComponentType());
+        String displayName = player != null ? player.getDisplayName() : "Player";
+        cmd.set("#ProfileName.Text", displayName + "'s Stats");
         cmd.set("#LootingFortune.Text", String.format("%.2f", stats.getLootingFortune()));
         cmd.set("#ManaRegen.Text", String.valueOf(stats.getManaRegen()));
         cmd.set("#Luck.Text", String.valueOf(stats.getLuck()));

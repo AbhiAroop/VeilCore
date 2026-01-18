@@ -115,7 +115,7 @@ Group {
       Padding: (Full: 20);
       
       Label {
-        Text: "MINING STATS";
+        Text: "MINING STATISTICS";
         Anchor: (Height: 32);
         Style: (FontSize: 18, TextColor: #d4a574, RenderBold: true, HorizontalAlignment: Center);
       }

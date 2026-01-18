@@ -52,7 +52,9 @@ public class StatsPageFishing extends InteractiveCustomUIPage<StatsPageFishing.S
         
         ProfileStats stats = profile.getStats();
         
-        cmd.set("#ProfileName.Text", profile.getProfileName() + "'s Fishing Stats");
+        com.hypixel.hytale.server.core.entity.entities.Player player = store.getComponent(ref, com.hypixel.hytale.server.core.entity.entities.Player.getComponentType());
+        String displayName = player != null ? player.getDisplayName() : "Player";
+        cmd.set("#ProfileName.Text", displayName + "'s Stats");
         cmd.set("#FishingFortune.Text", String.format("%.2f", stats.getFishingFortune()));
         cmd.set("#LurePotency.Text", String.valueOf(stats.getLurePotency()));
         cmd.set("#FishingResilience.Text", String.format("%.2f", stats.getFishingResilience()));

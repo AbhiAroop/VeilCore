@@ -115,7 +115,7 @@ Group {
       Padding: (Full: 20);
       
       Label {
-        Text: "COMBAT STATS";
+        Text: "COMBAT STATISTICS";
         Anchor: (Height: 32);
         Style: (FontSize: 18, TextColor: #ff6b6b, RenderBold: true, HorizontalAlignment: Center);
       }
