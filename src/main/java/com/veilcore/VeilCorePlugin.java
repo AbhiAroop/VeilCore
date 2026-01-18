@@ -9,6 +9,7 @@ import com.hypixel.hytale.server.core.event.events.player.PlayerReadyEvent;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.veilcore.commands.ProfileCommand;
+import com.veilcore.commands.StatsCommand;
 import com.veilcore.commands.TestUICommand;
 import com.veilcore.listeners.PlayerEventListener;
 import com.veilcore.profile.PlayerProfileManager;
@@ -46,6 +47,7 @@ public class VeilCorePlugin extends JavaPlugin {
         // Register commands
         getCommandRegistry().registerCommand(new TestUICommand());
         getCommandRegistry().registerCommand(new ProfileCommand());
+        getCommandRegistry().registerCommand(new StatsCommand(this));
         
         getLogger().at(Level.INFO).log("VeilCore fully loaded - Profile system active");
     }
