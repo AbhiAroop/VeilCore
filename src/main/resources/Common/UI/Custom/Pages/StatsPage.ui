@@ -38,7 +38,7 @@ Group {
     Padding: (Full: 15);
     
     Label {
-      Text: "Combat Stats";
+      Text: "[ COMBAT STATS ]";
       Anchor: (Height: 28);
       Style: (FontSize: 16, TextColor: #ff6b6b, RenderBold: true);
     }
@@ -177,7 +177,7 @@ Group {
     Padding: (Full: 10);
     
     Label {
-      Text: "Fortune Stats";
+      Text: "[ FORTUNE STATS ]";
       Anchor: (Height: 28);
       Style: (FontSize: 16, TextColor: #ffd700, RenderBold: true);
     }
@@ -254,7 +254,7 @@ Group {
     Padding: (Full: 10);
     
     Label {
-      Text: "Resource Stats";
+      Text: "[ RESOURCE STATS ]";
       Anchor: (Height: 28);
       Style: (FontSize: 16, TextColor: #4ecdc4, RenderBold: true);
     }
@@ -300,7 +300,7 @@ Group {
     Padding: (Full: 10);
     
     Label {
-      Text: "Gameplay Stats";
+      Text: "[ GAMEPLAY STATS ]";
       Anchor: (Height: 28);
       Style: (FontSize: 16, TextColor: #ff9800, RenderBold: true);
     }
