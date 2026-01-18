@@ -7,10 +7,10 @@ $C = "../Common.ui";
 );
 
 Group {
-  Anchor: (Width: 700, Height: 550);
+  Anchor: (Width: 750, Height: 600);
   Background: #141c26(0.98);
   LayoutMode: Top;
-  Padding: (Full: 25);
+  Padding: (Left: 20, Right: 20, Top: 20, Bottom: 20);
 
   Label #ProfileName {
     Text: "Profile Name";
@@ -32,13 +32,18 @@ Group {
 
   Group { Anchor: (Height: 15); }
 
-  Label {
-    Text: "Combat Stats";
-    Anchor: (Height: 28);
-    Style: (FontSize: 16, TextColor: #ff6b6b, RenderBold: true);
-  }
+  Group {
+    LayoutMode: Top;
+    Background: #1e2a3a(0.5);
+    Padding: (Full: 15);
+    
+    Label {
+      Text: "Combat Stats";
+      Anchor: (Height: 28);
+      Style: (FontSize: 16, TextColor: #ff6b6b, RenderBold: true);
+    }
 
-  Group { Anchor: (Height: 8); }
+    Group { Anchor: (Height: 8); }
 
   Group {
     LayoutMode: Left;
@@ -161,16 +166,23 @@ Group {
       Style: (FontSize: 13, TextColor: #ffffff);
     }
   }
+  
+  }
 
   Group { Anchor: (Height: 15); }
 
-  Label {
-    Text: "Fortune Stats";
-    Anchor: (Height: 28);
-    Style: (FontSize: 16, TextColor: #ffd700, RenderBold: true);
-  }
+  Group {
+    LayoutMode: Top;
+    Background: #1e2a3a(0.5);
+    Padding: (Full: 10);
+    
+    Label {
+      Text: "Fortune Stats";
+      Anchor: (Height: 28);
+      Style: (FontSize: 16, TextColor: #ffd700, RenderBold: true);
+    }
 
-  Group { Anchor: (Height: 8); }
+    Group { Anchor: (Height: 8); }
 
   Group {
     LayoutMode: Left;
@@ -231,16 +243,23 @@ Group {
       Style: (FontSize: 13, TextColor: #ffffff);
     }
   }
+  
+  }
 
   Group { Anchor: (Height: 15); }
 
-  Label {
-    Text: "Resource Stats";
-    Anchor: (Height: 28);
-    Style: (FontSize: 16, TextColor: #4a9eff, RenderBold: true);
-  }
+  Group {
+    LayoutMode: Top;
+    Background: #1e2a3a(0.5);
+    Padding: (Full: 10);
+    
+    Label {
+      Text: "Resource Stats";
+      Anchor: (Height: 28);
+      Style: (FontSize: 16, TextColor: #4ecdc4, RenderBold: true);
+    }
 
-  Group { Anchor: (Height: 8); }
+    Group { Anchor: (Height: 8); }
 
   Group {
     LayoutMode: Left;
@@ -270,16 +289,23 @@ Group {
       Style: (FontSize: 13, TextColor: #ffffff);
     }
   }
+  
+  }
 
   Group { Anchor: (Height: 15); }
 
-  Label {
-    Text: "Gameplay Stats";
-    Anchor: (Height: 28);
-    Style: (FontSize: 16, TextColor: #ff9800, RenderBold: true);
-  }
+  Group {
+    LayoutMode: Top;
+    Background: #1e2a3a(0.5);
+    Padding: (Full: 10);
+    
+    Label {
+      Text: "Gameplay Stats";
+      Anchor: (Height: 28);
+      Style: (FontSize: 16, TextColor: #ff9800, RenderBold: true);
+    }
 
-  Group { Anchor: (Height: 8); }
+    Group { Anchor: (Height: 8); }
 
   Group {
     LayoutMode: Left;
@@ -337,6 +363,8 @@ Group {
       Anchor: (Width: 80);
       Style: (FontSize: 13, TextColor: #ffffff);
     }
+  }
+  
   }
 
   Group { FlexWeight: 1; }
