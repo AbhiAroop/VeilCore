@@ -1,9 +1,9 @@
 $C = "../Common.ui";
 
 @SelectButtonStyle = TextButtonStyle(
-  Default: (Background: #3a7bd5, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-  Hovered: (Background: #4a8be5, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-  Pressed: (Background: #2a6bc5, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+  Default: (Background: #2c3e50, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #34495e, LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #1a252f, LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
 );
 
 @DeleteButtonStyle = TextButtonStyle(
@@ -13,9 +13,9 @@ $C = "../Common.ui";
 );
 
 @CreateButtonStyle = TextButtonStyle(
-  Default: (Background: #2a8b5a, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-  Hovered: (Background: #3a9b6a, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-  Pressed: (Background: #1a7b4a, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+  Default: (Background: #2c3e50, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #34495e, LabelStyle: (FontSize: 14, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #1a252f, LabelStyle: (FontSize: 14, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
 );
 
 Group {
@@ -26,9 +26,16 @@ Group {
 
   Label {
     Text: "Select Profile";
-    Anchor: (Height: 45);
-    Style: (FontSize: 28, TextColor: #ffffff, HorizontalAlignment: Center, RenderBold: true);
+    Anchor: (Height: 40);
+    Style: (FontSize: 26, TextColor: #00d4ff, HorizontalAlignment: Center, RenderBold: true);
   }
+
+  Group { 
+    Anchor: (Height: 3);
+    Background: #00d4ff(0.6);
+  }
+
+  Group { Anchor: (Height: 5); }
 
   Label {
     Text: "Choose a profile to play with";
@@ -36,15 +43,13 @@ Group {
     Style: (FontSize: 13, TextColor: #96a9be, HorizontalAlignment: Center);
   }
 
-  Group { Anchor: (Height: 1); Background: #2b3542; }
-
-  Group { Anchor: (Height: 20); }
+  Group { Anchor: (Height: 15); }
 
   // Profile 1
   Group #Profile1Container {
     LayoutMode: Left;
     Anchor: (Height: 90);
-    Background: #1e2832;
+    Background: #1e2a3a(0.5);
     Padding: (Full: 15);
 
     Group {
@@ -98,7 +103,7 @@ Group {
   Group #Profile2Container {
     LayoutMode: Left;
     Anchor: (Height: 90);
-    Background: #1e2832;
+    Background: #1e2a3a(0.5);
     Padding: (Full: 15);
 
     Group {
@@ -152,7 +157,7 @@ Group {
   Group #Profile3Container {
     LayoutMode: Left;
     Anchor: (Height: 90);
-    Background: #1e2832;
+    Background: #1e2a3a(0.5);
     Padding: (Full: 15);
 
     Group {
