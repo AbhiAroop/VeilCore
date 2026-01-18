@@ -10,7 +10,7 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.veilcore.VeilCorePlugin;
-import com.veilcore.pages.StatsPage;
+import com.veilcore.pages.StatsPageCombat;
 import com.veilcore.profile.Profile;
 
 import javax.annotation.Nonnull;
@@ -41,7 +41,7 @@ public class StatsCommand extends AbstractPlayerCommand {
             return;
         }
         
-        StatsPage statsPage = new StatsPage(playerRef, profile);
+        StatsPageCombat statsPage = new StatsPageCombat(playerRef, profile);
         player.getPageManager().openCustomPage(ref, store, statsPage);
     }
 }
