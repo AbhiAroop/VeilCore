@@ -7,8 +7,6 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.protocol.packets.interface_.CustomPageLifetime;
 import com.hypixel.hytale.protocol.packets.interface_.CustomUIEventBindingType;
-import com.hypixel.hytale.protocol.packets.interface_.Page;
-import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.entities.player.pages.InteractiveCustomUIPage;
 import com.hypixel.hytale.server.core.ui.builder.EventData;
 import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
@@ -20,7 +18,7 @@ import com.veilcore.profile.ProfileStats;
 
 import javax.annotation.Nonnull;
 
-public class StatsPageFortune extends InteractiveCustomUIPage<StatsPageFortune.StatsEventData> {
+public class StatsPageGeneral extends InteractiveCustomUIPage<StatsPageGeneral.StatsEventData> {
     
     private final Profile profile;
     private final PlayerRef playerRef;
@@ -37,7 +35,7 @@ public class StatsPageFortune extends InteractiveCustomUIPage<StatsPageFortune.S
                     .build();
     }
     
-    public StatsPageFortune(@Nonnull PlayerRef playerRef, Profile profile) {
+    public StatsPageGeneral(@Nonnull PlayerRef playerRef, Profile profile) {
         super(playerRef, CustomPageLifetime.CanDismissOrCloseThroughInteraction, StatsEventData.CODEC);
         this.profile = profile;
         this.playerRef = playerRef;
@@ -50,23 +48,29 @@ public class StatsPageFortune extends InteractiveCustomUIPage<StatsPageFortune.S
             @Nonnull UIEventBuilder evt,
             @Nonnull Store<EntityStore> store
     ) {
-        cmd.append("Pages/StatsPageFortune.ui");
+        cmd.append("Pages/StatsPageGeneral.ui");
         
         ProfileStats stats = profile.getStats();
         
-        cmd.set("#ProfileName.Text", profile.getProfileName());
+        cmd.set("#ProfileName.Text", profile.getProfileName() + "'s General Stats");
+        cmd.set("#LootingFortune.Text", String.format("%.2f", stats.getLootingFortune()));
+        cmd.set("#ManaRegen.Text", String.valueOf(stats.getManaRegen()));
+        cmd.set("#Luck.Text", String.valueOf(stats.getLuck()));
+        cmd.set("#Kills.Text", String.valueOf(stats.getKills()));
+        cmd.set("#Deaths.Text", String.valueOf(stats.getDeaths()));
         
-        // Fortune Stats
-        cmd.set("#Mining.Text", String.format("%.2f", stats.getMiningFortune()));
-        cmd.set("#Farming.Text", String.format("%.2f", stats.getFarmingFortune()));
-        cmd.set("#Fishing.Text", String.format("%.1f%%", stats.getFishingFortune()));
-        cmd.set("#Looting.Text", String.format("%.2f", stats.getLootingFortune()));
+        // Format play time as hours and minutes
+        long playTimeMinutes = stats.getPlayTime();
+        long hours = playTimeMinutes / 60;
+        long minutes = playTimeMinutes % 60;
+        cmd.set("#PlayTime.Text", String.format("%dh %dm", hours, minutes));
         
         // Event bindings for navigation
         evt.addEventBinding(CustomUIEventBindingType.Activating, "#CombatButton", new EventData().append("Action", "Combat"));
-        evt.addEventBinding(CustomUIEventBindingType.Activating, "#FortuneButton", new EventData().append("Action", "Fortune"));
-        evt.addEventBinding(CustomUIEventBindingType.Activating, "#ResourceButton", new EventData().append("Action", "Resource"));
-        evt.addEventBinding(CustomUIEventBindingType.Activating, "#GameplayButton", new EventData().append("Action", "Gameplay"));
+        evt.addEventBinding(CustomUIEventBindingType.Activating, "#MiningButton", new EventData().append("Action", "Mining"));
+        evt.addEventBinding(CustomUIEventBindingType.Activating, "#FarmingButton", new EventData().append("Action", "Farming"));
+        evt.addEventBinding(CustomUIEventBindingType.Activating, "#FishingButton", new EventData().append("Action", "Fishing"));
+        evt.addEventBinding(CustomUIEventBindingType.Activating, "#GeneralButton", new EventData().append("Action", "General"));
         evt.addEventBinding(CustomUIEventBindingType.Activating, "#CloseButton", new EventData().append("Action", "Close"));
     }
     
@@ -76,23 +80,26 @@ public class StatsPageFortune extends InteractiveCustomUIPage<StatsPageFortune.S
             @Nonnull Store<EntityStore> store,
             @Nonnull StatsEventData data
     ) {
-        Player player = store.getComponent(ref, Player.getComponentType());
+        com.hypixel.hytale.server.core.entity.entities.Player player = store.getComponent(ref, com.hypixel.hytale.server.core.entity.entities.Player.getComponentType());
         
         switch (data.action) {
             case "Combat":
                 player.getPageManager().openCustomPage(ref, store, new StatsPageCombat(playerRef, profile));
                 break;
-            case "Resource":
-                player.getPageManager().openCustomPage(ref, store, new StatsPageResource(playerRef, profile));
+            case "Mining":
+                player.getPageManager().openCustomPage(ref, store, new StatsPageMining(playerRef, profile));
                 break;
-            case "Gameplay":
-                player.getPageManager().openCustomPage(ref, store, new StatsPageGameplay(playerRef, profile));
+            case "Farming":
+                player.getPageManager().openCustomPage(ref, store, new StatsPageFarming(playerRef, profile));
+                break;
+            case "Fishing":
+                player.getPageManager().openCustomPage(ref, store, new StatsPageFishing(playerRef, profile));
                 break;
             case "Close":
-                player.getPageManager().setPage(ref, store, Page.None);
+                player.getPageManager().setPage(ref, store, com.hypixel.hytale.protocol.packets.interface_.Page.None);
                 break;
             default:
-                // Already on Fortune page, do nothing
+                // Already on General page, do nothing
                 break;
         }
     }

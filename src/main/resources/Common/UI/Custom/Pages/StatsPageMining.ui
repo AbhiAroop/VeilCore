@@ -46,24 +46,32 @@ Group {
 
     Group { Anchor: (Height: 8); }
 
-    TextButton #FortuneButton {
-      Text: "Fortune";
-      Anchor: (Height: 36);
-      Style: @NavButtonStyle;
-    }
-
-    Group { Anchor: (Height: 8); }
-
-    TextButton #ResourceButton {
-      Text: "Resource";
+    TextButton #MiningButton {
+      Text: "Mining";
       Anchor: (Height: 36);
       Style: @ActiveNavButtonStyle;
     }
 
     Group { Anchor: (Height: 8); }
 
-    TextButton #GameplayButton {
-      Text: "Gameplay";
+    TextButton #FarmingButton {
+      Text: "Farming";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #FishingButton {
+      Text: "Fishing";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #GeneralButton {
+      Text: "General";
       Anchor: (Height: 36);
       Style: @NavButtonStyle;
     }
@@ -107,39 +115,39 @@ Group {
       Padding: (Full: 15);
       
       Label {
-        Text: "[ RESOURCE STATS ]";
+        Text: "[ MINING STATS ]";
         Anchor: (Height: 28);
-        Style: (FontSize: 16, TextColor: #98fb98, RenderBold: true);
+        Style: (FontSize: 16, TextColor: #a8a8a8, RenderBold: true);
       }
 
       Group { Anchor: (Height: 10); }
 
       Group {
         LayoutMode: Left;
-        Anchor: (Height: 30);
+        Anchor: (Height: 26);
         
         Label {
-          Text: "Mana Regen:";
+          Text: "Mining Speed:";
           Anchor: (Width: 160);
-          Style: (FontSize: 14, TextColor: #96a9be, VerticalAlignment: Center);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
         }
         
-        Label #ManaRegen {
-          Text: "0";
+        Label #MiningSpeed {
+          Text: "0.50";
           Anchor: (Width: 100);
-          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
         }
 
         Label {
-          Text: "Luck:";
+          Text: "Mining Fortune:";
           Anchor: (Width: 160);
-          Style: (FontSize: 14, TextColor: #96a9be, VerticalAlignment: Center);
+          Style: (FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);
         }
         
-        Label #Luck {
-          Text: "0";
+        Label #MiningFortune {
+          Text: "1.00";
           Anchor: (Width: 100);
-          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
+          Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
         }
       }
     }

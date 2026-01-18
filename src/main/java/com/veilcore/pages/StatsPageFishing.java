@@ -7,8 +7,6 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.protocol.packets.interface_.CustomPageLifetime;
 import com.hypixel.hytale.protocol.packets.interface_.CustomUIEventBindingType;
-import com.hypixel.hytale.protocol.packets.interface_.Page;
-import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.entities.player.pages.InteractiveCustomUIPage;
 import com.hypixel.hytale.server.core.ui.builder.EventData;
 import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
@@ -20,7 +18,7 @@ import com.veilcore.profile.ProfileStats;
 
 import javax.annotation.Nonnull;
 
-public class StatsPageCombat extends InteractiveCustomUIPage<StatsPageCombat.StatsEventData> {
+public class StatsPageFishing extends InteractiveCustomUIPage<StatsPageFishing.StatsEventData> {
     
     private final Profile profile;
     private final PlayerRef playerRef;
@@ -37,7 +35,7 @@ public class StatsPageCombat extends InteractiveCustomUIPage<StatsPageCombat.Sta
                     .build();
     }
     
-    public StatsPageCombat(@Nonnull PlayerRef playerRef, Profile profile) {
+    public StatsPageFishing(@Nonnull PlayerRef playerRef, Profile profile) {
         super(playerRef, CustomPageLifetime.CanDismissOrCloseThroughInteraction, StatsEventData.CODEC);
         this.profile = profile;
         this.playerRef = playerRef;
@@ -50,31 +48,18 @@ public class StatsPageCombat extends InteractiveCustomUIPage<StatsPageCombat.Sta
             @Nonnull UIEventBuilder evt,
             @Nonnull Store<EntityStore> store
     ) {
-        cmd.append("Pages/StatsPageCombat.ui");
+        cmd.append("Pages/StatsPageFishing.ui");
         
         ProfileStats stats = profile.getStats();
         
-        cmd.set("#ProfileName.Text", profile.getProfileName());
-        
-        // Combat Stats
-        cmd.set("#Health.Text", String.valueOf(stats.getHealth()));
-        cmd.set("#Stamina.Text", String.valueOf(stats.getStamina()));
-        cmd.set("#Mana.Text", stats.getMana() + "/" + stats.getTotalMana());
-        cmd.set("#Armor.Text", String.valueOf(stats.getArmor()));
-        cmd.set("#MagicResist.Text", String.valueOf(stats.getMagicResist()));
-        cmd.set("#Speed.Text", String.format("%.2f", stats.getSpeed()));
-        cmd.set("#PhysDmg.Text", String.valueOf(stats.getPhysicalDamage()));
-        cmd.set("#MagicDmg.Text", String.valueOf(stats.getMagicDamage()));
-        cmd.set("#RangedDmg.Text", String.valueOf(stats.getRangedDamage()));
-        cmd.set("#AttackSpeed.Text", String.format("%.2f", stats.getAttackSpeed()));
-        cmd.set("#CritDamage.Text", String.format("%.1f%%", stats.getCriticalDamage() * 100));
-        cmd.set("#CritChance.Text", String.format("%.1f%%", stats.getCriticalChance() * 100));
-        cmd.set("#BurstDmg.Text", String.format("%.1fx", stats.getBurstDamage()));
-        cmd.set("#BurstChance.Text", String.format("%.1f%%", stats.getBurstChance() * 100));
-        cmd.set("#CDR.Text", String.valueOf(stats.getCooldownReduction()));
-        cmd.set("#LifeSteal.Text", String.format("%.1f%%", stats.getLifeSteal() * 100));
-        cmd.set("#Omnivamp.Text", String.format("%.1f%%", stats.getOmnivamp() * 100));
-        cmd.set("#HealthRegen.Text", String.format("%.1f", stats.getHealthRegen()));
+        cmd.set("#ProfileName.Text", profile.getProfileName() + "'s Fishing Stats");
+        cmd.set("#FishingFortune.Text", String.format("%.2f", stats.getFishingFortune()));
+        cmd.set("#LurePotency.Text", String.valueOf(stats.getLurePotency()));
+        cmd.set("#FishingResilience.Text", String.format("%.2f", stats.getFishingResilience()));
+        cmd.set("#FishingFocus.Text", String.format("%.2f", stats.getFishingFocus()));
+        cmd.set("#FishingPrecision.Text", String.format("%.2f", stats.getFishingPrecision()));
+        cmd.set("#SeaMonsterAffinity.Text", String.format("%.2f", stats.getSeaMonsterAffinity()));
+        cmd.set("#TreasureSense.Text", String.format("%.2f", stats.getTreasureSense()));
         
         // Event bindings for navigation
         evt.addEventBinding(CustomUIEventBindingType.Activating, "#CombatButton", new EventData().append("Action", "Combat"));
@@ -91,26 +76,26 @@ public class StatsPageCombat extends InteractiveCustomUIPage<StatsPageCombat.Sta
             @Nonnull Store<EntityStore> store,
             @Nonnull StatsEventData data
     ) {
-        Player player = store.getComponent(ref, Player.getComponentType());
+        com.hypixel.hytale.server.core.entity.entities.Player player = store.getComponent(ref, com.hypixel.hytale.server.core.entity.entities.Player.getComponentType());
         
         switch (data.action) {
+            case "Combat":
+                player.getPageManager().openCustomPage(ref, store, new StatsPageCombat(playerRef, profile));
+                break;
             case "Mining":
                 player.getPageManager().openCustomPage(ref, store, new StatsPageMining(playerRef, profile));
                 break;
             case "Farming":
                 player.getPageManager().openCustomPage(ref, store, new StatsPageFarming(playerRef, profile));
                 break;
-            case "Fishing":
-                player.getPageManager().openCustomPage(ref, store, new StatsPageFishing(playerRef, profile));
-                break;
             case "General":
                 player.getPageManager().openCustomPage(ref, store, new StatsPageGeneral(playerRef, profile));
                 break;
             case "Close":
-                player.getPageManager().setPage(ref, store, Page.None);
+                player.getPageManager().setPage(ref, store, com.hypixel.hytale.protocol.packets.interface_.Page.None);
                 break;
             default:
-                // Already on Combat page, do nothing
+                // Already on Fishing page, do nothing
                 break;
         }
     }
