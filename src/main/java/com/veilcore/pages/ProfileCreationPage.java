@@ -107,7 +107,7 @@ public class ProfileCreationPage extends InteractiveCustomUIPage<ProfileCreation
     ) {
         // If not cancellable and profile wasn't created, reopen after a brief delay
         if (!cancellable && !profileCreated) {
-            playerRef.sendMessage(Message.raw("§cYou must create a profile to continue!"));
+            playerRef.sendMessage(Message.raw("You must create a profile to continue!").color("#FF5555"));
             
             Player player = store.getComponent(ref, Player.getComponentType());
             if (player != null) {
@@ -138,12 +138,12 @@ public class ProfileCreationPage extends InteractiveCustomUIPage<ProfileCreation
             String profileName = data.profileName != null ? data.profileName.trim() : "";
             
             if (profileName.isEmpty()) {
-                playerRef.sendMessage(Message.raw("§cProfile name cannot be empty!"));
+                playerRef.sendMessage(Message.raw("Profile name cannot be empty!").color("#FF5555"));
                 return;
             }
             
             if (profileName.length() > 20) {
-                playerRef.sendMessage(Message.raw("§cProfile name must be 20 characters or less!"));
+                playerRef.sendMessage(Message.raw("Profile name must be 20 characters or less!").color("#FF5555"));
                 return;
             }
             
@@ -163,12 +163,12 @@ public class ProfileCreationPage extends InteractiveCustomUIPage<ProfileCreation
                 VeilCorePlugin.getInstance().getStateManager()
                     .resetPlayerToSpawn(ref, store, player);
                 
-                playerRef.sendMessage(Message.raw("§aProfile '" + profileName + "' created successfully!"));
+                playerRef.sendMessage(Message.raw("Profile '" + profileName + "' created successfully!").color("#55FF55"));
                 
                 // Close UI
                 player.getPageManager().setPage(ref, store, Page.None);
             } else {
-                playerRef.sendMessage(Message.raw("§cFailed to create profile. You may have reached the maximum (3) or the name already exists."));
+                playerRef.sendMessage(Message.raw("Failed to create profile. You may have reached the maximum (3) or the name already exists.").color("#FF5555"));
                 // Close UI so player can try again
                 player.getPageManager().setPage(ref, store, Page.None);
             }
@@ -177,7 +177,7 @@ public class ProfileCreationPage extends InteractiveCustomUIPage<ProfileCreation
             if (cancellable) {
                 player.getPageManager().setPage(ref, store, Page.None);
             } else {
-                playerRef.sendMessage(Message.raw("§cYou must create a profile to continue!"));
+                playerRef.sendMessage(Message.raw("You must create a profile to continue!").color("#FF5555"));
             }
         }
     }

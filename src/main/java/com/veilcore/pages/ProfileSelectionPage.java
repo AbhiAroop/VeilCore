@@ -176,15 +176,15 @@ public class ProfileSelectionPage extends InteractiveCustomUIPage<ProfileSelecti
                     VeilCorePlugin.getInstance().getStateManager()
                         .loadProfileStateToPlayer(ref, store, player, profile);
                     
-                    playerRef.sendMessage(Message.raw("§aLoaded profile: " + profile.getProfileName()));
+                    playerRef.sendMessage(Message.raw("Loaded profile: " + profile.getProfileName()).color("#55FF55"));
                     
                     // Close UI
                     player.getPageManager().setPage(ref, store, Page.None);
                 } else {
-                    playerRef.sendMessage(Message.raw("§cProfile not found!"));
+                    playerRef.sendMessage(Message.raw("Profile not found!").color("#FF5555"));
                 }
             } catch (IllegalArgumentException e) {
-                playerRef.sendMessage(Message.raw("§cInvalid profile ID!"));
+                playerRef.sendMessage(Message.raw("Invalid profile ID!").color("#FF5555"));
             }
         } else if ("Delete".equals(data.action)) {
             try {
@@ -203,7 +203,7 @@ public class ProfileSelectionPage extends InteractiveCustomUIPage<ProfileSelecti
                         .deleteProfile(player.getUuid(), profileId);
                     
                     if (deleted) {
-                        playerRef.sendMessage(Message.raw("§aDeleted profile: " + profile.getProfileName()));
+                        playerRef.sendMessage(Message.raw("Deleted profile: " + profile.getProfileName()).color("#55FF55"));
                         
                         // Get remaining profiles
                         List<Profile> updatedProfiles = VeilCorePlugin.getInstance().getProfileManager()
@@ -225,7 +225,7 @@ public class ProfileSelectionPage extends InteractiveCustomUIPage<ProfileSelecti
                                 VeilCorePlugin.getInstance().getStateManager()
                                     .loadProfileStateToPlayer(ref, store, player, newActiveProfile);
                                 
-                                playerRef.sendMessage(Message.raw("§eSwitched to profile: " + newActiveProfile.getProfileName()));
+                                playerRef.sendMessage(Message.raw("Switched to profile: " + newActiveProfile.getProfileName()).color("#FFD700"));
                                 
                                 // Show updated selection page
                                 ProfileSelectionPage newPage = new ProfileSelectionPage(playerRef, updatedProfiles);
@@ -237,11 +237,11 @@ public class ProfileSelectionPage extends InteractiveCustomUIPage<ProfileSelecti
                             player.getPageManager().openCustomPage(ref, store, newPage);
                         }
                     } else {
-                        playerRef.sendMessage(Message.raw("§cFailed to delete profile!"));
+                        playerRef.sendMessage(Message.raw("Failed to delete profile!").color("#FF5555"));
                     }
                 }
             } catch (IllegalArgumentException e) {
-                playerRef.sendMessage(Message.raw("§cInvalid profile ID!"));
+                playerRef.sendMessage(Message.raw("Invalid profile ID!").color("#FF5555"));
             }
         } else if ("CreateNew".equals(data.action)) {
             // Open profile creation page - cancellable since they already have profiles

@@ -55,7 +55,7 @@ public class PlayerEventListener {
         
         if (profiles.isEmpty()) {
             // First-time player - force profile creation (non-cancellable)
-            playerRef.sendMessage(Message.raw("§eWelcome! Please create your first profile to begin playing."));
+            playerRef.sendMessage(Message.raw("Welcome! Please create your first profile to begin playing.").color("#FFD700"));
             ProfileCreationPage creationPage = new ProfileCreationPage(playerRef, false); // false = cannot cancel
             player.getPageManager().openCustomPage(ref, store, creationPage);
         } else {
@@ -67,14 +67,14 @@ public class PlayerEventListener {
                 Profile lastProfile = plugin.getProfileManager().getProfile(playerUUID, lastActiveId);
                 if (lastProfile != null) {
                     plugin.getProfileManager().setActiveProfile(playerUUID, lastActiveId);
-                    playerRef.sendMessage(Message.raw("§aWelcome back! Loaded profile: " + lastProfile.getProfileName()));
-                    playerRef.sendMessage(Message.raw("§7Use /profile to switch profiles"));
+                    playerRef.sendMessage(Message.raw("Welcome back! Loaded profile: " + lastProfile.getProfileName()).color("#55FF55"));
+                    playerRef.sendMessage(Message.raw("Use /profile to switch profiles").color("#AAAAAA"));
                     return;
                 }
             }
             
             // No valid last active profile - show selection
-            playerRef.sendMessage(Message.raw("§eSelect a profile to continue:"));
+            playerRef.sendMessage(Message.raw("Select a profile to continue:").color("#FFD700"));
             ProfileSelectionPage selectionPage = new ProfileSelectionPage(playerRef, profiles);
             player.getPageManager().openCustomPage(ref, store, selectionPage);
         }
