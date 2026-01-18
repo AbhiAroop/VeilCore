@@ -43,12 +43,28 @@ public class StatsPage extends InteractiveCustomUIPage<StatsPage.StatsEventData>
         ProfileStats stats = profile.getStats();
         
         cmd.set("#ProfileName.Text", profile.getProfileName());
+        
+        // Combat Stats
         cmd.set("#Health.Text", String.valueOf(stats.getHealth()));
         cmd.set("#Stamina.Text", String.valueOf(stats.getStamina()));
         cmd.set("#Mana.Text", stats.getMana() + "/" + stats.getTotalMana());
         cmd.set("#Armor.Text", String.valueOf(stats.getArmor()));
+        cmd.set("#Speed.Text", String.format("%.2f", stats.getSpeed()));
+        cmd.set("#CritDamage.Text", String.format("%.1f%%", stats.getCriticalDamage() * 100));
+        cmd.set("#CritChance.Text", String.format("%.1f%%", stats.getCriticalChance() * 100));
+        cmd.set("#AttackSpeed.Text", String.format("%.2f", stats.getAttackSpeed()));
+        
+        // Fortune Stats
         cmd.set("#MiningFortune.Text", String.format("%.2f", stats.getMiningFortune()));
+        cmd.set("#FarmingFortune.Text", String.format("%.2f", stats.getFarmingFortune()));
         cmd.set("#FishingFortune.Text", String.format("%.1f%%", stats.getFishingFortune()));
+        cmd.set("#LootingFortune.Text", String.format("%.2f", stats.getLootingFortune()));
+        
+        // Resource Stats
+        cmd.set("#ManaRegen.Text", stats.getManaRegen() + "/s");
+        cmd.set("#Luck.Text", String.valueOf(stats.getLuck()));
+        
+        // Gameplay Stats
         cmd.set("#Kills.Text", String.valueOf(stats.getKills()));
         cmd.set("#Deaths.Text", String.valueOf(stats.getDeaths()));
         

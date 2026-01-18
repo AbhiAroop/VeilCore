@@ -7,7 +7,7 @@ $C = "../Common.ui";
 );
 
 Group {
-  Anchor: (Width: 500, Height: 400);
+  Anchor: (Width: 700, Height: 550);
   Background: #141c26(0.98);
   LayoutMode: Top;
   Padding: (Full: 25);
@@ -95,12 +95,183 @@ Group {
     }
   }
 
+  Group { Anchor: (Height: 4); }
+
+  Group {
+    LayoutMode: Left;
+    Anchor: (Height: 24);
+    
+    Label {
+      Text: "Speed:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #Speed {
+      Text: "0.10";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+    
+    Label {
+      Text: "Crit Dmg:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #CritDamage {
+      Text: "1.5x";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+  }
+
+  Group { Anchor: (Height: 4); }
+
+  Group {
+    LayoutMode: Left;
+    Anchor: (Height: 24);
+    
+    Label {
+      Text: "Crit Chance:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #CritChance {
+      Text: "0.0%";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+    
+    Label {
+      Text: "Atk Speed:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #AttackSpeed {
+      Text: "0.50";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+  }
+
   Group { Anchor: (Height: 15); }
 
   Label {
     Text: "Fortune Stats";
     Anchor: (Height: 28);
     Style: (FontSize: 16, TextColor: #ffd700, RenderBold: true);
+  }
+
+  Group { Anchor: (Height: 8); }
+
+  Group {
+    LayoutMode: Left;
+    Anchor: (Height: 24);
+    
+    Label {
+      Text: "Mining:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #MiningFortune {
+      Text: "1.00";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+    
+    Label {
+      Text: "Farming:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #FarmingFortune {
+      Text: "0.00";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+  }
+
+  Group { Anchor: (Height: 4); }
+
+  Group {
+    LayoutMode: Left;
+    Anchor: (Height: 24);
+    
+    Label {
+      Text: "Fishing:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #FishingFortune {
+      Text: "0.00";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+    
+    Label {
+      Text: "Looting:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #LootingFortune {
+      Text: "1.00";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+  }
+
+  Group { Anchor: (Height: 15); }
+
+  Label {
+    Text: "Resource Stats";
+    Anchor: (Height: 28);
+    Style: (FontSize: 16, TextColor: #4a9eff, RenderBold: true);
+  }
+
+  Group { Anchor: (Height: 8); }
+
+  Group {
+    LayoutMode: Left;
+    Anchor: (Height: 24);
+    
+    Label {
+      Text: "Mana Regen:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #ManaRegen {
+      Text: "1";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+    
+    Label {
+      Text: "Luck:";
+      Anchor: (Width: 120);
+      Style: (FontSize: 13, TextColor: #96a9be);
+    }
+    
+    Label #Luck {
+      Text: "0";
+      Anchor: (Width: 80);
+      Style: (FontSize: 13, TextColor: #ffffff);
+    }
+  }
+
+  Group { Anchor: (Height: 15); }
+
+  Label {
+    Text: "Gameplay Stats";
+    Anchor: (Height: 28);
+    Style: (FontSize: 16, TextColor: #ff9800, RenderBold: true);
   }
 
   Group { Anchor: (Height: 8); }
@@ -133,16 +304,6 @@ Group {
       Style: (FontSize: 13, TextColor: #ffffff);
     }
   }
-
-  Group { Anchor: (Height: 15); }
-
-  Label {
-    Text: "Gameplay Stats";
-    Anchor: (Height: 28);
-    Style: (FontSize: 16, TextColor: #ff9800, RenderBold: true);
-  }
-
-  Group { Anchor: (Height: 8); }
 
   Group {
     LayoutMode: Left;
