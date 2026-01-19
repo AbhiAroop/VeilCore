@@ -52,8 +52,10 @@ public class VeilCorePlugin extends JavaPlugin {
         // Register event listeners
         getEventRegistry().registerGlobal(PlayerReadyEvent.class, PlayerEventListener::onPlayerReady);
         getEventRegistry().registerGlobal(PlayerDisconnectEvent.class, PlayerEventListener::onPlayerDisconnect);
-        // TODO: BlockBreakEvent not yet available in Hytale API
-        // Will add MiningXpListener when block events are added
+        
+        // TODO: Automatic XP gain listeners (Phase 5)
+        // BlockBreakEvent and DeathEvent are not yet available in Hytale API
+        // Will add Mining and Combat XP listeners when these events are added
         
         getLogger().at(Level.INFO).log("Event listeners registered");
 

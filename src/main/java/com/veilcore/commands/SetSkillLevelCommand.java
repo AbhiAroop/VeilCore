@@ -4,6 +4,9 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
+import com.hypixel.hytale.server.core.command.system.arguments.system.RequiredArg;
+import com.hypixel.hytale.server.core.command.system.arguments.system.OptionalArg;
+import com.hypixel.hytale.server.core.command.system.arguments.types.ArgTypes;
 import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayerCommand;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
@@ -23,10 +26,18 @@ import javax.annotation.Nonnull;
 public class SetSkillLevelCommand extends AbstractPlayerCommand {
 
     private final VeilCorePlugin plugin;
+    private final RequiredArg<String> skillArg;
+    private final RequiredArg<Integer> levelArg;
+    private final OptionalArg<PlayerRef> targetArg;
 
     public SetSkillLevelCommand(VeilCorePlugin plugin) {
         super("setskilllevel", "Set a player's skill level (admin)");
         this.plugin = plugin;
+        
+        // Define arguments
+        this.skillArg = withRequiredArg("skill", "The skill to set (mining, combat, farming, fishing)", ArgTypes.STRING);
+        this.levelArg = withRequiredArg("level", "Level to set (1-100)", ArgTypes.INTEGER);
+        this.targetArg = withOptionalArg("player", "Target player (defaults to self)", ArgTypes.PLAYER_REF);
     }
 
     @Override
@@ -37,16 +48,36 @@ public class SetSkillLevelCommand extends AbstractPlayerCommand {
             @Nonnull PlayerRef playerRef,
             @Nonnull World world
     ) {
-        Player player = store.getComponent(ref, Player.getComponentType());
+        // Parse arguments
+        String skillName = context.get(skillArg);
+        int level = context.get(levelArg);
+        PlayerRef targetPlayerRef = context.provided(targetArg) ? context.get(targetArg) : playerRef;
         
-        // Simplified version: Set Mining to level 10 (args not working yet)
-        // TODO: Add command args when API supports it
-        Skill skill = Skill.MINING;
-        int level = 10;
-        Profile profile = plugin.getProfileManager().getActiveProfile(player.getUuid());
+        // Parse skill
+        Skill skill;
+        try {
+            skill = Skill.valueOf(skillName.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            playerRef.sendMessage(Message.raw("§cInvalid skill! Use: mining, combat, farming, or fishing"));
+            return;
+        }
         
+        // Validate level
+        if (level < 1 || level > 100) {
+            playerRef.sendMessage(Message.raw("§cLevel must be between 1 and 100!"));
+            return;
+        }
+        
+        // Get target player's profile
+        Player targetPlayer = store.getComponent(targetPlayerRef.getReference(), Player.getComponentType());
+        if (targetPlayer == null) {
+            playerRef.sendMessage(Message.raw("§cTarget player not found!"));
+            return;
+        }
+        
+        Profile profile = plugin.getProfileManager().getActiveProfile(targetPlayer.getUuid());
         if (profile == null) {
-            playerRef.sendMessage(Message.raw("§cYou don't have an active profile!"));
+            playerRef.sendMessage(Message.raw("§cTarget player doesn't have an active profile!"));
             return;
         }
 
@@ -65,11 +96,20 @@ public class SetSkillLevelCommand extends AbstractPlayerCommand {
             oldLevel,
             level
         );
-        playerRef.sendMessage(Message.raw(msg));
+        targetPlayerRef.sendMessage(Message.raw(msg));
         
-        // Show token info
+        // Show token info to target
         int totalTokens = skills.getTreeData().getAllTokenCounts(skill.getId())
             .values().stream().mapToInt(Integer::intValue).sum();
-        playerRef.sendMessage(Message.raw("§7Available tokens: §e" + totalTokens));
+        targetPlayerRef.sendMessage(Message.raw("§7Available tokens: §e" + totalTokens));
+        
+        // Notify command sender if different from target
+        if (!targetPlayerRef.equals(playerRef)) {
+            playerRef.sendMessage(Message.raw(String.format("§aSet %s's %s level to %d",
+                targetPlayer.getDisplayName(),
+                skill.getDisplayName(),
+                level
+            )));
+        }
     }
 }
