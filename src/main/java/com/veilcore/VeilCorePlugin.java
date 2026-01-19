@@ -10,6 +10,7 @@ import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.veilcore.commands.DiscordCommand;
 import com.veilcore.commands.EntitySpawnCommand;
+import com.veilcore.commands.GiveSkillTokensCommand;
 import com.veilcore.commands.GiveSkillXpCommand;
 import com.veilcore.commands.NameplateTestCommand;
 import com.veilcore.commands.ProfileCommand;
@@ -70,6 +71,7 @@ public class VeilCorePlugin extends JavaPlugin {
         getCommandRegistry().registerCommand(new SkillsCommand(this));
         getCommandRegistry().registerCommand(new GiveSkillXpCommand(this));
         getCommandRegistry().registerCommand(new SetSkillLevelCommand(this));
+        getCommandRegistry().registerCommand(new GiveSkillTokensCommand(this));
         
         // Start playtime tracker (runs every second)
         playtimeScheduler = java.util.concurrent.Executors.newSingleThreadScheduledExecutor();
