@@ -10,10 +10,15 @@ import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.veilcore.commands.DiscordCommand;
 import com.veilcore.commands.EntitySpawnCommand;
+import com.veilcore.commands.GiveSkillXpCommand;
 import com.veilcore.commands.NameplateTestCommand;
 import com.veilcore.commands.ProfileCommand;
+import com.veilcore.commands.SetSkillLevelCommand;
+import com.veilcore.commands.SkillsCommand;
 import com.veilcore.commands.StatsCommand;
+import com.veilcore.commands.TestDeathCommand;
 import com.veilcore.commands.TestUICommand;
+import com.veilcore.listeners.PlayerDeathListener;
 import com.veilcore.listeners.PlayerEventListener;
 import com.veilcore.profile.PlayerProfileManager;
 import com.veilcore.profile.ProfileRepository;
@@ -25,6 +30,7 @@ public class VeilCorePlugin extends JavaPlugin {
     private PlayerProfileManager profileManager;
     private ProfileStateManager stateManager;
     private java.util.concurrent.ScheduledExecutorService playtimeScheduler;
+    private PlayerDeathListener deathListener;
 
     public VeilCorePlugin(@Nonnull JavaPluginInit init) {
         super(init);
@@ -46,6 +52,8 @@ public class VeilCorePlugin extends JavaPlugin {
         // Register event listeners
         getEventRegistry().registerGlobal(PlayerReadyEvent.class, PlayerEventListener::onPlayerReady);
         getEventRegistry().registerGlobal(PlayerDisconnectEvent.class, PlayerEventListener::onPlayerDisconnect);
+        // TODO: BlockBreakEvent not yet available in Hytale API
+        // Will add MiningXpListener when block events are added
         
         getLogger().at(Level.INFO).log("Event listeners registered");
 
@@ -56,6 +64,10 @@ public class VeilCorePlugin extends JavaPlugin {
         getCommandRegistry().registerCommand(new DiscordCommand());
         getCommandRegistry().registerCommand(new EntitySpawnCommand());
         getCommandRegistry().registerCommand(new NameplateTestCommand());
+        getCommandRegistry().registerCommand(new TestDeathCommand(this));
+        getCommandRegistry().registerCommand(new SkillsCommand(this));
+        getCommandRegistry().registerCommand(new GiveSkillXpCommand(this));
+        getCommandRegistry().registerCommand(new SetSkillLevelCommand(this));
         
         // Start playtime tracker (runs every second)
         playtimeScheduler = java.util.concurrent.Executors.newSingleThreadScheduledExecutor();

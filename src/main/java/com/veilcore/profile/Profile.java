@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
+import com.veilcore.skills.ProfileSkills;
+
 /**
  * Represents a player's game profile.
  * Each profile contains isolated game state including inventory, location, stats, and level.
@@ -23,6 +25,7 @@ public class Profile {
     private long experience;
     private ProfileInventory inventory;
     private ProfileStats stats;
+    private ProfileSkills skills;
     
     /**
      * Create a new profile.
@@ -43,6 +46,7 @@ public class Profile {
         this.experience = 0;
         this.inventory = new ProfileInventory();
         this.stats = new ProfileStats();
+        this.skills = new ProfileSkills();
     }
     
     /**
@@ -51,7 +55,8 @@ public class Profile {
     public Profile(@Nonnull UUID profileId, @Nonnull UUID playerUUID, @Nonnull String profileName,
                    @Nonnull Instant createdAt, @Nonnull Instant lastPlayedAt,
                    @Nonnull ProfileLocation location, int level, long experience,
-                   @Nonnull ProfileInventory inventory, @Nonnull ProfileStats stats) {
+                   @Nonnull ProfileInventory inventory, @Nonnull ProfileStats stats,
+                   ProfileSkills skills) {
         this.profileId = profileId;
         this.playerUUID = playerUUID;
         this.profileName = profileName;
@@ -62,6 +67,7 @@ public class Profile {
         this.experience = experience;
         this.inventory = inventory;
         this.stats = stats;
+        this.skills = skills != null ? skills : new ProfileSkills(); // Backward compatibility
     }
     
     // Getters
@@ -139,5 +145,18 @@ public class Profile {
     
     public void setStats(@Nonnull ProfileStats stats) {
         this.stats = stats;
+    }
+    
+    @Nonnull
+    public ProfileSkills getSkills() {
+        // Lazy initialization for backward compatibility with old profiles
+        if (skills == null) {
+            skills = new ProfileSkills();
+        }
+        return skills;
+    }
+    
+    public void setSkills(@Nonnull ProfileSkills skills) {
+        this.skills = skills;
     }
 }

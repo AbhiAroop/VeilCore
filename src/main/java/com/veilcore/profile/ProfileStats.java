@@ -584,4 +584,27 @@ public class ProfileStats {
     public double getDefaultBurstChance() {
         return defaultBurstChance;
     }
+    
+    // Add methods for skill tree node bonuses
+    public void addMaxHealth(double amount) {
+        this.health += (int) amount;
+    }
+    
+    public void addDamage(double amount) {
+        this.physicalDamage += (int) amount;
+        this.magicDamage += (int) amount;
+    }
+    
+    public void addDefense(double amount) {
+        this.armor += (int) amount;
+    }
+    
+    public void addLuck(double amount) {
+        this.luck += (int) amount;
+        this.miningFortune += amount / 100.0; // Convert to fortune multiplier
+    }
+    
+    public void addSpeed(double amount) {
+        this.speed += amount;
+    }
 }
