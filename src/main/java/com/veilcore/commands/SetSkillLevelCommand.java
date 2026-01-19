@@ -125,10 +125,10 @@ public class SetSkillLevelCommand extends AbstractPlayerCommand {
 
     private String getSkillIcon(Skill skill) {
         return switch (skill) {
-            case MINING -> "Tool_Pickaxe_Stone";
+            case MINING -> "Rubble_Calcite_Medium";
             case COMBAT -> "Weapon_Sword_Mithril";
-            case FARMING -> "Tool_Hoe_Wood";
-            case FISHING -> "Weapon_Fishing_Rod";
+            case FARMING -> "Plant_Crop_Pumpkin_Item";
+            case FISHING -> "Food_Fish_Raw";
         };
     }
 }
