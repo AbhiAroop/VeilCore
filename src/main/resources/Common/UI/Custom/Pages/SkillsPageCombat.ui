@@ -34,7 +34,7 @@ Group {
     Label {
       Text: "SKILLS";
       Anchor: (Height: 30);
-      Style: (FontSize: 11, TextColor: #2c3e50, RenderBold: true, HorizontalAlignment: Center);
+      Style: (FontSize: 11, TextColor: #e8e8e8, RenderBold: true, HorizontalAlignment: Center);
     }
 
     Group { Anchor: (Height: 10); }
@@ -72,7 +72,7 @@ Group {
       Anchor: (Height: 40);
       Style: (
         FontSize: 26,
-        TextColor: #1a1a1a,
+        TextColor: #ffffff,
         HorizontalAlignment: Center,
         RenderBold: true
       );
@@ -93,7 +93,7 @@ Group {
       Label {
         Text: "COMBAT SKILL";
         Anchor: (Height: 32);
-        Style: (FontSize: 18, TextColor: #1a1a1a, RenderBold: true, HorizontalAlignment: Center);
+        Style: (FontSize: 18, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
       }
 
       Group { Anchor: (Height: 15); }
@@ -105,25 +105,25 @@ Group {
         Label {
           Text: "Current Level:";
           Anchor: (Width: 180);
-          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #CurrentLevel {
           Text: "1";
           Anchor: (Width: 100);
-          Style: (FontSize: 14, TextColor: #1a1a1a, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
         }
 
         Label {
           Text: "Next Level:";
           Anchor: (Width: 180);
-          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #NextLevel {
           Text: "2";
           FlexWeight: 1;
-          Style: (FontSize: 14, TextColor: #1a1a1a, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
         }
       }
 
@@ -136,25 +136,25 @@ Group {
         Label {
           Text: "Current XP:";
           Anchor: (Width: 180);
-          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #CurrentXP {
           Text: "0";
           Anchor: (Width: 100);
-          Style: (FontSize: 14, TextColor: #1a1a1a, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
         }
 
         Label {
           Text: "XP to Next:";
           Anchor: (Width: 180);
-          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #XPToNext {
           Text: "100";
           FlexWeight: 1;
-          Style: (FontSize: 14, TextColor: #1a1a1a, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
         }
       }
 
@@ -167,25 +167,25 @@ Group {
         Label {
           Text: "Progress:";
           Anchor: (Width: 180);
-          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #Progress {
           Text: "0%";
           Anchor: (Width: 100);
-          Style: (FontSize: 14, TextColor: #1a1a1a, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
         }
 
         Label {
           Text: "Total XP:";
           Anchor: (Width: 180);
-          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #TotalXP {
           Text: "0";
           FlexWeight: 1;
-          Style: (FontSize: 14, TextColor: #1a1a1a, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
         }
       }
 
@@ -211,37 +211,37 @@ Group {
           Label {
             Text: "Basic:";
             Anchor: (Width: 120);
-            Style: (FontSize: 13, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
+            Style: (FontSize: 13, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
           }
 
           Label #BasicTokens {
             Text: "0";
             Anchor: (Width: 80);
-            Style: (FontSize: 13, TextColor: #1a1a1a, RenderBold: true);
+            Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
           }
 
           Label {
             Text: "Advanced:";
             Anchor: (Width: 120);
-            Style: (FontSize: 13, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
+            Style: (FontSize: 13, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
           }
 
           Label #AdvancedTokens {
             Text: "0";
             Anchor: (Width: 80);
-            Style: (FontSize: 13, TextColor: #1a1a1a, RenderBold: true);
+            Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
           }
 
           Label {
             Text: "Master:";
             Anchor: (Width: 120);
-            Style: (FontSize: 13, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
+            Style: (FontSize: 13, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
           }
 
           Label #MasterTokens {
             Text: "0";
             FlexWeight: 1;
-            Style: (FontSize: 13, TextColor: #1a1a1a, RenderBold: true);
+            Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
           }
         }
       }
