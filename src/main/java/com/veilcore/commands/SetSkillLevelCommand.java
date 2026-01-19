@@ -6,7 +6,6 @@ import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.NameMatching;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.arguments.system.RequiredArg;
-import com.hypixel.hytale.server.core.command.system.arguments.system.DefaultArg;
 import com.hypixel.hytale.server.core.command.system.arguments.types.ArgTypes;
 import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayerCommand;
 import com.hypixel.hytale.server.core.entity.entities.Player;
@@ -23,23 +22,23 @@ import javax.annotation.Nonnull;
 
 /**
  * Admin command to set a player's skill level
- * Usage: /setskilllevel <skill> <level> [player]
+ * Usage: /setskilllevel <skill> <level> <player>
  */
 public class SetSkillLevelCommand extends AbstractPlayerCommand {
 
     private final VeilCorePlugin plugin;
     private final RequiredArg<String> skillArg;
     private final RequiredArg<Integer> levelArg;
-    private final DefaultArg<String> targetArg;
+    private final RequiredArg<String> targetArg;
 
     public SetSkillLevelCommand(VeilCorePlugin plugin) {
-        super("setskilllevel", "Set a player's skill level (admin)");
+        super("setskilllevel", "Set a player's skill level");
         this.plugin = plugin;
         
         // Define arguments
-        this.skillArg = withRequiredArg("skill", "The skill to set (mining, combat, farming, fishing)", ArgTypes.STRING);
-        this.levelArg = withRequiredArg("level", "Level to set (1-100)", ArgTypes.INTEGER);
-        this.targetArg = withDefaultArg("player", "Target player name (defaults to self)", ArgTypes.STRING, null, "self");
+        this.skillArg = withRequiredArg("skill", "Skill name: mining, combat, farming, fishing", ArgTypes.STRING);
+        this.levelArg = withRequiredArg("level", "Target level (1-100)", ArgTypes.INTEGER);
+        this.targetArg = withRequiredArg("player", "Target player's username", ArgTypes.STRING);
     }
 
     @Override
@@ -53,28 +52,17 @@ public class SetSkillLevelCommand extends AbstractPlayerCommand {
         // Parse arguments
         String skillName = context.get(skillArg);
         int level = context.get(levelArg);
-        
-        // Determine target player
-        PlayerRef targetPlayerRef;
-        Player targetPlayer;
-        
         String targetName = context.get(targetArg);
-        if (targetName != null && !targetName.isEmpty()) {
-            // Target another player by name
-            targetPlayerRef = Universe.get().getPlayerByUsername(targetName, NameMatching.EXACT_IGNORE_CASE);
-            
-            if (targetPlayerRef == null) {
-                playerRef.sendMessage(Message.raw("Player '" + targetName + "' not found or not online!").color("#FF5555"));
-                return;
-            }
-            
-            targetPlayer = store.getComponent(targetPlayerRef.getReference(), Player.getComponentType());
-        } else {
-            // Target self
-            targetPlayerRef = playerRef;
-            targetPlayer = store.getComponent(ref, Player.getComponentType());
+        
+        // Find target player
+        PlayerRef targetPlayerRef = Universe.get().getPlayerByUsername(targetName, NameMatching.EXACT_IGNORE_CASE);
+        
+        if (targetPlayerRef == null) {
+            playerRef.sendMessage(Message.raw("Player '" + targetName + "' not found or not online!").color("#FF5555"));
+            return;
         }
         
+        Player targetPlayer = store.getComponent(targetPlayerRef.getReference(), Player.getComponentType());
         if (targetPlayer == null) {
             playerRef.sendMessage(Message.raw("Target player not found!").color("#FF5555"));
             return;
@@ -123,13 +111,11 @@ public class SetSkillLevelCommand extends AbstractPlayerCommand {
             .values().stream().mapToInt(Integer::intValue).sum();
         targetPlayerRef.sendMessage(Message.raw("Available tokens: " + totalTokens).color("#AAAAAA"));
         
-        // Notify command sender if different from target
-        if (!targetPlayerRef.equals(playerRef)) {
-            playerRef.sendMessage(Message.raw(String.format("Set %s's %s level to %d",
-                targetPlayer.getDisplayName(),
-                skill.getDisplayName(),
-                level
-            )).color("#55FF55"));
-        }
+        // Notify command sender
+        playerRef.sendMessage(Message.raw(String.format("Set %s's %s level to %d",
+            targetPlayer.getDisplayName(),
+            skill.getDisplayName(),
+            level
+        )).color("#55FF55"));
     }
 }
