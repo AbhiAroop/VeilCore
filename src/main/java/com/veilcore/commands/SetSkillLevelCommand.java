@@ -104,7 +104,7 @@ public class SetSkillLevelCommand extends AbstractPlayerCommand {
         plugin.getProfileManager().saveProfile(profile);
 
         PacketHandler targetPacket = targetPlayerRef.getPacketHandler();
-        Message targetPrimary = Message.raw(skill.getSymbol() + " " + skill.getDisplayName().toUpperCase() + " LEVEL SET").color("#FFD700").bold(true);
+        Message targetPrimary = Message.raw(skill.getDisplayName().toUpperCase() + " LEVEL SET").color("#FFD700").bold(true);
         
         int totalTokens = skills.getTreeData().getAllTokenCounts(skill.getId())
             .values().stream().mapToInt(Integer::intValue).sum();

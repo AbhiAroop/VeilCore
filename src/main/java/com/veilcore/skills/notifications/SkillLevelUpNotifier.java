@@ -35,7 +35,7 @@ public class SkillLevelUpNotifier {
         Map<TokenTier, Integer> tokensAwarded = calculateTokensAwarded(newLevel - levelsGained, newLevel);
         
         // Primary message: Skill name and level
-        String levelUpText = skill.getSymbol() + " " + skill.getDisplayName().toUpperCase() + " LEVEL UP!";
+        String levelUpText = skill.getDisplayName().toUpperCase() + " LEVEL UP!";
         Message primaryMessage = Message.raw(levelUpText).color("#FFFFFF").bold(true);
         
         // Secondary message: Level progression and tokens
@@ -49,7 +49,7 @@ public class SkillLevelUpNotifier {
             for (Map.Entry<TokenTier, Integer> entry : tokensAwarded.entrySet()) {
                 if (!first) secondaryText.append(", ");
                 secondaryText.append("+").append(entry.getValue()).append(" ")
-                             .append(entry.getKey().getSymbol());
+                             .append(entry.getKey().getDisplayName());
                 first = false;
             }
         }
