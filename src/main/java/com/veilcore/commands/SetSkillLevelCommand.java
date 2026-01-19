@@ -2,6 +2,7 @@ package com.veilcore.commands;
 
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.protocol.ItemWithAllMetadata;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.NameMatching;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
@@ -9,10 +10,13 @@ import com.hypixel.hytale.server.core.command.system.arguments.system.RequiredAr
 import com.hypixel.hytale.server.core.command.system.arguments.types.ArgTypes;
 import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayerCommand;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.inventory.ItemStack;
+import com.hypixel.hytale.server.core.io.PacketHandler;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.core.util.NotificationUtil;
 import com.veilcore.VeilCorePlugin;
 import com.veilcore.profile.Profile;
 import com.veilcore.skills.ProfileSkills;
@@ -99,23 +103,32 @@ public class SetSkillLevelCommand extends AbstractPlayerCommand {
         // Save profile
         plugin.getProfileManager().saveProfile(profile);
 
-        String msg = String.format("Set %s level: %d -> %d",
-            skill.getDisplayName(),
-            oldLevel,
-            level
-        );
-        targetPlayerRef.sendMessage(Message.raw(msg).color("#55FF55"));
+        PacketHandler targetPacket = targetPlayerRef.getPacketHandler();
+        Message targetPrimary = Message.raw(skill.getSymbol() + " " + skill.getDisplayName().toUpperCase() + " LEVEL SET").color("#FFD700").bold(true);
         
-        // Show token info to target
         int totalTokens = skills.getTreeData().getAllTokenCounts(skill.getId())
             .values().stream().mapToInt(Integer::intValue).sum();
-        targetPlayerRef.sendMessage(Message.raw("Available tokens: " + totalTokens).color("#AAAAAA"));
+        Message targetSecondary = Message.raw(String.format("%d -> %d  |  %d tokens available", oldLevel, level, totalTokens)).color("#FFFFFF");
+        
+        String iconItem = getSkillIcon(skill);
+        ItemWithAllMetadata targetIcon = new ItemStack(iconItem, 1).toPacket();
+        NotificationUtil.sendNotification(targetPacket, targetPrimary, targetSecondary, targetIcon);
         
         // Notify command sender
-        playerRef.sendMessage(Message.raw(String.format("Set %s's %s level to %d",
-            targetPlayer.getDisplayName(),
-            skill.getDisplayName(),
-            level
-        )).color("#55FF55"));
+        PacketHandler senderPacket = playerRef.getPacketHandler();
+        Message senderPrimary = Message.raw("Level Set").color("#FFD700").bold(true);
+        Message senderSecondary = Message.raw(String.format("%s's %s: %d -> %d", targetPlayer.getDisplayName(), skill.getDisplayName(), oldLevel, level)).color("#FFFFFF");
+        String senderIconItem = getSkillIcon(skill);
+        ItemWithAllMetadata senderIcon = new ItemStack(senderIconItem, 1).toPacket();
+        NotificationUtil.sendNotification(senderPacket, senderPrimary, senderSecondary, senderIcon);
+    }
+
+    private String getSkillIcon(Skill skill) {
+        return switch (skill) {
+            case MINING -> "Prefab_Stone";
+            case COMBAT -> "Weapon_Sword_Mithril";
+            case FARMING -> "Prefab_Wheat";
+            case FISHING -> "Weapon_Fishing_Rod";
+        };
     }
 }

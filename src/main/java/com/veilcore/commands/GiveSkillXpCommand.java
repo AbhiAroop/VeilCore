@@ -2,6 +2,7 @@ package com.veilcore.commands;
 
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.protocol.ItemWithAllMetadata;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.NameMatching;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
@@ -9,10 +10,13 @@ import com.hypixel.hytale.server.core.command.system.arguments.system.RequiredAr
 import com.hypixel.hytale.server.core.command.system.arguments.types.ArgTypes;
 import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayerCommand;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.inventory.ItemStack;
+import com.hypixel.hytale.server.core.io.PacketHandler;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.core.util.NotificationUtil;
 import com.veilcore.VeilCorePlugin;
 import com.veilcore.profile.Profile;
 import com.veilcore.skills.ProfileSkills;
@@ -97,21 +101,29 @@ public class GiveSkillXpCommand extends AbstractPlayerCommand {
             SkillLevelUpNotifier notifier = new SkillLevelUpNotifier();
             notifier.notifyLevelUp(targetPlayerRef, skill, newLevel, levelsGained, skills.getTreeData());
         } else {
-            String msg = String.format("+%d %s XP (Level %d: %d/%d XP)",
-                xpAmount,
-                skill.getDisplayName(),
-                newLevel,
-                skills.getXp(skill),
-                skills.getXpToNextLevel(skill)
-            );
-            targetPlayerRef.sendMessage(Message.raw(msg).color("#55FF55"));
+            PacketHandler targetPacket = targetPlayerRef.getPacketHandler();
+            Message primary = Message.raw(String.format("+%d %s XP", xpAmount, skill.getDisplayName())).color("#55FF55");
+            Message secondary = Message.raw(String.format("Level %d: %d/%d XP", newLevel, skills.getXp(skill), skills.getXpToNextLevel(skill))).color("#AAAAAA");
+            String iconItem = getSkillIcon(skill);
+            ItemWithAllMetadata icon = new ItemStack(iconItem, 1).toPacket();
+            NotificationUtil.sendNotification(targetPacket, primary, secondary, icon);
         }
         
         // Notify command sender
-        playerRef.sendMessage(Message.raw(String.format("Gave %d %s XP to %s",
-            xpAmount,
-            skill.getDisplayName(),
-            targetPlayer.getDisplayName()
-        )).color("#55FF55"));
+        PacketHandler senderPacket = playerRef.getPacketHandler();
+        Message senderPrimary = Message.raw("XP Awarded").color("#55FF55").bold(true);
+        Message senderSecondary = Message.raw(String.format("+%d %s XP to %s", xpAmount, skill.getDisplayName(), targetPlayer.getDisplayName())).color("#FFFFFF");
+        String iconItem = getSkillIcon(skill);
+        ItemWithAllMetadata senderIcon = new ItemStack(iconItem, 1).toPacket();
+        NotificationUtil.sendNotification(senderPacket, senderPrimary, senderSecondary, senderIcon);
+    }
+
+    private String getSkillIcon(Skill skill) {
+        return switch (skill) {
+            case MINING -> "Prefab_Stone";
+            case COMBAT -> "Weapon_Sword_Mithril";
+            case FARMING -> "Prefab_Wheat";
+            case FISHING -> "Weapon_Fishing_Rod";
+        };
     }
 }
