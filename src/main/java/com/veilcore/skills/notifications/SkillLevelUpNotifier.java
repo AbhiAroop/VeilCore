@@ -105,11 +105,11 @@ public class SkillLevelUpNotifier {
      */
     private String getSkillIconItem(Skill skill) {
         return switch (skill.getId()) {
-            case "mining" -> "Prefab_Stone";
+            case "mining" -> "Tool_Pickaxe_Stone";
             case "combat" -> "Weapon_Sword_Mithril";
-            case "farming" -> "Prefab_Wheat";
+            case "farming" -> "Tool_Hoe_Wood";
             case "fishing" -> "Weapon_Fishing_Rod";
-            default -> "Prefab_Stone"; // fallback
+            default -> "Weapon_Sword_Mithril"; // fallback
         };
     }
 

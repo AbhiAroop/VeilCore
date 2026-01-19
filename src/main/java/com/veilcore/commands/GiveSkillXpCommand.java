@@ -120,9 +120,9 @@ public class GiveSkillXpCommand extends AbstractPlayerCommand {
 
     private String getSkillIcon(Skill skill) {
         return switch (skill) {
-            case MINING -> "Prefab_Stone";
+            case MINING -> "Tool_Pickaxe_Stone";
             case COMBAT -> "Weapon_Sword_Mithril";
-            case FARMING -> "Prefab_Wheat";
+            case FARMING -> "Tool_Hoe_Wood";
             case FISHING -> "Weapon_Fishing_Rod";
         };
     }
