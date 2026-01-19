@@ -12,11 +12,11 @@ public class OreExtraction extends Subskill {
     public static final String ID = "ore_extraction";
     
     public enum OreRarity {
-        COMMON(5),      // Coal, copper
-        UNCOMMON(10),   // Iron, tin
-        RARE(25),       // Gold, silver
-        EPIC(50),       // Diamond, emerald
-        LEGENDARY(100); // Ancient debris, mythril
+        COMMON(5),      // Calcite, limestone
+        UNCOMMON(10),   // Copper, tin
+        RARE(25),       // Iron, silver
+        EPIC(50),       // Gold, feranite
+        LEGENDARY(100); // Mithril, varyn
         
         private final long xpAmount;
         
@@ -50,7 +50,7 @@ public class OreExtraction extends Subskill {
     
     /**
      * Get ore rarity from block ID
-     * @param blockId The block ID (e.g., "Ore_Coal", "Ore_Diamond")
+     * @param blockId The block ID (e.g., "Ore_Calcite", "Ore_Mithril")
      * @return The ore rarity, or null if not an ore
      */
     public static OreRarity getOreRarity(String blockId) {
@@ -59,28 +59,27 @@ public class OreExtraction extends Subskill {
         String lowerBlockId = blockId.toLowerCase();
         
         // Common ores
-        if (lowerBlockId.contains("coal") || lowerBlockId.contains("copper")) {
+        if (lowerBlockId.contains("calcite") || lowerBlockId.contains("limestone")) {
             return OreRarity.COMMON;
         }
         
         // Uncommon ores
-        if (lowerBlockId.contains("iron") || lowerBlockId.contains("tin")) {
+        if (lowerBlockId.contains("copper") || lowerBlockId.contains("tin")) {
             return OreRarity.UNCOMMON;
         }
         
         // Rare ores
-        if (lowerBlockId.contains("gold") || lowerBlockId.contains("silver")) {
+        if (lowerBlockId.contains("iron") || lowerBlockId.contains("silver")) {
             return OreRarity.RARE;
         }
         
         // Epic ores
-        if (lowerBlockId.contains("diamond") || lowerBlockId.contains("emerald")) {
+        if (lowerBlockId.contains("gold") || lowerBlockId.contains("feranite")) {
             return OreRarity.EPIC;
         }
         
         // Legendary ores
-        if (lowerBlockId.contains("ancient") || lowerBlockId.contains("mythril") || 
-            lowerBlockId.contains("mithril") || lowerBlockId.contains("debris")) {
+        if (lowerBlockId.contains("mithril") || lowerBlockId.contains("varyn")) {
             return OreRarity.LEGENDARY;
         }
         
