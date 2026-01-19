@@ -54,10 +54,11 @@ public class PlayerEventListener {
         List<Profile> profiles = plugin.getProfileManager().getProfiles(playerUUID);
         
         if (profiles.isEmpty()) {
-            // First-time player - force profile creation (non-cancellable)
-            playerRef.sendMessage(Message.raw("Welcome! Please create your first profile to begin playing.").color("#FFD700"));
-            ProfileCreationPage creationPage = new ProfileCreationPage(playerRef, false); // false = cannot cancel
-            player.getPageManager().openCustomPage(ref, store, creationPage);
+            // First-time player - send message, don't force UI on join
+            playerRef.sendMessage(Message.raw("Welcome! Use /profile to create your first profile.").color("#FFD700"));
+            // Commented out auto-open to prevent crashes
+            // ProfileCreationPage creationPage = new ProfileCreationPage(playerRef, false);
+            // player.getPageManager().openCustomPage(ref, store, creationPage);
         } else {
             // Returning player - check for last active profile
             UUID lastActiveId = plugin.getProfileManager().getLastActiveProfileId(playerUUID);
@@ -73,10 +74,11 @@ public class PlayerEventListener {
                 }
             }
             
-            // No valid last active profile - show selection
-            playerRef.sendMessage(Message.raw("Select a profile to continue:").color("#FFD700"));
-            ProfileSelectionPage selectionPage = new ProfileSelectionPage(playerRef, profiles);
-            player.getPageManager().openCustomPage(ref, store, selectionPage);
+            // No valid last active profile - send message, don't force UI
+            playerRef.sendMessage(Message.raw("Use /profile to select a profile").color("#FFD700"));
+            // Commented out auto-open to prevent crashes
+            // ProfileSelectionPage selectionPage = new ProfileSelectionPage(playerRef, profiles);
+            // player.getPageManager().openCustomPage(ref, store, selectionPage);
         }
     }
 
