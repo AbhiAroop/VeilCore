@@ -244,6 +244,18 @@ Group {
             Style: (FontSize: 13, TextColor: #1a1a1a, RenderBold: true);
           }
         }
+
+        Group { Anchor: (Height: 15); }
+
+        TextButton #SkillTreeButton {
+          Text: "OPEN SKILL TREE";
+          Anchor: (Height: 42);
+          Style: TextButtonStyle(
+            Default: (Background: #00d4ff, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+            Hovered: (Background: #00e4ff, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+            Pressed: (Background: #00c4df, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+          );
+        }
       }
     }
   }

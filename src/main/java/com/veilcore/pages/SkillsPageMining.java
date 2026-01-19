@@ -89,6 +89,7 @@ public class SkillsPageMining extends InteractiveCustomUIPage<SkillsPageMining.S
         // Event bindings for navigation
         evt.addEventBinding(CustomUIEventBindingType.Activating, "#MiningButton", new EventData().append("Action", "Mining"));
         evt.addEventBinding(CustomUIEventBindingType.Activating, "#CombatButton", new EventData().append("Action", "Combat"));
+        evt.addEventBinding(CustomUIEventBindingType.Activating, "#SkillTreeButton", new EventData().append("Action", "SkillTree"));
         evt.addEventBinding(CustomUIEventBindingType.Activating, "#CloseButton", new EventData().append("Action", "Close"));
     }
     
@@ -103,6 +104,9 @@ public class SkillsPageMining extends InteractiveCustomUIPage<SkillsPageMining.S
         switch (data.action) {
             case "Combat":
                 player.getPageManager().openCustomPage(ref, store, new SkillsPageCombat(playerRef, profile));
+                break;
+            case "SkillTree":
+                player.getPageManager().openCustomPage(ref, store, new SkillTreePageMining(playerRef, profile));
                 break;
             case "Close":
                 player.getPageManager().setPage(ref, store, com.hypixel.hytale.protocol.packets.interface_.Page.None);
