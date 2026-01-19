@@ -3,6 +3,7 @@ package com.veilcore.commands;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.NameMatching;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.arguments.system.RequiredArg;
 import com.hypixel.hytale.server.core.command.system.arguments.system.OptionalArg;
@@ -10,6 +11,7 @@ import com.hypixel.hytale.server.core.command.system.arguments.types.ArgTypes;
 import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayerCommand;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.veilcore.VeilCorePlugin;
@@ -29,7 +31,7 @@ public class GiveSkillXpCommand extends AbstractPlayerCommand {
     private final VeilCorePlugin plugin;
     private final RequiredArg<String> skillArg;
     private final RequiredArg<Integer> amountArg;
-    private final OptionalArg<PlayerRef> targetArg;
+    private final OptionalArg<String> targetArg;
 
     public GiveSkillXpCommand(VeilCorePlugin plugin) {
         super("giveskillxp", "Give skill XP to a player (admin)");
@@ -38,7 +40,7 @@ public class GiveSkillXpCommand extends AbstractPlayerCommand {
         // Define arguments
         this.skillArg = withRequiredArg("skill", "The skill to give XP to (mining, combat, farming, fishing)", ArgTypes.STRING);
         this.amountArg = withRequiredArg("amount", "Amount of XP to give", ArgTypes.INTEGER);
-        this.targetArg = withOptionalArg("player", "Target player (defaults to self)", ArgTypes.PLAYER_REF);
+        this.targetArg = withOptionalArg("player", "Target player name (defaults to self)", ArgTypes.STRING);
     }
 
     @Override
@@ -52,7 +54,32 @@ public class GiveSkillXpCommand extends AbstractPlayerCommand {
         // Parse arguments
         String skillName = context.get(skillArg);
         int xpAmount = context.get(amountArg);
-        PlayerRef targetPlayerRef = context.provided(targetArg) ? context.get(targetArg) : playerRef;
+        
+        // Determine target player
+        PlayerRef targetPlayerRef;
+        Player targetPlayer;
+        
+        if (context.provided(targetArg)) {
+            // Target another player by name
+            String targetName = context.get(targetArg);
+            targetPlayerRef = Universe.get().getPlayerByUsername(targetName, NameMatching.EXACT_IGNORE_CASE);
+            
+            if (targetPlayerRef == null) {
+                playerRef.sendMessage(Message.raw("§cPlayer '" + targetName + "' not found or not online!"));
+                return;
+            }
+            
+            targetPlayer = store.getComponent(targetPlayerRef.getReference(), Player.getComponentType());
+        } else {
+            // Target self
+            targetPlayerRef = playerRef;
+            targetPlayer = store.getComponent(ref, Player.getComponentType());
+        }
+        
+        if (targetPlayer == null) {
+            playerRef.sendMessage(Message.raw("§cTarget player not found!"));
+            return;
+        }
         
         // Parse skill
         Skill skill;
@@ -60,13 +87,6 @@ public class GiveSkillXpCommand extends AbstractPlayerCommand {
             skill = Skill.valueOf(skillName.toUpperCase());
         } catch (IllegalArgumentException e) {
             playerRef.sendMessage(Message.raw("§cInvalid skill! Use: mining, combat, farming, or fishing"));
-            return;
-        }
-        
-        // Get target player's profile
-        Player targetPlayer = store.getComponent(targetPlayerRef.getReference(), Player.getComponentType());
-        if (targetPlayer == null) {
-            playerRef.sendMessage(Message.raw("§cTarget player not found!"));
             return;
         }
         
