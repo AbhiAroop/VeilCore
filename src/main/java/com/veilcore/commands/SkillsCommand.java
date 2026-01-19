@@ -39,11 +39,11 @@ public class SkillsCommand extends AbstractPlayerCommand {
         Profile profile = plugin.getProfileManager().getActiveProfile(player.getUuid());
 
         if (profile == null) {
-            playerRef.sendMessage(Message.raw("§cYou don't have an active profile!"));
+            playerRef.sendMessage(Message.raw("You don't have an active profile!").color("#FF5555"));
             return;
         }
 
-        // Open the Skills UI page
+        // Open skills UI
         SkillsPageMining skillsPage = new SkillsPageMining(playerRef, profile);
         player.getPageManager().openCustomPage(ref, store, skillsPage);
     }

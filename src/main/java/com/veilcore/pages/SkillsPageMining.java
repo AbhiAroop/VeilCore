@@ -106,6 +106,7 @@ public class SkillsPageMining extends InteractiveCustomUIPage<SkillsPageMining.S
                 player.getPageManager().openCustomPage(ref, store, new SkillsPageCombat(playerRef, profile));
                 break;
             case "SkillTree":
+                // Open simple skill tree UI
                 player.getPageManager().openCustomPage(ref, store, new SkillTreePageMining(playerRef, profile));
                 break;
             case "Close":

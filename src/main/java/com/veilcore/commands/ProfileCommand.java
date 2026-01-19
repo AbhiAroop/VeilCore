@@ -8,6 +8,7 @@ import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.core.Message;
 import com.veilcore.VeilCorePlugin;
 import com.veilcore.pages.ProfileCreationPage;
 import com.veilcore.pages.ProfileSelectionPage;
@@ -35,50 +36,24 @@ public class ProfileCommand extends AbstractPlayerCommand {
     ) {
         Player player = store.getComponent(ref, Player.getComponentType());
         
-        // Check if player has any profiles
+        // Dynamic UIs not supported yet - show profile info via chat
         List<Profile> profiles = VeilCorePlugin.getInstance().getProfileManager()
             .getProfiles(player.getUuid());
         
         if (profiles.isEmpty()) {
-            // No profiles - open FORCED creation page (cannot cancel)
-            ProfileCreationPage page = new ProfileCreationPage(playerRef, false);
-            player.getPageManager().openCustomPage(ref, store, page);
+            playerRef.sendMessage(Message.raw("No profiles found. Profile system coming soon!").color("#FF5555"));
         } else {
-            // Has profiles - check if player has an active profile loaded
             Profile activeProfile = VeilCorePlugin.getInstance().getProfileManager()
                 .getActiveProfile(player.getUuid());
+                
+            playerRef.sendMessage(Message.raw("=== Your Profiles ===").color("#FFD700").bold(true));
             
-            if (activeProfile == null) {
-                // No active profile - try to load last active profile
-                java.util.UUID lastActiveId = VeilCorePlugin.getInstance().getProfileManager()
-                    .getLastActiveProfileId(player.getUuid());
-                
-                if (lastActiveId != null) {
-                    Profile lastProfile = VeilCorePlugin.getInstance().getProfileManager()
-                        .getProfile(player.getUuid(), lastActiveId);
-                    
-                    if (lastProfile != null) {
-                        // Load the last active profile
-                        VeilCorePlugin.getInstance().getProfileManager()
-                            .setActiveProfile(player.getUuid(), lastProfile.getProfileId());
-                        VeilCorePlugin.getInstance().getStateManager()
-                            .loadProfileStateToPlayer(ref, store, player, lastProfile);
-                        
-                        // Open selection page to show the loaded profile
-                        ProfileSelectionPage page = new ProfileSelectionPage(playerRef, profiles);
-                        player.getPageManager().openCustomPage(ref, store, page);
-                        return;
-                    }
-                }
-                
-                // No last active profile or it was deleted - open selection page
-                ProfileSelectionPage page = new ProfileSelectionPage(playerRef, profiles);
-                player.getPageManager().openCustomPage(ref, store, page);
-            } else {
-                // Has active profile - open selection page
-                ProfileSelectionPage page = new ProfileSelectionPage(playerRef, profiles);
-                player.getPageManager().openCustomPage(ref, store, page);
+            for (Profile profile : profiles) {
+                String marker = (activeProfile != null && profile.getProfileId().equals(activeProfile.getProfileId())) ? " (ACTIVE)" : "";
+                playerRef.sendMessage(Message.raw("  - " + profile.getProfileName() + marker).color("#FFFFFF"));
             }
+            
+            playerRef.sendMessage(Message.raw("Profile UI coming soon!").color("#AAAAAA"));
         }
     }
 }

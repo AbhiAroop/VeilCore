@@ -17,7 +17,6 @@ import com.veilcore.commands.SetSkillLevelCommand;
 import com.veilcore.commands.SkillsCommand;
 import com.veilcore.commands.StatsCommand;
 import com.veilcore.commands.TestDeathCommand;
-import com.veilcore.commands.TestUICommand;
 import com.veilcore.listeners.PlayerDeathListener;
 import com.veilcore.listeners.PlayerEventListener;
 import com.veilcore.profile.PlayerProfileManager;
@@ -60,7 +59,8 @@ public class VeilCorePlugin extends JavaPlugin {
         getLogger().at(Level.INFO).log("Event listeners registered");
 
         // Register commands
-        getCommandRegistry().registerCommand(new TestUICommand());
+        // Disabled TestUICommand - dynamic UIs not supported
+        // getCommandRegistry().registerCommand(new TestUICommand());
         getCommandRegistry().registerCommand(new ProfileCommand());
         getCommandRegistry().registerCommand(new StatsCommand(this));
         getCommandRegistry().registerCommand(new DiscordCommand());
