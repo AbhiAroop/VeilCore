@@ -2,8 +2,12 @@ package com.veilcore.skills.notifications;
 
 import java.util.Map;
 
+import com.hypixel.hytale.protocol.ItemWithAllMetadata;
 import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.inventory.ItemStack;
+import com.hypixel.hytale.server.core.io.PacketHandler;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.util.NotificationUtil;
 import com.veilcore.skills.Skill;
 import com.veilcore.skills.tokens.SkillToken.TokenTier;
 import com.veilcore.skills.trees.PlayerSkillTreeData;
@@ -25,60 +29,39 @@ public class SkillLevelUpNotifier {
     public void notifyLevelUp(PlayerRef playerRef, Skill skill, int newLevel, 
                               int levelsGained, PlayerSkillTreeData treeData) {
         
-        // Header
-        String header = "================================";
-        playerRef.sendMessage(Message.raw(header).color("#888888").bold(true));
-        playerRef.sendMessage(Message.raw(""));
+        PacketHandler packetHandler = playerRef.getPacketHandler();
         
-        // Main level-up message
-        String levelUpMsg = "      " + skill.getSymbol() + " " + skill.getDisplayName().toUpperCase() + 
-                          " LEVEL UP! " + skill.getSymbol();
-        playerRef.sendMessage(Message.raw(levelUpMsg).color("#FFFFFF").bold(true));
+        // Calculate tokens awarded
+        Map<TokenTier, Integer> tokensAwarded = calculateTokensAwarded(newLevel - levelsGained, newLevel);
         
-        // Level progression
+        // Primary message: Skill name and level
+        String levelUpText = skill.getSymbol() + " " + skill.getDisplayName().toUpperCase() + " LEVEL UP!";
+        Message primaryMessage = Message.raw(levelUpText).color("#FFFFFF").bold(true);
+        
+        // Secondary message: Level progression and tokens
         int oldLevel = newLevel - levelsGained;
-        String levelProgress = "        " + oldLevel + " -> " + newLevel;
-        playerRef.sendMessage(Message.raw(levelProgress).color("#55FF55").bold(true));
+        StringBuilder secondaryText = new StringBuilder();
+        secondaryText.append(oldLevel).append(" -> ").append(newLevel);
         
-        playerRef.sendMessage(Message.raw(""));
-        
-        // Check for token rewards
-        Map<TokenTier, Integer> tokensAwarded = calculateTokensAwarded(oldLevel, newLevel);
         if (!tokensAwarded.isEmpty()) {
-            playerRef.sendMessage(Message.raw("   REWARDS").color("#FFD700").bold(true));
-            playerRef.sendMessage(Message.raw(""));
-            
+            secondaryText.append("  |  ");
+            boolean first = true;
             for (Map.Entry<TokenTier, Integer> entry : tokensAwarded.entrySet()) {
-                TokenTier tier = entry.getKey();
-                int count = entry.getValue();
-                
-                String tokenMsg = "      " + tier.getSymbol() + " +" + count + " " +
-                                tier.getDisplayName() + " Token" + (count > 1 ? "s" : "");
-                playerRef.sendMessage(Message.raw(tokenMsg).color(tier.getColor()));
+                if (!first) secondaryText.append(", ");
+                secondaryText.append("+").append(entry.getValue()).append(" ")
+                             .append(entry.getKey().getSymbol());
+                first = false;
             }
-            
-            playerRef.sendMessage(Message.raw(""));
-            
-            // Show total tokens
-            Map<TokenTier, Integer> totalTokens = treeData.getAllTokenCounts(skill.getId());
-            int total = totalTokens.values().stream().mapToInt(Integer::intValue).sum();
-            String totalMsg = "      Total Tokens: " + total;
-            playerRef.sendMessage(Message.raw(totalMsg).color("#AAAAAA"));
         }
         
-        playerRef.sendMessage(Message.raw(""));
+        Message secondaryMessage = Message.raw(secondaryText.toString()).color("#55FF55");
         
-        // Next milestone
-        int nextMilestone = getNextMilestone(newLevel);
-        if (nextMilestone > 0) {
-            String milestoneMsg = "   Next reward at level " + nextMilestone;
-            playerRef.sendMessage(Message.raw(milestoneMsg).color("#AAAAAA"));
-        } else {
-            playerRef.sendMessage(Message.raw("   MAX LEVEL REACHED!").color("#FFD700").bold(true));
-        }
+        // Get skill icon item (using a placeholder - you can customize per skill)
+        String iconItem = getSkillIconItem(skill);
+        ItemWithAllMetadata icon = new ItemStack(iconItem, 1).toPacket();
         
-        playerRef.sendMessage(Message.raw(""));
-        playerRef.sendMessage(Message.raw(header).color("#888888").bold(true));
+        // Send notification
+        NotificationUtil.sendNotification(packetHandler, primaryMessage, secondaryMessage, icon);
     }
 
     /**
@@ -115,6 +98,19 @@ public class SkillLevelUpNotifier {
         
         // Next multiple of 5
         return ((currentLevel / 5) + 1) * 5;
+    }
+
+    /**
+     * Get the icon item for a skill's notification
+     */
+    private String getSkillIconItem(Skill skill) {
+        return switch (skill.getId()) {
+            case "mining" -> "Prefab_Stone";
+            case "combat" -> "Weapon_Sword_Mithril";
+            case "farming" -> "Prefab_Wheat";
+            case "fishing" -> "Weapon_Fishing_Rod";
+            default -> "Prefab_Stone"; // fallback
+        };
     }
 
     /**
