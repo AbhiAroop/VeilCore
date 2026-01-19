@@ -18,6 +18,7 @@ import com.veilcore.commands.SetSkillLevelCommand;
 import com.veilcore.commands.SkillsCommand;
 import com.veilcore.commands.StatsCommand;
 import com.veilcore.commands.TestDeathCommand;
+import com.veilcore.commands.TestMineOreCommand;
 import com.veilcore.listeners.PlayerDeathListener;
 import com.veilcore.listeners.PlayerEventListener;
 import com.veilcore.profile.PlayerProfileManager;
@@ -72,6 +73,7 @@ public class VeilCorePlugin extends JavaPlugin {
         getCommandRegistry().registerCommand(new GiveSkillXpCommand(this));
         getCommandRegistry().registerCommand(new SetSkillLevelCommand(this));
         getCommandRegistry().registerCommand(new GiveSkillTokensCommand(this));
+        getCommandRegistry().registerCommand(new TestMineOreCommand(this));
         
         // Start playtime tracker (runs every second)
         playtimeScheduler = java.util.concurrent.Executors.newSingleThreadScheduledExecutor();
