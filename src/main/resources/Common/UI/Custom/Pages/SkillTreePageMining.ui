@@ -8,26 +8,194 @@ $C = "../Common.ui";
   Pressed: (Background: #7b2a2a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
 );
 
-@BackButtonStyle = TextButtonStyle(
-  Default: (Background: #2c3e50, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-  Hovered: (Background: #34495e, LabelStyle: (FontSize: 13, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-  Pressed: (Background: #1a252f, LabelStyle: (FontSize: 13, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
-);
-
-@NodeButtonStyle = TextButtonStyle(
-  Default: (Background: #2c3e50, LabelStyle: (FontSize: 11, TextColor: #ffffff, RenderBold: false, HorizontalAlignment: Center, VerticalAlignment: Center)),
-  Hovered: (Background: #34495e, LabelStyle: (FontSize: 11, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-  Pressed: (Background: #1a252f, LabelStyle: (FontSize: 11, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
-);
-
-@UnlockedNodeStyle = TextButtonStyle(
-  Default: (Background: #55ff55(0.3), LabelStyle: (FontSize: 11, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-  Hovered: (Background: #55ff55(0.4), LabelStyle: (FontSize: 11, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-  Pressed: (Background: #55ff55(0.2), LabelStyle: (FontSize: 11, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+@ButtonStyle = TextButtonStyle(
+  Default: (Background: #2c3e50, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: false, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #34495e, LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #1a252f, LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
 );
 
 Group {
-  LayoutMode: Left;
+  LayoutMode: Top;
+  Anchor: (Width: 800, Height: 600);
+  Background: @BackgroundImage;
+  Padding: (Full: 20);
+
+  // Header
+  Label #PlayerName {
+    Text: "Player";
+    Anchor: (Height: 35);
+    Style: (FontSize: 16, TextColor: #1a1a1a, RenderBold: true, HorizontalAlignment: Center);
+  }
+
+  Label #SkillName {
+    Text: "Mining Skill Tree";
+    Anchor: (Height: 30);
+    Style: (FontSize: 14, TextColor: #1a1a1a, RenderBold: true, HorizontalAlignment: Center);
+  }
+
+  Group { 
+    Anchor: (Height: 3);
+    Background: #ffffff(0.8);
+  }
+
+  Group { Anchor: (Height: 15); }
+
+  // Token info
+  Group {
+    LayoutMode: Top;
+    Background: #1e2a3a(0.85);
+    Padding: (Full: 15);
+    Anchor: (Height: 120);
+
+    Label {
+      Text: "Available Tokens";
+      Anchor: (Height: 25);
+      Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+    }
+
+    Group { Anchor: (Height: 10); }
+
+    Group {
+      LayoutMode: Left;
+      Anchor: (Height: 28);
+
+      Label {
+        Text: "Basic:";
+        Anchor: (Width: 150);
+        Style: (FontSize: 12, TextColor: #aaaaaa, RenderBold: false);
+      }
+
+      Label #BasicTokens {
+        Text: "0";
+        Anchor: (Width: 80);
+        Style: (FontSize: 12, TextColor: #ffffff, RenderBold: true);
+      }
+
+      Label {
+        Text: "Advanced:";
+        Anchor: (Width: 150);
+        Style: (FontSize: 12, TextColor: #5555ff, RenderBold: false);
+      }
+
+      Label #AdvancedTokens {
+        Text: "0";
+        Anchor: (Width: 80);
+        Style: (FontSize: 12, TextColor: #ffffff, RenderBold: true);
+      }
+
+      Label {
+        Text: "Master:";
+        Anchor: (Width: 150);
+        Style: (FontSize: 12, TextColor: #ff55ff, RenderBold: false);
+      }
+
+      Label #MasterTokens {
+        Text: "0";
+        FlexWeight: 1;
+        Style: (FontSize: 12, TextColor: #ffffff, RenderBold: true);
+      }
+    }
+  }
+
+  Group { Anchor: (Height: 20); }
+
+  // Tree area
+  Group {
+    LayoutMode: Top;
+    FlexWeight: 1;
+    Background: #1e2a3a(0.85);
+    Padding: (Full: 20);
+
+    // Root Node
+    Group #RootNode {
+      LayoutMode: Top;
+      Anchor: (Height: 100);
+      Background: #55ff55(0.2);
+      Padding: (Full: 10);
+
+      Label #RootNodeName {
+        Text: "Mining";
+        Anchor: (Height: 25);
+        Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+      }
+
+      Label #RootNodeStatus {
+        Text: "UNLOCKED";
+        Anchor: (Height: 20);
+        Style: (FontSize: 11, TextColor: #55ff55, RenderBold: true, HorizontalAlignment: Center);
+      }
+    }
+
+    Group { Anchor: (Height: 20); }
+
+    // Mining Fortune Node
+    Group #FortuneNode {
+      LayoutMode: Top;
+      Anchor: (Height: 200);
+      Background: #2c3e50;
+      Padding: (Full: 15);
+
+      Label #FortuneNodeName {
+        Text: "Mining Fortune";
+        Anchor: (Height: 25);
+        Style: (FontSize: 13, TextColor: #ffd700, RenderBold: true, HorizontalAlignment: Center);
+      }
+
+      Label #FortuneNodeLevel {
+        Text: "0/50";
+        Anchor: (Height: 20);
+        Style: (FontSize: 11, TextColor: #ffffff, RenderBold: false, HorizontalAlignment: Center);
+      }
+
+      Group { Anchor: (Height: 10); }
+
+      Label #FortuneNodeDescription {
+        Text: "Increases drop rates from mining";
+        Anchor: (Height: 40);
+        Style: (FontSize: 10, TextColor: #aaaaaa, RenderBold: false, HorizontalAlignment: Center);
+      }
+
+      Group { FlexWeight: 1; }
+
+      TextButton #FortuneNodeButton {
+        Text: "UNLOCK / UPGRADE";
+        Anchor: (Height: 35);
+        Style: @ButtonStyle;
+      }
+
+      Group { Anchor: (Height: 5); }
+
+      Label #FortuneNodeStatus {
+        Text: "Unlock: 1 token";
+        Anchor: (Height: 20);
+        Style: (FontSize: 10, TextColor: #aaaaaa, RenderBold: true, HorizontalAlignment: Center);
+      }
+    }
+  }
+
+  Group { Anchor: (Height: 15); }
+
+  // Bottom buttons
+  Group {
+    LayoutMode: Left;
+    Anchor: (Height: 40);
+
+    TextButton #BackButton {
+      Text: "BACK";
+      Anchor: (Width: 150);
+      Style: @ButtonStyle;
+    }
+
+    Group { FlexWeight: 1; }
+
+    TextButton #CloseButton {
+      Text: "CLOSE";
+      Anchor: (Width: 150);
+      Style: @CloseButtonStyle;
+    }
+  }
+}
+
   Anchor: (Width: 900, Height: 700);
   Background: @BackgroundImage;
 

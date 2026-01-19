@@ -101,10 +101,8 @@ public class SkillTreePageMining extends InteractiveCustomUIPage<SkillTreePageMi
         // Root node - always unlocked
         SkillTreeNode rootNode = tree.getNode("root");
         if (rootNode != null) {
-            cmd.set("#RootNode.Visible", "true");
             cmd.set("#RootNodeName.Text", rootNode.getName());
             cmd.set("#RootNodeStatus.Text", "UNLOCKED");
-            cmd.set("#RootNodeStatus.Color", "#55FF55");
         }
         
         // Mining Fortune node (upgradable 50 levels)
@@ -113,17 +111,14 @@ public class SkillTreePageMining extends InteractiveCustomUIPage<SkillTreePageMi
             int currentLevel = treeData.getNodeLevel(Skill.MINING.getId(), "mining_fortune");
             boolean isUnlocked = currentLevel > 0;
             
-            cmd.set("#FortuneNode.Visible", "true");
             cmd.set("#FortuneNodeName.Text", fortuneNode.getName());
             cmd.set("#FortuneNodeLevel.Text", currentLevel + "/" + fortuneNode.getMaxLevel());
             
             if (currentLevel >= fortuneNode.getMaxLevel()) {
                 cmd.set("#FortuneNodeStatus.Text", "MAX LEVEL");
-                cmd.set("#FortuneNodeStatus.Color", "#FFD700");
             } else if (isUnlocked) {
                 int nextCost = fortuneNode.getTokenCost(currentLevel + 1);
                 cmd.set("#FortuneNodeStatus.Text", "Upgrade: " + nextCost + " tokens");
-                cmd.set("#FortuneNodeStatus.Color", "#55FFFF");
                 
                 // Can upgrade?
                 evt.addEventBinding(CustomUIEventBindingType.Activating, "#FortuneNodeButton", 
@@ -131,7 +126,6 @@ public class SkillTreePageMining extends InteractiveCustomUIPage<SkillTreePageMi
             } else {
                 int unlockCost = fortuneNode.getTokenCost(1);
                 cmd.set("#FortuneNodeStatus.Text", "Unlock: " + unlockCost + " tokens");
-                cmd.set("#FortuneNodeStatus.Color", "#AAAAAA");
                 
                 evt.addEventBinding(CustomUIEventBindingType.Activating, "#FortuneNodeButton", 
                     new EventData().append("Action", "Unlock").append("NodeId", "mining_fortune"));
