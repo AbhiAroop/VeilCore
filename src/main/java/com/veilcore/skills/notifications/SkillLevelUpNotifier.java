@@ -25,36 +25,36 @@ public class SkillLevelUpNotifier {
     public void notifyLevelUp(PlayerRef playerRef, Skill skill, int newLevel, 
                               int levelsGained, PlayerSkillTreeData treeData) {
         
-        // Header with skill symbol and color
-        String header = "§8§l▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬";
-        playerRef.sendMessage(Message.raw(header));
+        // Header
+        String header = "================================";
+        playerRef.sendMessage(Message.raw(header).color("#888888").bold(true));
         playerRef.sendMessage(Message.raw(""));
         
         // Main level-up message
-        String levelUpMsg = "      §f§l" + skill.getSymbol() + " " + skill.getDisplayName().toUpperCase() + 
-                          " LEVEL UP! §f§l" + skill.getSymbol();
-        playerRef.sendMessage(Message.raw(levelUpMsg));
+        String levelUpMsg = "      " + skill.getSymbol() + " " + skill.getDisplayName().toUpperCase() + 
+                          " LEVEL UP! " + skill.getSymbol();
+        playerRef.sendMessage(Message.raw(levelUpMsg).color("#FFFFFF").bold(true));
         
         // Level progression
         int oldLevel = newLevel - levelsGained;
-        String levelProgress = "        §7" + oldLevel + " §8→ §a§l" + newLevel;
-        playerRef.sendMessage(Message.raw(levelProgress));
+        String levelProgress = "        " + oldLevel + " -> " + newLevel;
+        playerRef.sendMessage(Message.raw(levelProgress).color("#55FF55").bold(true));
         
         playerRef.sendMessage(Message.raw(""));
         
         // Check for token rewards
         Map<TokenTier, Integer> tokensAwarded = calculateTokensAwarded(oldLevel, newLevel);
         if (!tokensAwarded.isEmpty()) {
-            playerRef.sendMessage(Message.raw("   §6✦ §e§lREWARDS §6✦"));
+            playerRef.sendMessage(Message.raw("   REWARDS").color("#FFD700").bold(true));
             playerRef.sendMessage(Message.raw(""));
             
             for (Map.Entry<TokenTier, Integer> entry : tokensAwarded.entrySet()) {
                 TokenTier tier = entry.getKey();
                 int count = entry.getValue();
                 
-                String tokenMsg = "      " + tier.getColor() + tier.getSymbol() + " §f+" + count + " " +
+                String tokenMsg = "      " + tier.getSymbol() + " +" + count + " " +
                                 tier.getDisplayName() + " Token" + (count > 1 ? "s" : "");
-                playerRef.sendMessage(Message.raw(tokenMsg));
+                playerRef.sendMessage(Message.raw(tokenMsg).color(tier.getColor()));
             }
             
             playerRef.sendMessage(Message.raw(""));
@@ -62,8 +62,8 @@ public class SkillLevelUpNotifier {
             // Show total tokens
             Map<TokenTier, Integer> totalTokens = treeData.getAllTokenCounts(skill.getId());
             int total = totalTokens.values().stream().mapToInt(Integer::intValue).sum();
-            String totalMsg = "      §7Total Tokens: §f" + total;
-            playerRef.sendMessage(Message.raw(totalMsg));
+            String totalMsg = "      Total Tokens: " + total;
+            playerRef.sendMessage(Message.raw(totalMsg).color("#AAAAAA"));
         }
         
         playerRef.sendMessage(Message.raw(""));
@@ -71,14 +71,14 @@ public class SkillLevelUpNotifier {
         // Next milestone
         int nextMilestone = getNextMilestone(newLevel);
         if (nextMilestone > 0) {
-            String milestoneMsg = "   §7Next reward at level §e" + nextMilestone;
-            playerRef.sendMessage(Message.raw(milestoneMsg));
+            String milestoneMsg = "   Next reward at level " + nextMilestone;
+            playerRef.sendMessage(Message.raw(milestoneMsg).color("#AAAAAA"));
         } else {
-            playerRef.sendMessage(Message.raw("   §6§lMAX LEVEL REACHED!"));
+            playerRef.sendMessage(Message.raw("   MAX LEVEL REACHED!").color("#FFD700").bold(true));
         }
         
         playerRef.sendMessage(Message.raw(""));
-        playerRef.sendMessage(Message.raw(header));
+        playerRef.sendMessage(Message.raw(header).color("#888888").bold(true));
     }
 
     /**
@@ -122,10 +122,10 @@ public class SkillLevelUpNotifier {
      */
     public void notifyXpGain(PlayerRef playerRef, Skill skill, long xpGained, long currentXp, long xpNeeded) {
         double percent = (double) currentXp / xpNeeded * 100;
-        String xpMsg = String.format("§7+%d %s XP §8(§a%.1f%%§8)", xpGained, skill.getDisplayName(), percent);
+        String xpMsg = String.format("+%d %s XP (%.1f%%)", xpGained, skill.getDisplayName(), percent);
         
         // Send as action bar instead of chat (less spammy)
         // For now, just send as message but could be enhanced with action bar API
-        playerRef.sendMessage(Message.raw(xpMsg));
+        playerRef.sendMessage(Message.raw(xpMsg).color("#AAAAAA"));
     }
 }

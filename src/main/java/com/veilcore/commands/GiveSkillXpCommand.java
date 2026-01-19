@@ -6,7 +6,7 @@ import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.NameMatching;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.arguments.system.RequiredArg;
-import com.hypixel.hytale.server.core.command.system.arguments.system.OptionalArg;
+import com.hypixel.hytale.server.core.command.system.arguments.system.DefaultArg;
 import com.hypixel.hytale.server.core.command.system.arguments.types.ArgTypes;
 import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayerCommand;
 import com.hypixel.hytale.server.core.entity.entities.Player;
@@ -31,7 +31,7 @@ public class GiveSkillXpCommand extends AbstractPlayerCommand {
     private final VeilCorePlugin plugin;
     private final RequiredArg<String> skillArg;
     private final RequiredArg<Integer> amountArg;
-    private final OptionalArg<String> targetArg;
+    private final DefaultArg<String> targetArg;
 
     public GiveSkillXpCommand(VeilCorePlugin plugin) {
         super("giveskillxp", "Give skill XP to a player (admin)");
@@ -40,7 +40,7 @@ public class GiveSkillXpCommand extends AbstractPlayerCommand {
         // Define arguments
         this.skillArg = withRequiredArg("skill", "The skill to give XP to (mining, combat, farming, fishing)", ArgTypes.STRING);
         this.amountArg = withRequiredArg("amount", "Amount of XP to give", ArgTypes.INTEGER);
-        this.targetArg = withOptionalArg("player", "Target player name (defaults to self)", ArgTypes.STRING);
+        this.targetArg = withDefaultArg("player", "Target player name (defaults to self)", ArgTypes.STRING, null, "self");
     }
 
     @Override
@@ -59,13 +59,13 @@ public class GiveSkillXpCommand extends AbstractPlayerCommand {
         PlayerRef targetPlayerRef;
         Player targetPlayer;
         
-        if (context.provided(targetArg)) {
+        String targetName = context.get(targetArg);
+        if (targetName != null && !targetName.isEmpty()) {
             // Target another player by name
-            String targetName = context.get(targetArg);
             targetPlayerRef = Universe.get().getPlayerByUsername(targetName, NameMatching.EXACT_IGNORE_CASE);
             
             if (targetPlayerRef == null) {
-                playerRef.sendMessage(Message.raw("§cPlayer '" + targetName + "' not found or not online!"));
+                playerRef.sendMessage(Message.raw("Player '" + targetName + "' not found or not online!").color("#FF5555"));
                 return;
             }
             
@@ -77,7 +77,7 @@ public class GiveSkillXpCommand extends AbstractPlayerCommand {
         }
         
         if (targetPlayer == null) {
-            playerRef.sendMessage(Message.raw("§cTarget player not found!"));
+            playerRef.sendMessage(Message.raw("Target player not found!").color("#FF5555"));
             return;
         }
         
@@ -86,13 +86,13 @@ public class GiveSkillXpCommand extends AbstractPlayerCommand {
         try {
             skill = Skill.valueOf(skillName.toUpperCase());
         } catch (IllegalArgumentException e) {
-            playerRef.sendMessage(Message.raw("§cInvalid skill! Use: mining, combat, farming, or fishing"));
+            playerRef.sendMessage(Message.raw("Invalid skill! Use: mining, combat, farming, or fishing").color("#FF5555"));
             return;
         }
         
         Profile profile = plugin.getProfileManager().getActiveProfile(targetPlayer.getUuid());
         if (profile == null) {
-            playerRef.sendMessage(Message.raw("§cTarget player doesn't have an active profile!"));
+            playerRef.sendMessage(Message.raw("Target player doesn't have an active profile!").color("#FF5555"));
             return;
         }
 
@@ -109,23 +109,23 @@ public class GiveSkillXpCommand extends AbstractPlayerCommand {
             SkillLevelUpNotifier notifier = new SkillLevelUpNotifier();
             notifier.notifyLevelUp(targetPlayerRef, skill, newLevel, levelsGained, skills.getTreeData());
         } else {
-            String msg = String.format("§a+%d %s XP §7(Level %d: %d/%d XP)",
+            String msg = String.format("+%d %s XP (Level %d: %d/%d XP)",
                 xpAmount,
                 skill.getDisplayName(),
                 newLevel,
                 skills.getXp(skill),
                 skills.getXpToNextLevel(skill)
             );
-            targetPlayerRef.sendMessage(Message.raw(msg));
+            targetPlayerRef.sendMessage(Message.raw(msg).color("#55FF55"));
         }
         
         // Notify command sender if different from target
         if (!targetPlayerRef.equals(playerRef)) {
-            playerRef.sendMessage(Message.raw(String.format("§aGave %d %s XP to %s",
+            playerRef.sendMessage(Message.raw(String.format("Gave %d %s XP to %s",
                 xpAmount,
                 skill.getDisplayName(),
                 targetPlayer.getDisplayName()
-            )));
+            )).color("#55FF55"));
         }
     }
 }
