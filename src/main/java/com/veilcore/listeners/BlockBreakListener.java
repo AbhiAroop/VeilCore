@@ -1,18 +1,14 @@
-package com.veilcore.commands;
+package com.veilcore.listeners;
 
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.protocol.ItemWithAllMetadata;
 import com.hypixel.hytale.server.core.Message;
-import com.hypixel.hytale.server.core.command.system.CommandContext;
-import com.hypixel.hytale.server.core.command.system.arguments.system.RequiredArg;
-import com.hypixel.hytale.server.core.command.system.arguments.types.ArgTypes;
-import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayerCommand;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.io.PacketHandler;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
-import com.hypixel.hytale.server.core.universe.world.World;
+import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.NotificationUtil;
 import com.veilcore.VeilCorePlugin;
@@ -25,51 +21,37 @@ import com.veilcore.skills.subskills.mining.OreExtraction;
 import javax.annotation.Nonnull;
 
 /**
- * Test command to simulate mining ore blocks
- * Useful for testing the Ore Extraction subskill
- * Usage: /testmineore <rarity>
- * 
- * Note: The actual ore extraction happens automatically via BlockBreakListener (ESC event)
- * This command is for manual testing and debugging
+ * Listens for block break events using ESC event system
+ * Awards mining XP when players break ore blocks
  */
-public class TestMineOreCommand extends AbstractPlayerCommand {
-    
-    private final VeilCorePlugin plugin;
-    private final RequiredArg<String> rarityArg;
-    
-    public TestMineOreCommand(VeilCorePlugin plugin) {
-        super("testmineore", "Test ore extraction subskill by simulating mining an ore");
-        this.plugin = plugin;
-        
-        this.rarityArg = withRequiredArg("rarity", 
-            "Ore rarity: common, uncommon, rare, epic, legendary", 
-            ArgTypes.STRING);
-    }
-    
-    @Override
-    protected void execute(
-            @Nonnull CommandContext context,
-            @Nonnull Store<EntityStore> store,
-            @Nonnull Ref<EntityStore> ref,
-            @Nonnull PlayerRef playerRef,
-            @Nonnull World world
-    ) {
+public class BlockBreakListener {
+
+    /**
+     * Called when a block is broken
+     * This is an ESC event handler
+     * 
+     * @param blockId The ID of the block that was broken
+     * @param ref Reference to the entity (player) who broke the block
+     * @param store Entity store containing entity components
+     */
+    public static void onBlockBreak(@Nonnull String blockId, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
+        // Get the player who broke the block
         Player player = store.getComponent(ref, Player.getComponentType());
-        Profile profile = plugin.getProfileManager().getActiveProfile(player.getUuid());
-        
-        if (profile == null) {
-            playerRef.sendMessage(Message.raw("You don't have an active profile!").color("#FF5555"));
+        if (player == null) {
             return;
         }
         
-        String rarityName = context.get(rarityArg);
-        OreExtraction.OreRarity rarity;
+        // Get player's profile
+        VeilCorePlugin plugin = VeilCorePlugin.getInstance();
+        Profile profile = plugin.getProfileManager().getActiveProfile(player.getUuid());
+        if (profile == null) {
+            return; // Player doesn't have an active profile
+        }
         
-        try {
-            rarity = OreExtraction.OreRarity.valueOf(rarityName.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            playerRef.sendMessage(Message.raw("Invalid rarity! Use: common, uncommon, rare, epic, legendary").color("#FF5555"));
-            return;
+        // Check if the broken block is an ore
+        OreExtraction.OreRarity rarity = OreExtraction.getOreRarity(blockId);
+        if (rarity == null) {
+            return; // Not an ore block, no XP
         }
         
         // Calculate XP from ore rarity
@@ -86,8 +68,15 @@ public class TestMineOreCommand extends AbstractPlayerCommand {
         // Save profile
         plugin.getProfileManager().saveProfile(profile);
         
-        // Send XP gained notification
+        // Get PlayerRef for notifications
+        PlayerRef playerRef = Universe.get().getPlayer(player.getUuid());
+        if (playerRef == null) {
+            return;
+        }
+        
         PacketHandler packetHandler = playerRef.getPacketHandler();
+        
+        // Send XP gained notification
         Message primaryMsg = Message.raw(String.format("+%d Mining XP", xpGained))
             .color("#FFD700")
             .bold(true);
@@ -120,9 +109,5 @@ public class TestMineOreCommand extends AbstractPlayerCommand {
                 icon
             );
         }
-        
-        // Send chat confirmation
-        playerRef.sendMessage(Message.raw(String.format("Mined %s ore! +%d XP (Level: %d)", 
-            rarity.name(), xpGained, miningLevel.getLevel())).color("#55FF55"));
     }
 }

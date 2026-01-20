@@ -31,7 +31,6 @@ public class VeilCorePlugin extends JavaPlugin {
     private PlayerProfileManager profileManager;
     private ProfileStateManager stateManager;
     private java.util.concurrent.ScheduledExecutorService playtimeScheduler;
-    private PlayerDeathListener deathListener;
 
     public VeilCorePlugin(@Nonnull JavaPluginInit init) {
         super(init);
@@ -50,13 +49,13 @@ public class VeilCorePlugin extends JavaPlugin {
         
         getLogger().at(Level.INFO).log("Profile system initialized");
 
+        // Register ECS systems
+        getEntityStoreRegistry().registerSystem(new PlayerDeathListener(this));
+        getLogger().at(Level.INFO).log("ECS systems registered");
+
         // Register event listeners
         getEventRegistry().registerGlobal(PlayerReadyEvent.class, PlayerEventListener::onPlayerReady);
         getEventRegistry().registerGlobal(PlayerDisconnectEvent.class, PlayerEventListener::onPlayerDisconnect);
-        
-        // TODO: Automatic XP gain listeners (Phase 5)
-        // BlockBreakEvent and DeathEvent are not yet available in Hytale API
-        // Will add Mining and Combat XP listeners when these events are added
         
         getLogger().at(Level.INFO).log("Event listeners registered");
 
