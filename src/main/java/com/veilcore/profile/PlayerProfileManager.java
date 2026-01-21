@@ -147,6 +147,12 @@ public class PlayerProfileManager {
             logger.info("Cleared active profile after deletion: " + profileId);
         }
         
+        // Remove from cache
+        if (deleted) {
+            String cacheKey = playerUUID.toString() + ":" + profileId.toString();
+            profileCache.remove(cacheKey);
+        }
+        
         return deleted;
     }
     
@@ -158,6 +164,15 @@ public class PlayerProfileManager {
      */
     public void setActiveProfile(@Nonnull UUID playerUUID, @Nonnull UUID profileId) {
         activeProfiles.put(playerUUID, profileId);
+        
+        // Load fresh from disk and cache it
+        String cacheKey = playerUUID.toString() + ":" + profileId.toString();
+        Profile profile = repository.loadProfile(playerUUID, profileId);
+        if (profile != null) {
+            profileCache.put(cacheKey, profile);
+            logger.info("Loaded and cached profile: " + profile.getProfileName() + " for player " + playerUUID);
+        }
+        
         // Persist last active profile
         lastActiveProfiles.put(playerUUID.toString(), profileId.toString());
         saveLastActiveProfiles();
@@ -186,7 +201,9 @@ public class PlayerProfileManager {
         if (profileId == null) {
             return null;
         }
-        return repository.loadProfile(playerUUID, profileId);
+        
+        // Use getProfile to leverage the cache
+        return getProfile(playerUUID, profileId);
     }
     
     /**
@@ -224,7 +241,34 @@ public class PlayerProfileManager {
      * @return true if saved successfully
      */
     public boolean saveProfile(@Nonnull Profile profile) {
+        // Update cache with the latest version
+        String cacheKey = profile.getPlayerUUID().toString() + ":" + profile.getProfileId().toString();
+        profileCache.put(cacheKey, profile);
         return repository.saveProfile(profile);
+    }
+    
+    /**
+     * Save all active profiles (called during server shutdown).
+     * 
+     * @return Number of profiles saved
+     */
+    public int saveAllActiveProfiles() {
+        int savedCount = 0;
+        for (Map.Entry<UUID, UUID> entry : activeProfiles.entrySet()) {
+            UUID playerUUID = entry.getKey();
+            UUID profileId = entry.getValue();
+            
+            Profile profile = getActiveProfile(playerUUID);
+            if (profile != null) {
+                if (repository.saveProfile(profile)) {
+                    savedCount++;
+                    logger.info("Saved profile for player " + playerUUID + ": " + profile.getProfileName());
+                } else {
+                    logger.warning("Failed to save profile for player " + playerUUID);
+                }
+            }
+        }
+        return savedCount;
     }
     
     /**

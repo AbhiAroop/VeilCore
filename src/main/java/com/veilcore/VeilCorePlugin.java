@@ -89,6 +89,11 @@ public class VeilCorePlugin extends JavaPlugin {
     }
     
     protected void teardown() {
+        // Save all active profiles before shutdown
+        getLogger().at(Level.INFO).log("Saving all active profiles...");
+        int savedCount = profileManager.saveAllActiveProfiles();
+        getLogger().at(Level.INFO).log("Saved " + savedCount + " active profiles");
+        
         // Shutdown playtime tracker
         if (playtimeScheduler != null && !playtimeScheduler.isShutdown()) {
             playtimeScheduler.shutdown();
