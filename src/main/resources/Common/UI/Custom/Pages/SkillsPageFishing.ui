@@ -1,6 +1,6 @@
 $C = "../Common.ui";
 
-@BackgroundImage = PatchStyle(TexturePath: "../stats_background.png");
+@BackgroundImage = PatchStyle(TexturePath: "../skills_fishing.png");
 
 @CloseButtonStyle = TextButtonStyle(
   Default: (Background: #8b3a3a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
