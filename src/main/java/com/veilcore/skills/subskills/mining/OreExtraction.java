@@ -12,11 +12,11 @@ public class OreExtraction extends Subskill {
     public static final String ID = "ore_extraction";
     
     public enum OreRarity {
-        COMMON(5),      // Calcite, limestone
-        UNCOMMON(10),   // Copper, tin
-        RARE(25),       // Iron, silver
-        EPIC(50),       // Gold, feranite
-        LEGENDARY(100); // Mithril, varyn
+        COMMON(5),      // Copper
+        UNCOMMON(10),   // Iron
+        RARE(25),       // Gold
+        EPIC(50),       // Adamantite
+        LEGENDARY(100); // Thorium
         
         private final long xpAmount;
         
@@ -50,7 +50,7 @@ public class OreExtraction extends Subskill {
     
     /**
      * Get ore rarity from block ID
-     * @param blockId The block ID (e.g., "Ore_Calcite", "Ore_Mithril")
+     * @param blockId The block ID (e.g., "Ore_Copper", "Ore_Thorium")
      * @return The ore rarity, or null if not an ore
      */
     public static OreRarity getOreRarity(String blockId) {
@@ -58,28 +58,28 @@ public class OreExtraction extends Subskill {
         
         String lowerBlockId = blockId.toLowerCase();
         
-        // Common ores
-        if (lowerBlockId.contains("calcite") || lowerBlockId.contains("limestone")) {
+        // Common ores - Copper (includes all variants: Ore_Copper, Ore_Copper_Basalt, Ore_Copper_Volcanic)
+        if (lowerBlockId.startsWith("ore_copper")) {
             return OreRarity.COMMON;
         }
         
-        // Uncommon ores
-        if (lowerBlockId.contains("copper") || lowerBlockId.contains("tin")) {
+        // Uncommon ores - Iron (includes all variants: Ore_Iron, Ore_Iron_Slate)
+        if (lowerBlockId.startsWith("ore_iron")) {
             return OreRarity.UNCOMMON;
         }
         
-        // Rare ores
-        if (lowerBlockId.contains("iron") || lowerBlockId.contains("silver")) {
+        // Rare ores - Gold (includes all variants: Ore_Gold, Ore_Gold_Volcanic)
+        if (lowerBlockId.startsWith("ore_gold")) {
             return OreRarity.RARE;
         }
         
-        // Epic ores
-        if (lowerBlockId.contains("gold") || lowerBlockId.contains("feranite")) {
+        // Epic ores - Adamantite (includes all variants: Ore_Adamantite, Ore_Adamantite_Basalt)
+        if (lowerBlockId.startsWith("ore_adamantite")) {
             return OreRarity.EPIC;
         }
         
-        // Legendary ores
-        if (lowerBlockId.contains("mithril") || lowerBlockId.contains("varyn")) {
+        // Legendary ores - Thorium (includes all variants: Ore_Thorium, Ore_Thorium_Stone)
+        if (lowerBlockId.startsWith("ore_thorium")) {
             return OreRarity.LEGENDARY;
         }
         

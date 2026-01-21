@@ -99,22 +99,9 @@ public class BlockBreakListener extends EntityEventSystem<EntityStore, BreakBloc
         
         PacketHandler packetHandler = playerRef.getPacketHandler();
         
-        // Send XP gained notification
-        Message primaryMsg = Message.raw(String.format("+%d Mining XP", xpGained))
-            .color("#FFD700")
-            .bold(true);
-        Message secondaryMsg = Message.raw(String.format("Ore Extraction: %s ore", rarity.name()))
-            .color("#FFFFFF");
-        
         ItemWithAllMetadata icon = new ItemStack("Rubble_Calcite_Medium", 1).toPacket();
-        NotificationUtil.sendNotification(
-            packetHandler,
-            primaryMsg,
-            secondaryMsg,
-            icon
-        );
         
-        // Send level up notification if leveled up
+        // Send level up notification FIRST if leveled up
         if (levelsGained > 0) {
             int newLevel = oldLevel + levelsGained;
             
@@ -132,5 +119,19 @@ public class BlockBreakListener extends EntityEventSystem<EntityStore, BreakBloc
                 icon
             );
         }
+        
+        // Send XP gained notification AFTER level up
+        Message primaryMsg = Message.raw(String.format("+%d Mining XP", xpGained))
+            .color("#FFD700")
+            .bold(true);
+        Message secondaryMsg = Message.raw(String.format("Ore Extraction: %s ore", rarity.name()))
+            .color("#FFFFFF");
+        
+        NotificationUtil.sendNotification(
+            packetHandler,
+            primaryMsg,
+            secondaryMsg,
+            icon
+        );
     }
 }
