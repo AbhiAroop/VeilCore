@@ -19,6 +19,7 @@ import com.veilcore.commands.SkillsCommand;
 import com.veilcore.commands.StatsCommand;
 import com.veilcore.commands.TestDeathCommand;
 import com.veilcore.commands.TestMineOreCommand;
+import com.veilcore.listeners.BlockBreakListener;
 import com.veilcore.listeners.PlayerDeathListener;
 import com.veilcore.listeners.PlayerEventListener;
 import com.veilcore.profile.PlayerProfileManager;
@@ -51,6 +52,7 @@ public class VeilCorePlugin extends JavaPlugin {
 
         // Register ECS systems
         getEntityStoreRegistry().registerSystem(new PlayerDeathListener(this));
+        getEntityStoreRegistry().registerSystem(new BlockBreakListener(this));
         getLogger().at(Level.INFO).log("ECS systems registered");
 
         // Register event listeners

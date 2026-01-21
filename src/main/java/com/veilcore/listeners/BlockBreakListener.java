@@ -1,10 +1,15 @@
 package com.veilcore.listeners;
 
+import com.hypixel.hytale.component.ArchetypeChunk;
+import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.component.query.Query;
+import com.hypixel.hytale.component.system.EntityEventSystem;
 import com.hypixel.hytale.protocol.ItemWithAllMetadata;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.event.events.ecs.BreakBlockEvent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.io.PacketHandler;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
@@ -21,28 +26,46 @@ import com.veilcore.skills.subskills.mining.OreExtraction;
 import javax.annotation.Nonnull;
 
 /**
- * Listens for block break events using ESC event system
+ * Listens for block break events using ECS event system
  * Awards mining XP when players break ore blocks
  */
-public class BlockBreakListener {
+public class BlockBreakListener extends EntityEventSystem<EntityStore, BreakBlockEvent> {
 
-    /**
-     * Called when a block is broken
-     * This is an ESC event handler
-     * 
-     * @param blockId The ID of the block that was broken
-     * @param ref Reference to the entity (player) who broke the block
-     * @param store Entity store containing entity components
-     */
-    public static void onBlockBreak(@Nonnull String blockId, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
+    private final VeilCorePlugin plugin;
+
+    public BlockBreakListener(VeilCorePlugin plugin) {
+        super(BreakBlockEvent.class);
+        this.plugin = plugin;
+    }
+
+    @Nonnull
+    @Override
+    public Query<EntityStore> getQuery() {
+        // Only process break events for entities that have the Player component
+        return Query.and(Player.getComponentType());
+    }
+
+    @Override
+    public void handle(
+            int index,
+            @Nonnull ArchetypeChunk<EntityStore> chunk,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull CommandBuffer<EntityStore> commandBuffer,
+            @Nonnull BreakBlockEvent event
+    ) {
+        // Get the ref for this entity in the chunk
+        Ref<EntityStore> ref = chunk.getReferenceTo(index);
+        
         // Get the player who broke the block
         Player player = store.getComponent(ref, Player.getComponentType());
         if (player == null) {
             return;
         }
         
+        // Get block type ID from the event
+        String blockId = event.getBlockType().getId();
+        
         // Get player's profile
-        VeilCorePlugin plugin = VeilCorePlugin.getInstance();
         Profile profile = plugin.getProfileManager().getActiveProfile(player.getUuid());
         if (profile == null) {
             return; // Player doesn't have an active profile
