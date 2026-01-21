@@ -53,6 +53,30 @@ Group {
       Style: @NavButtonStyle;
     }
 
+    Group { Anchor: (Height: 8); }
+
+    TextButton #FarmingButton {
+      Text: "Farming";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #WoodcuttingButton {
+      Text: "Woodcutting";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #FishingButton {
+      Text: "Fishing";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
     Group { FlexWeight: 1; }
 
     TextButton #CloseButton {

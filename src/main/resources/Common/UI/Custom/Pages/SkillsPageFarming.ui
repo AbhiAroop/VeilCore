@@ -50,7 +50,7 @@ Group {
     TextButton #CombatButton {
       Text: "Combat";
       Anchor: (Height: 36);
-      Style: @ActiveNavButtonStyle;
+      Style: @NavButtonStyle;
     }
 
     Group { Anchor: (Height: 8); }
@@ -58,7 +58,7 @@ Group {
     TextButton #FarmingButton {
       Text: "Farming";
       Anchor: (Height: 36);
-      Style: @NavButtonStyle;
+      Style: @ActiveNavButtonStyle;
     }
 
     Group { Anchor: (Height: 8); }
@@ -115,9 +115,9 @@ Group {
       Padding: (Full: 20);
       
       Label {
-        Text: "COMBAT SKILL";
+        Text: "FARMING SKILL";
         Anchor: (Height: 32);
-        Style: (FontSize: 18, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+        Style: (FontSize: 18, TextColor: #55FF55, RenderBold: true, HorizontalAlignment: Center);
       }
 
       Group { Anchor: (Height: 15); }
