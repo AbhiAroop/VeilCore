@@ -15,6 +15,7 @@ import com.veilcore.commands.GiveSkillXpCommand;
 import com.veilcore.commands.NameplateTestCommand;
 import com.veilcore.commands.ProfileCommand;
 import com.veilcore.commands.SetSkillLevelCommand;
+import com.veilcore.commands.SetStatsCommand;
 import com.veilcore.commands.SkillsCommand;
 import com.veilcore.commands.StatsCommand;
 import com.veilcore.commands.TestDeathCommand;
@@ -73,6 +74,7 @@ public class VeilCorePlugin extends JavaPlugin {
         getCommandRegistry().registerCommand(new SkillsCommand(this));
         getCommandRegistry().registerCommand(new GiveSkillXpCommand(this));
         getCommandRegistry().registerCommand(new SetSkillLevelCommand(this));
+        getCommandRegistry().registerCommand(new SetStatsCommand(this));
         getCommandRegistry().registerCommand(new GiveSkillTokensCommand(this));
         getCommandRegistry().registerCommand(new TestMineOreCommand(this));
         
