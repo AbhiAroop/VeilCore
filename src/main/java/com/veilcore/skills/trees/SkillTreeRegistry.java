@@ -34,13 +34,12 @@ public class SkillTreeRegistry {
      * Initialize all skill trees
      */
     private void initializeSkillTrees() {
-        // Phase 1: Only Mining tree is implemented
         skillTrees.put(Skill.MINING.getId(), MiningTreeBuilder.buildMiningTree());
-
-        // Phase 2+: Add other skill trees
+        skillTrees.put(Skill.FARMING.getId(), FarmingTreeBuilder.buildFarmingTree());
+        skillTrees.put(Skill.WOODCUTTING.getId(), WoodcuttingTreeBuilder.buildWoodcuttingTree());
+        skillTrees.put(Skill.FISHING.getId(), FishingTreeBuilder.buildFishingTree());
+        // Combat tree commented out for now
         // skillTrees.put(Skill.COMBAT.getId(), CombatTreeBuilder.buildCombatTree());
-        // skillTrees.put(Skill.FARMING.getId(), FarmingTreeBuilder.buildFarmingTree());
-        // skillTrees.put(Skill.FISHING.getId(), FishingTreeBuilder.buildFishingTree());
     }
 
     /**

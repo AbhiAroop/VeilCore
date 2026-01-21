@@ -8,6 +8,7 @@ public enum Skill {
     MINING("mining", "Mining", "#FFD700", "⛏"),
     COMBAT("combat", "Combat", "#FF5555", "⚔"),
     FARMING("farming", "Farming", "#55FF55", "🌾"),
+    WOODCUTTING("woodcutting", "Woodcutting", "#8B4513", "🪓"),
     FISHING("fishing", "Fishing", "#55FFFF", "🎣");
 
     private final String id;

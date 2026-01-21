@@ -128,6 +128,7 @@ public class SetSkillLevelCommand extends AbstractPlayerCommand {
             case MINING -> "Rubble_Calcite_Medium";
             case COMBAT -> "Weapon_Sword_Mithril";
             case FARMING -> "Plant_Crop_Pumpkin_Item";
+            case WOODCUTTING -> "Log_Oak";
             case FISHING -> "Food_Fish_Raw";
         };
     }

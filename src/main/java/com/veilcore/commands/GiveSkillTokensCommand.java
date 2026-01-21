@@ -131,6 +131,7 @@ public class GiveSkillTokensCommand extends AbstractPlayerCommand {
             case MINING -> "Tool_Pickaxe_Stone";
             case COMBAT -> "Weapon_Sword_Mithril";
             case FARMING -> "Tool_Hoe_Wood";
+            case WOODCUTTING -> "Tool_Hatchet_Iron";
             case FISHING -> "Weapon_Fishing_Rod";
         };
     }

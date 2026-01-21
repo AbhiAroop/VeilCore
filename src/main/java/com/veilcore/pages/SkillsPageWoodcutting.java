@@ -23,7 +23,7 @@ import com.veilcore.skills.Skill;
 import com.veilcore.skills.SkillLevel;
 import com.veilcore.skills.tokens.SkillToken.TokenTier;
 
-public class SkillsPageCombat extends InteractiveCustomUIPage<SkillsPageCombat.SkillsEventData> {
+public class SkillsPageWoodcutting extends InteractiveCustomUIPage<SkillsPageWoodcutting.SkillsEventData> {
     
     private final Profile profile;
     private final PlayerRef playerRef;
@@ -40,7 +40,7 @@ public class SkillsPageCombat extends InteractiveCustomUIPage<SkillsPageCombat.S
                     .build();
     }
     
-    public SkillsPageCombat(@Nonnull PlayerRef playerRef, Profile profile) {
+    public SkillsPageWoodcutting(@Nonnull PlayerRef playerRef, Profile profile) {
         super(playerRef, CustomPageLifetime.CanDismissOrCloseThroughInteraction, SkillsEventData.CODEC);
         this.profile = profile;
         this.playerRef = playerRef;
@@ -53,35 +53,35 @@ public class SkillsPageCombat extends InteractiveCustomUIPage<SkillsPageCombat.S
             @Nonnull UIEventBuilder evt,
             @Nonnull Store<EntityStore> store
     ) {
-        cmd.append("Pages/SkillsPageCombat.ui");
+        cmd.append("Pages/SkillsPageWoodcutting.ui");
         
         ProfileSkills skills = profile.getSkills();
-        SkillLevel combatLevel = skills.getSkillLevel(Skill.COMBAT);
+        SkillLevel woodcuttingLevel = skills.getSkillLevel(Skill.WOODCUTTING);
         
         com.hypixel.hytale.server.core.entity.entities.Player player = store.getComponent(ref, com.hypixel.hytale.server.core.entity.entities.Player.getComponentType());
         String displayName = player != null ? player.getDisplayName() : "Player";
         cmd.set("#ProfileName.Text", displayName + "'s Skills");
         
         // Set level info
-        cmd.set("#CurrentLevel.Text", String.valueOf(combatLevel.getLevel()));
-        if (combatLevel.isMaxLevel()) {
+        cmd.set("#CurrentLevel.Text", String.valueOf(woodcuttingLevel.getLevel()));
+        if (woodcuttingLevel.isMaxLevel()) {
             cmd.set("#NextLevel.Text", "MAX");
             cmd.set("#XPToNext.Text", "0");
             cmd.set("#Progress.Text", "100%");
         } else {
-            cmd.set("#NextLevel.Text", String.valueOf(combatLevel.getLevel() + 1));
-            cmd.set("#XPToNext.Text", String.valueOf(combatLevel.getXpToNextLevel()));
-            cmd.set("#Progress.Text", String.format("%.1f%%", combatLevel.getProgressPercent() * 100));
+            cmd.set("#NextLevel.Text", String.valueOf(woodcuttingLevel.getLevel() + 1));
+            cmd.set("#XPToNext.Text", String.valueOf(woodcuttingLevel.getXpToNextLevel()));
+            cmd.set("#Progress.Text", String.format("%.1f%%", woodcuttingLevel.getProgressPercent() * 100));
         }
         
-        cmd.set("#CurrentXP.Text", String.valueOf(combatLevel.getCurrentXp()));
+        cmd.set("#CurrentXP.Text", String.valueOf(woodcuttingLevel.getCurrentXp()));
         
         // Calculate total XP
-        long totalXp = SkillLevel.getTotalXpForLevel(combatLevel.getLevel()) + combatLevel.getCurrentXp();
+        long totalXp = SkillLevel.getTotalXpForLevel(woodcuttingLevel.getLevel()) + woodcuttingLevel.getCurrentXp();
         cmd.set("#TotalXP.Text", String.valueOf(totalXp));
         
         // Set token counts
-        Map<TokenTier, Integer> tokens = skills.getTreeData().getAllTokenCounts(Skill.COMBAT.getId());
+        Map<TokenTier, Integer> tokens = skills.getTreeData().getAllTokenCounts(Skill.WOODCUTTING.getId());
         cmd.set("#BasicTokens.Text", String.valueOf(tokens.getOrDefault(TokenTier.BASIC, 0)));
         cmd.set("#AdvancedTokens.Text", String.valueOf(tokens.getOrDefault(TokenTier.ADVANCED, 0)));
         cmd.set("#MasterTokens.Text", String.valueOf(tokens.getOrDefault(TokenTier.MASTER, 0)));
@@ -107,11 +107,11 @@ public class SkillsPageCombat extends InteractiveCustomUIPage<SkillsPageCombat.S
             case "Mining":
                 player.getPageManager().openCustomPage(ref, store, new SkillsPageMining(playerRef, profile));
                 break;
+            case "Combat":
+                player.getPageManager().openCustomPage(ref, store, new SkillsPageCombat(playerRef, profile));
+                break;
             case "Farming":
                 player.getPageManager().openCustomPage(ref, store, new SkillsPageFarming(playerRef, profile));
-                break;
-            case "Woodcutting":
-                player.getPageManager().openCustomPage(ref, store, new SkillsPageWoodcutting(playerRef, profile));
                 break;
             case "Fishing":
                 player.getPageManager().openCustomPage(ref, store, new SkillsPageFishing(playerRef, profile));
@@ -120,7 +120,7 @@ public class SkillsPageCombat extends InteractiveCustomUIPage<SkillsPageCombat.S
                 player.getPageManager().setPage(ref, store, com.hypixel.hytale.protocol.packets.interface_.Page.None);
                 break;
             default:
-                // Already on Combat page, do nothing
+                // Already on Woodcutting page
                 break;
         }
     }

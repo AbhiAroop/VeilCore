@@ -89,6 +89,9 @@ public class SkillsPageMining extends InteractiveCustomUIPage<SkillsPageMining.S
         // Event bindings for navigation
         evt.addEventBinding(CustomUIEventBindingType.Activating, "#MiningButton", new EventData().append("Action", "Mining"));
         evt.addEventBinding(CustomUIEventBindingType.Activating, "#CombatButton", new EventData().append("Action", "Combat"));
+        evt.addEventBinding(CustomUIEventBindingType.Activating, "#FarmingButton", new EventData().append("Action", "Farming"));
+        evt.addEventBinding(CustomUIEventBindingType.Activating, "#WoodcuttingButton", new EventData().append("Action", "Woodcutting"));
+        evt.addEventBinding(CustomUIEventBindingType.Activating, "#FishingButton", new EventData().append("Action", "Fishing"));
         evt.addEventBinding(CustomUIEventBindingType.Activating, "#SkillTreeButton", new EventData().append("Action", "SkillTree"));
         evt.addEventBinding(CustomUIEventBindingType.Activating, "#CloseButton", new EventData().append("Action", "Close"));
     }
@@ -104,6 +107,15 @@ public class SkillsPageMining extends InteractiveCustomUIPage<SkillsPageMining.S
         switch (data.action) {
             case "Combat":
                 player.getPageManager().openCustomPage(ref, store, new SkillsPageCombat(playerRef, profile));
+                break;
+            case "Farming":
+                player.getPageManager().openCustomPage(ref, store, new SkillsPageFarming(playerRef, profile));
+                break;
+            case "Woodcutting":
+                player.getPageManager().openCustomPage(ref, store, new SkillsPageWoodcutting(playerRef, profile));
+                break;
+            case "Fishing":
+                player.getPageManager().openCustomPage(ref, store, new SkillsPageFishing(playerRef, profile));
                 break;
             case "SkillTree":
                 // Open simple skill tree UI
