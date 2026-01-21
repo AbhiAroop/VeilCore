@@ -89,25 +89,7 @@ Group {
   Group {
     LayoutMode: Top;
     FlexWeight: 1;
-    Padding: (Left: 20, Right: 20, Top: 20, Bottom: 20);
-
-    Label #ProfileName {
-      Text: "Profile Name";
-      Anchor: (Height: 40);
-      Style: (
-        FontSize: 26,
-        TextColor: #ffffff,
-        HorizontalAlignment: Center,
-        RenderBold: true
-      );
-    }
-
-    Group { 
-      Anchor: (Height: 3);
-      Background: #ffffff(0.8);
-    }
-
-    Group { Anchor: (Height: 15); }
+    Padding: (Left: 20, Right: 80, Top: 120, Bottom: 10);
 
     Group {
       LayoutMode: Top;

@@ -60,7 +60,6 @@ public class SkillsPageWoodcutting extends InteractiveCustomUIPage<SkillsPageWoo
         
         com.hypixel.hytale.server.core.entity.entities.Player player = store.getComponent(ref, com.hypixel.hytale.server.core.entity.entities.Player.getComponentType());
         String displayName = player != null ? player.getDisplayName() : "Player";
-        cmd.set("#ProfileName.Text", displayName + "'s Skills");
         
         // Set level info
         cmd.set("#CurrentLevel.Text", String.valueOf(woodcuttingLevel.getLevel()));
