@@ -1,0 +1,159 @@
+$C = "../Common.ui";
+
+@BackgroundImage = PatchStyle(TexturePath: "../stats_background.png");
+
+@CloseButtonStyle = TextButtonStyle(
+  Default: (Background: #8b3a3a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #9b4a4a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #7b2a2a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+@NavButtonStyle = TextButtonStyle(
+  Default: (Background: #2c3e50, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: false, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #34495e, LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #1a252f, LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+@ActiveNavButtonStyle = TextButtonStyle(
+  Default: (Background: #00d4ff(0.3), LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: #00d4ff(0.4), LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #00d4ff(0.2), LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+);
+
+Group {
+  LayoutMode: Left;
+  Anchor: (Width: 800, Height: 600);
+  Background: @BackgroundImage;
+
+  // Left Sidebar
+  Group {
+    LayoutMode: Top;
+    Anchor: (Width: 150);
+    Background: #0d1117(0.9);
+    Padding: (Full: 15);
+
+    Label {
+      Text: "CATEGORIES";
+      Anchor: (Height: 30);
+      Style: (FontSize: 11, TextColor: #e8e8e8, RenderBold: true, HorizontalAlignment: Center);
+    }
+
+    Group { Anchor: (Height: 10); }
+
+    TextButton #CombatButton {
+      Text: "Combat";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #MiningButton {
+      Text: "Mining";
+      Anchor: (Height: 36);
+      Style: @ActiveNavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #FarmingButton {
+      Text: "Farming";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #FishingButton {
+      Text: "Fishing";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { Anchor: (Height: 8); }
+
+    TextButton #GeneralButton {
+      Text: "General";
+      Anchor: (Height: 36);
+      Style: @NavButtonStyle;
+    }
+
+    Group { FlexWeight: 1; }
+
+    TextButton #CloseButton {
+      Text: "CLOSE";
+      Anchor: (Height: 40);
+      Style: @CloseButtonStyle;
+    }
+  }
+
+  // Main Content Area
+  Group {
+    LayoutMode: Top;
+    FlexWeight: 1;
+    Padding: (Left: 20, Right: 20, Top: 20, Bottom: 20);
+
+    Label #ProfileName {
+      Text: "Profile Name";
+      Anchor: (Height: 40);
+      Style: (
+        FontSize: 26,
+        TextColor: #ffffff,
+        HorizontalAlignment: Center,
+        RenderBold: true
+      );
+    }
+
+    Group { 
+      Anchor: (Height: 3);
+      Background: #ffffff(0.8);
+    }
+
+    Group { Anchor: (Height: 15); }
+
+    Group {
+      LayoutMode: Top;
+      Background: #1e2a3a(0.85);
+      Padding: (Full: 20);
+      
+      Label {
+        Text: "MINING STATISTICS";
+        Anchor: (Height: 32);
+        Style: (FontSize: 18, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+      }
+
+      Group { Anchor: (Height: 15); }
+
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 28);
+        
+        Label {
+          Text: "Mining Speed:";
+          Anchor: (Width: 180);
+          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
+        }
+        
+        Label #MiningSpeed {
+          Text: "0.50";
+          Anchor: (Width: 100);
+          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
+        }
+
+        Label {
+          Text: "Mining Fortune:";
+          Anchor: (Width: 180);
+          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
+        }
+        
+        Label #MiningFortune {
+          Text: "1.00";
+          Anchor: (Width: 100);
+          Style: (FontSize: 14, TextColor: #ffd700, RenderBold: true);
+        }
+      }
+    }
+
+    Group { FlexWeight: 1; }
+  }
+}

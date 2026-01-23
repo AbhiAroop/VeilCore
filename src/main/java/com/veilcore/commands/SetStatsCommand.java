@@ -87,6 +87,15 @@ public class SetStatsCommand extends AbstractPlayerCommand {
                 // Save profile
                 plugin.getProfileManager().saveProfile(profile);
                 
+                // If health stat was modified, update the player's max health
+                if (statName.equals("health")) {
+                    com.veilcore.listeners.HealthSyncListener.updatePlayerMaxHealthByUuid(
+                        plugin, 
+                        targetPlayer.getUuid(), 
+                        stats.getHealth()
+                    );
+                }
+                
                 // Send success message to admin
                 PacketHandler senderPacket = playerRef.getPacketHandler();
                 Message senderPrimary = Message.raw("Stat Updated").color("#55FF55").bold(true);

@@ -8,6 +8,7 @@ import com.hypixel.hytale.server.core.event.events.player.PlayerDisconnectEvent;
 import com.hypixel.hytale.server.core.event.events.player.PlayerReadyEvent;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
+import com.veilcore.commands.DebugHealthCommand;
 import com.veilcore.commands.DiscordCommand;
 import com.veilcore.commands.EntitySpawnCommand;
 import com.veilcore.commands.GiveSkillTokensCommand;
@@ -21,6 +22,7 @@ import com.veilcore.commands.StatsCommand;
 import com.veilcore.commands.TestDeathCommand;
 import com.veilcore.commands.TestMineOreCommand;
 import com.veilcore.listeners.BlockBreakListener;
+import com.veilcore.listeners.HealthSyncListener;
 import com.veilcore.listeners.PlayerDeathListener;
 import com.veilcore.listeners.PlayerEventListener;
 import com.veilcore.profile.PlayerProfileManager;
@@ -54,9 +56,13 @@ public class VeilCorePlugin extends JavaPlugin {
         // Register ECS systems
         getEntityStoreRegistry().registerSystem(new PlayerDeathListener(this));
         getEntityStoreRegistry().registerSystem(new BlockBreakListener(this));
+        // Damage scaling disabled - Hytale's damage system works on percentages and can't be easily overridden
+        // getEntityStoreRegistry().registerSystem(new DamageScalingListener(this));
         getLogger().at(Level.INFO).log("ECS systems registered");
 
         // Register event listeners
+        HealthSyncListener healthSyncListener = new HealthSyncListener(this);
+        getEventRegistry().registerGlobal(PlayerReadyEvent.class, healthSyncListener::onPlayerReady);
         getEventRegistry().registerGlobal(PlayerReadyEvent.class, PlayerEventListener::onPlayerReady);
         getEventRegistry().registerGlobal(PlayerDisconnectEvent.class, PlayerEventListener::onPlayerDisconnect);
         
@@ -77,6 +83,7 @@ public class VeilCorePlugin extends JavaPlugin {
         getCommandRegistry().registerCommand(new SetStatsCommand(this));
         getCommandRegistry().registerCommand(new GiveSkillTokensCommand(this));
         getCommandRegistry().registerCommand(new TestMineOreCommand(this));
+        getCommandRegistry().registerCommand(new DebugHealthCommand(this));
         
         // Start playtime tracker (runs every second)
         playtimeScheduler = java.util.concurrent.Executors.newSingleThreadScheduledExecutor();
