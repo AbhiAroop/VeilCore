@@ -75,14 +75,6 @@ Group {
         Style: @NavButtonStyle;
       }
     }
-
-    Group { FlexWeight: 1; }
-
-    TextButton #CloseButton {
-      Text: "CLOSE";
-      Anchor: (Height: 40);
-      Style: @CloseButtonStyle;
-    }
   }
 
   // Main Content Area
@@ -386,6 +378,23 @@ Group {
           Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
         }
       }
+    }
+
+    Group { FlexWeight: 1; }
+
+    Group {
+      LayoutMode: Left;
+      Anchor: (Height: 50);
+      
+      Group { FlexWeight: 1; }
+      
+      TextButton #CloseButton {
+        Text: "CLOSE";
+        Anchor: (Width: 150, Height: 40);
+        Style: @CloseButtonStyle;
+      }
+      
+      Group { FlexWeight: 1; }
     }
   }
 }
