@@ -1,17 +1,18 @@
 $C = "../Common.ui";
 
 @BackgroundImage = PatchStyle(TexturePath: "../stats_combat.png");
+@ButtonBackgroundImage = PatchStyle(TexturePath: "../stats_button.png");
 
 @ActiveNavButtonStyle = TextButtonStyle(
-  Default: (Background: #00d4ff(0.3), LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-  Hovered: (Background: #00d4ff(0.4), LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-  Pressed: (Background: #00d4ff(0.2), LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+  Default: (Background: @ButtonBackgroundImage, LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: @ButtonBackgroundImage, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: @ButtonBackgroundImage, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
 );
 
 @NavButtonStyle = TextButtonStyle(
-  Default: (Background: #2c3e50, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: false, HorizontalAlignment: Center, VerticalAlignment: Center)),
-  Hovered: (Background: #34495e, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-  Pressed: (Background: #1a252f, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+  Default: (Background: @ButtonBackgroundImage, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: false, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: @ButtonBackgroundImage, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: @ButtonBackgroundImage, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
 );
 
 @CloseButtonStyle = TextButtonStyle(
