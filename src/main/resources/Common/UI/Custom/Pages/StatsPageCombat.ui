@@ -39,7 +39,7 @@ Group {
 
       TextButton #CombatButton {
       Text: "Combat";
-      Anchor: (Height: 36);
+      Anchor: (Height: 30);
       Style: @ActiveNavButtonStyle;
     }
 
@@ -47,7 +47,7 @@ Group {
 
     TextButton #MiningButton {
       Text: "Mining";
-      Anchor: (Height: 36);
+      Anchor: (Height: 30);
       Style: @NavButtonStyle;
     }
 
@@ -55,7 +55,7 @@ Group {
 
     TextButton #FarmingButton {
       Text: "Farming";
-      Anchor: (Height: 36);
+      Anchor: (Height: 30);
       Style: @NavButtonStyle;
     }
 
@@ -63,7 +63,7 @@ Group {
 
     TextButton #FishingButton {
       Text: "Fishing";
-      Anchor: (Height: 36);
+      Anchor: (Height: 30);
       Style: @NavButtonStyle;
     }
 
@@ -71,7 +71,7 @@ Group {
 
       TextButton #GeneralButton {
         Text: "General";
-        Anchor: (Height: 36);
+        Anchor: (Height: 30);
         Style: @NavButtonStyle;
       }
     }
@@ -386,11 +386,11 @@ Group {
       LayoutMode: Left;
       Anchor: (Height: 50);
       
-      Group { FlexWeight: 1; }
+      Group { Anchor: (Width: 135); }
       
       TextButton #CloseButton {
         Text: "CLOSE";
-        Anchor: (Width: 150, Height: 40);
+        Anchor: (Width: 150, Height: 35);
         Style: @CloseButtonStyle;
       }
       
