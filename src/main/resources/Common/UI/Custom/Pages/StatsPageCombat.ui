@@ -10,8 +10,8 @@ $C = "../Common.ui";
 
 @NavButtonStyle = TextButtonStyle(
   Default: (Background: #2c3e50, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: false, HorizontalAlignment: Center, VerticalAlignment: Center)),
-  Hovered: (Background: #34495e, LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-  Pressed: (Background: #1a252f, LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+  Hovered: (Background: #34495e, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: #1a252f, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
 );
 
 @CloseButtonStyle = TextButtonStyle(
@@ -31,15 +31,13 @@ Group {
     Anchor: (Width: 240);
     Padding: (Full: 15);
 
-    Label {
-      Text: "CATEGORIES";
-      Anchor: (Height: 30);
-      Style: (FontSize: 11, TextColor: #e8e8e8, RenderBold: true, HorizontalAlignment: Center);
-    }
+    Group { Anchor: (Height: 120); }
 
-    Group { Anchor: (Height: 10); }
+    Group {
+      LayoutMode: Top;
+      Padding: (Left: 15);
 
-    TextButton #CombatButton {
+      TextButton #CombatButton {
       Text: "Combat";
       Anchor: (Height: 36);
       Style: @ActiveNavButtonStyle;
@@ -71,10 +69,11 @@ Group {
 
     Group { Anchor: (Height: 8); }
 
-    TextButton #GeneralButton {
-      Text: "General";
-      Anchor: (Height: 36);
-      Style: @NavButtonStyle;
+      TextButton #GeneralButton {
+        Text: "General";
+        Anchor: (Height: 36);
+        Style: @NavButtonStyle;
+      }
     }
 
     Group { FlexWeight: 1; }
