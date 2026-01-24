@@ -2,6 +2,7 @@ $C = "../Common.ui";
 
 @BackgroundImage = PatchStyle(TexturePath: "../stats_combat.png");
 @ButtonBackgroundImage = PatchStyle(TexturePath: "../stats_button.png");
+@CloseButtonBackgroundImage = PatchStyle(TexturePath: "../close_button.png");
 
 @ActiveNavButtonStyle = TextButtonStyle(
   Default: (Background: @ButtonBackgroundImage, LabelStyle: (FontSize: 12, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
@@ -16,9 +17,9 @@ $C = "../Common.ui";
 );
 
 @CloseButtonStyle = TextButtonStyle(
-  Default: (Background: #8b3a3a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-  Hovered: (Background: #9b4a4a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
-  Pressed: (Background: #7b2a2a, LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+  Default: (Background: @CloseButtonBackgroundImage, LabelStyle: (FontSize: 13, TextColor: #ff0000, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Hovered: (Background: @CloseButtonBackgroundImage, LabelStyle: (FontSize: 13, TextColor: #ff0000, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+  Pressed: (Background: @CloseButtonBackgroundImage, LabelStyle: (FontSize: 13, TextColor: #ff0000, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
 );
 
 Group {
