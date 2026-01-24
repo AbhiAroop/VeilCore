@@ -119,6 +119,13 @@ Group {
           Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
 
+        Group {
+          Anchor: (Width: 2, Height: 28);
+          Background: #2c3e50(0.3);
+        }
+
+        Group { Anchor: (Width: 10); }
+
         Label {
           Text: "Stamina:";
           Anchor: (Width: 120);
@@ -149,6 +156,13 @@ Group {
           Anchor: (Width: 70);
           Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
+
+        Group {
+          Anchor: (Width: 2, Height: 28);
+          Background: #2c3e50(0.3);
+        }
+
+        Group { Anchor: (Width: 10); }
 
         Label {
           Text: "Armor:";
@@ -181,6 +195,13 @@ Group {
           Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
 
+        Group {
+          Anchor: (Width: 2, Height: 28);
+          Background: #2c3e50(0.3);
+        }
+
+        Group { Anchor: (Width: 10); }
+
         Label {
           Text: "Speed:";
           Anchor: (Width: 120);
@@ -211,6 +232,13 @@ Group {
           Anchor: (Width: 70);
           Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
+
+        Group {
+          Anchor: (Width: 2, Height: 28);
+          Background: #2c3e50(0.3);
+        }
+
+        Group { Anchor: (Width: 10); }
 
         Label {
           Text: "Magic Dmg:";
@@ -243,6 +271,13 @@ Group {
           Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
 
+        Group {
+          Anchor: (Width: 2, Height: 28);
+          Background: #2c3e50(0.3);
+        }
+
+        Group { Anchor: (Width: 10); }
+
         Label {
           Text: "Attack Speed:";
           Anchor: (Width: 120);
@@ -273,6 +308,13 @@ Group {
           Anchor: (Width: 70);
           Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
+
+        Group {
+          Anchor: (Width: 2, Height: 28);
+          Background: #2c3e50(0.3);
+        }
+
+        Group { Anchor: (Width: 10); }
 
         Label {
           Text: "Crit Chance:";
@@ -305,6 +347,13 @@ Group {
           Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
 
+        Group {
+          Anchor: (Width: 2, Height: 28);
+          Background: #2c3e50(0.3);
+        }
+
+        Group { Anchor: (Width: 10); }
+
         Label {
           Text: "Burst Chance:";
           Anchor: (Width: 120);
@@ -336,6 +385,13 @@ Group {
           Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
 
+        Group {
+          Anchor: (Width: 2, Height: 28);
+          Background: #2c3e50(0.3);
+        }
+
+        Group { Anchor: (Width: 10); }
+
         Label {
           Text: "Life Steal:";
           Anchor: (Width: 120);
@@ -366,6 +422,13 @@ Group {
           Anchor: (Width: 70);
           Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
+
+        Group {
+          Anchor: (Width: 2, Height: 28);
+          Background: #2c3e50(0.3);
+        }
+
+        Group { Anchor: (Width: 10); }
 
         Label {
           Text: "Health Regen:";
