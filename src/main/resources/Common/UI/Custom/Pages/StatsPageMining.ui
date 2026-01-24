@@ -1,6 +1,6 @@
 $C = "../Common.ui";
 
-@BackgroundImage = PatchStyle(TexturePath: "../stats_background.png");
+@BackgroundImage = PatchStyle(TexturePath: "../stats_mining.png");
 @ButtonBackgroundImage = PatchStyle(TexturePath: "../stats_button.png");
 @CloseButtonBackgroundImage = PatchStyle(TexturePath: "../close_button.png");
 
