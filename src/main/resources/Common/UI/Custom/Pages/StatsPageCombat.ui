@@ -109,25 +109,25 @@ Group {
         Label {
           Text: "Health:";
           Anchor: (Width: 120);
-          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #Health {
           Text: "100";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
 
         Label {
           Text: "Stamina:";
           Anchor: (Width: 120);
-          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #Stamina {
           Text: "100";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
       }
 
@@ -140,25 +140,25 @@ Group {
         Label {
           Text: "Mana:";
           Anchor: (Width: 120);
-          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #Mana {
           Text: "100/100";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
 
         Label {
           Text: "Armor:";
           Anchor: (Width: 120);
-          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #Armor {
           Text: "0";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
       }
 
@@ -171,25 +171,25 @@ Group {
         Label {
           Text: "Magic Resist:";
           Anchor: (Width: 120);
-          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #MagicResist {
           Text: "0";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
 
         Label {
           Text: "Speed:";
           Anchor: (Width: 120);
-          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #Speed {
           Text: "0.10";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
       }
 
@@ -202,25 +202,25 @@ Group {
         Label {
           Text: "Phys Dmg:";
           Anchor: (Width: 120);
-          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #PhysDmg {
           Text: "5";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
 
         Label {
           Text: "Magic Dmg:";
           Anchor: (Width: 120);
-          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #MagicDmg {
           Text: "5";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
       }
 
@@ -233,25 +233,25 @@ Group {
         Label {
           Text: "Ranged Dmg:";
           Anchor: (Width: 120);
-          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #RangedDmg {
           Text: "5";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
 
         Label {
           Text: "Attack Speed:";
           Anchor: (Width: 120);
-          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #AttackSpeed {
           Text: "0.50";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
       }
 
@@ -264,25 +264,25 @@ Group {
         Label {
           Text: "Crit Dmg:";
           Anchor: (Width: 120);
-          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #CritDamage {
           Text: "150.0%";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
 
         Label {
           Text: "Crit Chance:";
           Anchor: (Width: 120);
-          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #CritChance {
           Text: "0.0%";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
       }
 
@@ -295,25 +295,25 @@ Group {
         Label {
           Text: "Burst Dmg:";
           Anchor: (Width: 120);
-          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #BurstDmg {
           Text: "2.0x";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
 
         Label {
           Text: "Burst Chance:";
           Anchor: (Width: 120);
-          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #BurstChance {
           Text: "1.0%";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
       }
 
@@ -326,25 +326,25 @@ Group {
         Label {
           Text: "CDR:";
           Anchor: (Width: 120);
-          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #CDR {
           Text: "0";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
 
         Label {
           Text: "Life Steal:";
           Anchor: (Width: 120);
-          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #LifeSteal {
           Text: "0.0%";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
       }
 
@@ -357,25 +357,25 @@ Group {
         Label {
           Text: "Omnivamp:";
           Anchor: (Width: 120);
-          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #Omnivamp {
           Text: "0.0%";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
 
         Label {
           Text: "Health Regen:";
           Anchor: (Width: 120);
-          Style: (FontSize: 14, TextColor: #e8e8e8, VerticalAlignment: Center, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #2c3e50, VerticalAlignment: Center, RenderBold: true);
         }
         
         Label #HealthRegen {
           Text: "0.3";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
         }
       }
     }
