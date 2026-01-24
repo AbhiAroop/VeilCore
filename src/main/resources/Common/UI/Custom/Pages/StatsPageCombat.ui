@@ -93,7 +93,7 @@ Group {
     Padding: (Left: 50, Right: 50, Top: 40, Bottom: 80);
 
     Label #ProfileName {
-      Text: "Profile Name";
+      Text: "COMBAT STATISTICS";
       Anchor: (Height: 30);
       Style: (
         FontSize: 26,
@@ -103,23 +103,12 @@ Group {
       );
     }
 
-    Group { 
-      Anchor: (Height: 2);
-      Background: #ffffff(0.8);
-    }
-
-    Group { Anchor: (Height: 30); }
+    Group { Anchor: (Height: 32); }
 
     Group {
       LayoutMode: Top;
       Padding: (Left: 30, Right: 30, Top: 15, Bottom: 15);
       
-      Label {
-        Text: "COMBAT STATISTICS";
-        Anchor: (Height: 32);
-        Style: (FontSize: 18, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
-      }
-
       Group { Anchor: (Height: 8); }
 
       Group {
