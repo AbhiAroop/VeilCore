@@ -90,11 +90,11 @@ Group {
   Group {
     LayoutMode: Top;
     FlexWeight: 1;
-    Padding: (Left: 50, Right: 50, Top: 80, Bottom: 80);
+    Padding: (Left: 50, Right: 50, Top: 40, Bottom: 80);
 
     Label #ProfileName {
       Text: "Profile Name";
-      Anchor: (Height: 40);
+      Anchor: (Height: 30);
       Style: (
         FontSize: 26,
         TextColor: #ffffff,
@@ -104,11 +104,11 @@ Group {
     }
 
     Group { 
-      Anchor: (Height: 3);
+      Anchor: (Height: 2);
       Background: #ffffff(0.8);
     }
 
-    Group { Anchor: (Height: 8); }
+    Group { Anchor: (Height: 30); }
 
     Group {
       LayoutMode: Top;
