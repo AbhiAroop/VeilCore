@@ -1,6 +1,6 @@
 $C = "../Common.ui";
 
-@BackgroundImage = PatchStyle(TexturePath: "../stats_background.png");
+@BackgroundImage = PatchStyle(TexturePath: "../stats_fishing.png");
 @ButtonBackgroundImage = PatchStyle(TexturePath: "../stats_button.png");
 @CloseButtonBackgroundImage = PatchStyle(TexturePath: "../close_button.png");
 
@@ -117,7 +117,7 @@ Group {
         Label #FishingFortune {
           Text: "1.00";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, VerticalAlignment: Center, RenderBold: true);
         }
 
         Group {
@@ -136,7 +136,7 @@ Group {
         Label #LurePotency {
           Text: "1.00";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, VerticalAlignment: Center, RenderBold: true);
         }
       }
 
@@ -155,7 +155,7 @@ Group {
         Label #FishingResilience {
           Text: "1.00";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, VerticalAlignment: Center, RenderBold: true);
         }
 
         Group {
@@ -174,7 +174,7 @@ Group {
         Label #FishingFocus {
           Text: "1.00";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, VerticalAlignment: Center, RenderBold: true);
         }
       }
 
@@ -193,7 +193,7 @@ Group {
         Label #FishingPrecision {
           Text: "1.00";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, VerticalAlignment: Center, RenderBold: true);
         }
 
         Group {
@@ -212,7 +212,7 @@ Group {
         Label #SeaMonsterAffinity {
           Text: "1.00";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, VerticalAlignment: Center, RenderBold: true);
         }
       }
 
@@ -231,7 +231,7 @@ Group {
         Label #TreasureSense {
           Text: "1.00";
           Anchor: (Width: 70);
-          Style: (FontSize: 14, TextColor: #1a252f, RenderBold: true);
+          Style: (FontSize: 14, TextColor: #1a252f, VerticalAlignment: Center, RenderBold: true);
         }
       }
     }
@@ -242,7 +242,7 @@ Group {
       LayoutMode: Left;
       Anchor: (Height: 50);
       
-      Group { Anchor: (Width: 50); }
+      Group { Anchor: (Width: 135); }
       
       TextButton #CloseButton {
         Text: "CLOSE";
