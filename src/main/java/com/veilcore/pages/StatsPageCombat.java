@@ -15,6 +15,9 @@ import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
 import com.hypixel.hytale.server.core.ui.builder.UIEventBuilder;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
 import com.veilcore.profile.Profile;
 import com.veilcore.profile.ProfileStats;
 
@@ -58,8 +61,16 @@ public class StatsPageCombat extends InteractiveCustomUIPage<StatsPageCombat.Sta
         String displayName = player != null ? player.getDisplayName() : "Player";
         cmd.set("#ProfileName.Text", displayName + "'s Stats");
         
+        // Get current health from EntityStatMap
+        EntityStatMap statMap = store.getComponent(ref, EntityStatMap.getComponentType());
+        int healthIndex = DefaultEntityStatTypes.getHealth();
+        EntityStatValue healthStat = statMap != null ? statMap.get(healthIndex) : null;
+        
+        float currentHealth = healthStat != null ? healthStat.get() : 0;
+        float maxHealth = healthStat != null ? healthStat.getMax() : stats.getHealth();
+        
         // Combat Stats
-        cmd.set("#Health.Text", String.valueOf(stats.getHealth()));
+        cmd.set("#Health.Text", String.format("%.0f / %.0f", currentHealth, maxHealth));
         cmd.set("#Stamina.Text", String.valueOf(stats.getStamina()));
         cmd.set("#Mana.Text", stats.getMana() + "/" + stats.getTotalMana());
         cmd.set("#Armor.Text", String.valueOf(stats.getArmor()));
