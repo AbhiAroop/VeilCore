@@ -65,8 +65,8 @@ public class HealthSyncListener {
 
         int healthIndex = DefaultEntityStatTypes.getHealth();
         
-        // Remove old modifier if it exists
-        statMap.removeModifier(healthIndex, HEALTH_MODIFIER_ID);
+        // Remove old modifier if it exists (use Predictable.ALL to force sync)
+        statMap.removeModifier(EntityStatMap.Predictable.ALL, healthIndex, HEALTH_MODIFIER_ID);
         
         // Calculate max health: base game health + stat bonus
         // The stat represents total max health, so we need to add (stat - baseHealth) where baseHealth is typically 100
@@ -81,12 +81,12 @@ public class HealthSyncListener {
                 healthBonus
             );
             
-            // Apply the modifier
-            statMap.putModifier(healthIndex, HEALTH_MODIFIER_ID, maxHealthModifier);
+            // Apply the modifier (use Predictable.ALL to force sync)
+            statMap.putModifier(EntityStatMap.Predictable.ALL, healthIndex, HEALTH_MODIFIER_ID, maxHealthModifier);
         }
         
-        // Heal player to full health after changing max health
-        statMap.resetStatValue(healthIndex);
+        // Heal player to full health after changing max health (use Predictable.ALL to force sync)
+        statMap.resetStatValue(EntityStatMap.Predictable.ALL, healthIndex);
     }
 
     /**
