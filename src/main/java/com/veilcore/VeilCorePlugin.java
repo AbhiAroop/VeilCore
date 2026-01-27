@@ -22,6 +22,7 @@ import com.veilcore.commands.StatsCommand;
 import com.veilcore.commands.TestDeathCommand;
 import com.veilcore.commands.TestMineOreCommand;
 import com.veilcore.listeners.BlockBreakListener;
+import com.veilcore.listeners.HealthRegenSystem;
 import com.veilcore.listeners.HealthSyncListener;
 import com.veilcore.listeners.LifestealListener;
 import com.veilcore.listeners.PhysicalDamageListener;
@@ -61,6 +62,7 @@ public class VeilCorePlugin extends JavaPlugin {
         getEntityStoreRegistry().registerSystem(new BlockBreakListener(this));
         getEntityStoreRegistry().registerSystem(new PhysicalDamageListener(this));
         getEntityStoreRegistry().registerSystem(new LifestealListener(this));
+        getEntityStoreRegistry().registerSystem(new HealthRegenSystem(this));
         // Damage scaling disabled - Hytale's damage system works on percentages and can't be easily overridden
         // getEntityStoreRegistry().registerSystem(new DamageScalingListener(this));
         getLogger().at(Level.INFO).log("ECS systems registered");
