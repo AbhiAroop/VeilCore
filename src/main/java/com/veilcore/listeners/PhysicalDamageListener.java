@@ -16,18 +16,21 @@ import com.veilcore.profile.Profile;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Random;
 import java.util.logging.Level;
 
 /**
- * Adds physical damage bonus from player stats to all melee damage dealt.
- * This applies to both fist attacks and weapon attacks.
+ * Adds physical damage bonus from player stats to all damage dealt.
+ * Also applies critical hit mechanics to melee attacks based on criticalChance and criticalDamage stats.
  */
 public class PhysicalDamageListener extends DamageEventSystem {
     
     private final VeilCorePlugin plugin;
+    private final Random random;
     
     public PhysicalDamageListener(VeilCorePlugin plugin) {
         this.plugin = plugin;
+        this.random = new Random();
     }
     
     @Nullable
@@ -56,6 +59,7 @@ public class PhysicalDamageListener extends DamageEventSystem {
         Damage.Source source = damage.getSource();
         
         Player attackerPlayer = null;
+        boolean isMeleeAttack = false;
         
         // Handle direct player attacks (melee)
         if (source instanceof Damage.EntitySource) {
@@ -68,6 +72,7 @@ public class PhysicalDamageListener extends DamageEventSystem {
             
             // Get the Player component from the attacker
             attackerPlayer = (Player) store.getComponent(sourceRef, Player.getComponentType());
+            isMeleeAttack = true; // Mark as melee for critical hit calculation
         }
         // Handle projectile attacks (optional - can add rangedDamage here too)
         else if (source instanceof Damage.ProjectileSource) {
@@ -80,6 +85,7 @@ public class PhysicalDamageListener extends DamageEventSystem {
             
             // Get the Player component from the shooter
             attackerPlayer = (Player) store.getComponent(shooterRef, Player.getComponentType());
+            isMeleeAttack = false; // Projectiles don't crit
         }
         
         // If the attacker is not a player, ignore
@@ -100,12 +106,36 @@ public class PhysicalDamageListener extends DamageEventSystem {
         float currentDamage = damage.getAmount();
         float newDamage = currentDamage + (physicalDamage - 1);
         
+        // Calculate critical hit for melee attacks
+        boolean isCriticalHit = false;
+        
+        if (isMeleeAttack) {
+            double criticalChance = profile.getStats().getCriticalChance();
+            
+            // Roll for critical hit (criticalChance is a percentage)
+            if (random.nextDouble() * 100 < criticalChance) {
+                isCriticalHit = true;
+                
+                // Multiply total damage by criticalDamage multiplier
+                double criticalDamage = profile.getStats().getCriticalDamage();
+                newDamage *= criticalDamage;
+            }
+        }
+        
         damage.setAmount(newDamage);
         
         // Debug logging (can be removed in production)
-        plugin.getLogger().at(Level.FINE).log(
-            "Physical damage applied: " + attackerPlayer.getDisplayName() + 
-            " dealt " + currentDamage + " -> " + newDamage + " damage (+" + (physicalDamage - 1) + ")"
-        );
+        if (isCriticalHit) {
+            plugin.getLogger().at(Level.FINE).log(
+                "CRITICAL HIT! " + attackerPlayer.getDisplayName() + 
+                " dealt " + currentDamage + " -> " + newDamage + " damage (×" + 
+                profile.getStats().getCriticalDamage() + " multiplier)"
+            );
+        } else {
+            plugin.getLogger().at(Level.FINE).log(
+                "Physical damage applied: " + attackerPlayer.getDisplayName() + 
+                " dealt " + currentDamage + " -> " + newDamage + " damage (+" + (physicalDamage - 1) + ")"
+            );
+        }
     }
 }
