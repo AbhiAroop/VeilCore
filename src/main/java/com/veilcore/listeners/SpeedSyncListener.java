@@ -52,7 +52,7 @@ public class SpeedSyncListener {
      * 
      * @param store The entity store
      * @param playerRef The player entity reference
-     * @param speedStat The speed stat value from ProfileStats (e.g., 0.1 = default, 0.2 = 2x speed)
+     * @param speedStat The speed stat value from ProfileStats (e.g., 100 = default, 200 = 2x speed)
      */
     public static void updatePlayerSpeed(Store<EntityStore> store, Ref<EntityStore> playerRef, double speedStat) {
         MovementManager movementManager = store.getComponent(playerRef, MovementManager.getComponentType());
@@ -67,11 +67,11 @@ public class SpeedSyncListener {
         }
 
         // Calculate the speed multiplier
-        // speedStat is a multiplier where 0.1 is default (100% speed)
-        // If speedStat is 0.2, that means 200% speed (2x faster)
-        // Base speed in the game is 5.5, so we multiply by (speedStat / 0.1)
+        // speedStat is a multiplier where 100 is default (100% speed)
+        // If speedStat is 200, that means 200% speed (2x faster)
+        // Base speed in the game is 5.5, so we multiply by (speedStat / 100)
         float baseSpeed = 5.5f;
-        float speedMultiplier = (float) (speedStat / 0.1);
+        float speedMultiplier = (float) (speedStat / 100.0);
         settings.baseSpeed = baseSpeed * speedMultiplier;
 
         // Get packet handler to send update to client
