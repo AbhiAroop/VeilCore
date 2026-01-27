@@ -96,6 +96,15 @@ public class SetStatsCommand extends AbstractPlayerCommand {
                     );
                 }
                 
+                // If speed stat was modified, update the player's movement speed
+                if (statName.equals("speed")) {
+                    com.veilcore.listeners.SpeedSyncListener.updatePlayerSpeedByUuid(
+                        plugin, 
+                        targetPlayer.getUuid(), 
+                        stats.getSpeed()
+                    );
+                }
+                
                 // Send success message to admin
                 PacketHandler senderPacket = playerRef.getPacketHandler();
                 Message senderPrimary = Message.raw("Stat Updated").color("#55FF55").bold(true);
