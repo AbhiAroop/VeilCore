@@ -26,6 +26,7 @@ import com.veilcore.listeners.HealthRegenSystem;
 import com.veilcore.listeners.HealthSyncListener;
 import com.veilcore.listeners.LifestealListener;
 import com.veilcore.listeners.NPCNameplateSystem;
+import com.veilcore.listeners.NPCNameplateUpdateSystem;
 import com.veilcore.listeners.PhysicalDamageListener;
 import com.veilcore.listeners.PlayerDeathListener;
 import com.veilcore.listeners.PlayerEventListener;
@@ -65,6 +66,7 @@ public class VeilCorePlugin extends JavaPlugin {
         getEntityStoreRegistry().registerSystem(new LifestealListener(this));
         getEntityStoreRegistry().registerSystem(new HealthRegenSystem(this));
         getEntityStoreRegistry().registerSystem(new NPCNameplateSystem());
+        getEntityStoreRegistry().registerSystem(new NPCNameplateUpdateSystem());
         // Damage scaling disabled - Hytale's damage system works on percentages and can't be easily overridden
         // getEntityStoreRegistry().registerSystem(new DamageScalingListener(this));
         getLogger().at(Level.INFO).log("ECS systems registered");

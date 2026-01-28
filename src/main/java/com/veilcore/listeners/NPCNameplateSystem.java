@@ -9,6 +9,9 @@ import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.HolderSystem;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
+import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
 
@@ -49,8 +52,22 @@ public class NPCNameplateSystem extends HolderSystem<EntityStore> {
             roleName = "NPC";
         }
         
-        // Add nameplate component with the role name
-        holder.addComponent(nameplateType, new Nameplate(roleName));
+        // Get health information
+        EntityStatMap statMap = holder.getComponent(EntityStatMap.getComponentType());
+        String healthText = "";
+        if (statMap != null) {
+            int healthIndex = DefaultEntityStatTypes.getHealth();
+            EntityStatValue healthStat = statMap.get(healthIndex);
+            if (healthStat != null) {
+                float currentHealth = healthStat.get();
+                float maxHealth = healthStat.getMax();
+                healthText = String.format("\nHealth: %.0f/%.0f", currentHealth, maxHealth);
+            }
+        }
+        
+        // Add nameplate component with the role name and health
+        String nameplateText = roleName + healthText;
+        holder.addComponent(nameplateType, new Nameplate(nameplateText));
     }
     
     @Override
