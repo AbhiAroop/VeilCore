@@ -105,6 +105,15 @@ public class SetStatsCommand extends AbstractPlayerCommand {
                     );
                 }
                 
+                // If stamina regen stat was modified, override the default stamina regen
+                if (statName.equals("staminaregen") || statName.equals("stamina_regen")) {
+                    com.veilcore.listeners.StaminaRegenModifier.updatePlayerStaminaRegenByUuid(
+                        plugin,
+                        targetPlayer.getUuid(),
+                        stats.getStaminaRegen()
+                    );
+                }
+                
                 // If speed stat was modified, update the player's movement speed
                 if (statName.equals("speed")) {
                     com.veilcore.listeners.SpeedSyncListener.updatePlayerSpeedByUuid(

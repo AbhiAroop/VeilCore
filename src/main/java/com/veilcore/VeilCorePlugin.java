@@ -31,6 +31,7 @@ import com.veilcore.listeners.PhysicalDamageListener;
 import com.veilcore.listeners.PlayerDeathListener;
 import com.veilcore.listeners.PlayerEventListener;
 import com.veilcore.listeners.SpeedSyncListener;
+import com.veilcore.listeners.StaminaRegenModifier;
 import com.veilcore.listeners.StaminaRegenSystem;
 import com.veilcore.listeners.StaminaSyncListener;
 import com.veilcore.profile.PlayerProfileManager;
@@ -77,9 +78,11 @@ public class VeilCorePlugin extends JavaPlugin {
         // Register event listeners
         HealthSyncListener healthSyncListener = new HealthSyncListener(this);
         StaminaSyncListener staminaSyncListener = new StaminaSyncListener(this);
+        StaminaRegenModifier staminaRegenModifier = new StaminaRegenModifier(this);
         SpeedSyncListener speedSyncListener = new SpeedSyncListener(this);
         getEventRegistry().registerGlobal(PlayerReadyEvent.class, healthSyncListener::onPlayerReady);
         getEventRegistry().registerGlobal(PlayerReadyEvent.class, staminaSyncListener::onPlayerReady);
+        getEventRegistry().registerGlobal(PlayerReadyEvent.class, staminaRegenModifier::onPlayerReady);
         getEventRegistry().registerGlobal(PlayerReadyEvent.class, speedSyncListener::onPlayerReady);
         getEventRegistry().registerGlobal(PlayerReadyEvent.class, PlayerEventListener::onPlayerReady);
         getEventRegistry().registerGlobal(PlayerDisconnectEvent.class, PlayerEventListener::onPlayerDisconnect);
