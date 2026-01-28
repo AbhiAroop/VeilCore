@@ -8,6 +8,7 @@ import com.hypixel.hytale.component.RemoveReason;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.HolderSystem;
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
@@ -16,6 +17,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
 
 import javax.annotation.Nonnull;
+import java.awt.Color;
 
 /**
  * System that automatically adds nameplates to NPCs spawned via /npc spawn command
@@ -61,13 +63,49 @@ public class NPCNameplateSystem extends HolderSystem<EntityStore> {
             if (healthStat != null) {
                 float currentHealth = healthStat.get();
                 float maxHealth = healthStat.getMax();
-                healthText = String.format("\nHealth: %.0f/%.0f", currentHealth, maxHealth);
+                
+                // Calculate health percentage for coloring
+                float healthPercent = (currentHealth / maxHealth) * 100.0f;
+                Color healthColor = getHealthColor(healthPercent);
+                
+                // Create colored health text
+                String healthValue = String.format("%.0f/%.0f", currentHealth, maxHealth);
+                healthText = "\n" + Message.raw("Health: ").getAnsiMessage() + 
+                            Message.raw(healthValue).color(healthColor).getAnsiMessage();
             }
         }
         
-        // Add nameplate component with the role name and health
-        String nameplateText = roleName + healthText;
+        // Color entity name based on health percentage
+        String coloredName = roleName;
+        if (statMap != null) {
+            int healthIndex = DefaultEntityStatTypes.getHealth();
+            EntityStatValue healthStat = statMap.get(healthIndex);
+            if (healthStat != null) {
+                float currentHealth = healthStat.get();
+                float maxHealth = healthStat.getMax();
+                float healthPercent = (currentHealth / maxHealth) * 100.0f;
+                Color nameColor = getHealthColor(healthPercent);
+                coloredName = Message.raw(roleName).color(nameColor).getAnsiMessage();
+            }
+        }
+        
+        // Add nameplate component with the colored name and health
+        String nameplateText = coloredName + healthText;
         holder.addComponent(nameplateType, new Nameplate(nameplateText));
+    }
+    
+    /**
+     * Get color based on health percentage
+     * Green: 75-100%, Yellow: 40-74%, Red: 0-39%
+     */
+    private Color getHealthColor(float healthPercent) {
+        if (healthPercent >= 75.0f) {
+            return new Color(0, 255, 0); // Green
+        } else if (healthPercent >= 40.0f) {
+            return new Color(255, 255, 0); // Yellow
+        } else {
+            return new Color(255, 0, 0); // Red
+        }
     }
     
     @Override

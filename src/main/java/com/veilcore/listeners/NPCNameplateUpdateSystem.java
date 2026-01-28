@@ -7,6 +7,7 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.tick.EntityTickingSystem;
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
@@ -15,6 +16,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
 
 import javax.annotation.Nonnull;
+import java.awt.Color;
 
 /**
  * System that updates NPC nameplates when their health changes
@@ -68,12 +70,36 @@ public class NPCNameplateUpdateSystem extends EntityTickingSystem<EntityStore> {
         float currentHealth = healthStat.get();
         float maxHealth = healthStat.getMax();
         
-        // Format nameplate text
-        String nameplateText = String.format("%s\nHealth: %.0f/%.0f", roleName, currentHealth, maxHealth);
+        // Calculate health percentage for coloring
+        float healthPercent = (currentHealth / maxHealth) * 100.0f;
+        Color healthColor = getHealthColor(healthPercent);
+        
+        // Create colored name and health text
+        String coloredName = Message.raw(roleName).color(healthColor).getAnsiMessage();
+        String healthValue = String.format("%.0f/%.0f", currentHealth, maxHealth);
+        String coloredHealth = Message.raw("Health: ").getAnsiMessage() + 
+                              Message.raw(healthValue).color(healthColor).getAnsiMessage();
+        
+        // Format nameplate text with colors
+        String nameplateText = coloredName + "\n" + coloredHealth;
         
         // Update nameplate if text changed
         if (!nameplate.getText().equals(nameplateText)) {
             nameplate.setText(nameplateText);
+        }
+    }
+    
+    /**
+     * Get color based on health percentage
+     * Green: 75-100%, Yellow: 40-74%, Red: 0-39%
+     */
+    private Color getHealthColor(float healthPercent) {
+        if (healthPercent >= 75.0f) {
+            return new Color(0, 255, 0); // Green
+        } else if (healthPercent >= 40.0f) {
+            return new Color(255, 255, 0); // Yellow
+        } else {
+            return new Color(255, 0, 0); // Red
         }
     }
 }
