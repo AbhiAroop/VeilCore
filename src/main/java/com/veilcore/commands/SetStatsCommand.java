@@ -105,12 +105,11 @@ public class SetStatsCommand extends AbstractPlayerCommand {
                     );
                 }
                 
-                // If stamina regen stat was modified, override the default stamina regen
+                // If stamina regen stat was modified, suppress default builtin regen
                 if (statName.equals("staminaregen") || statName.equals("stamina_regen")) {
                     com.veilcore.listeners.StaminaRegenModifier.updatePlayerStaminaRegenByUuid(
                         plugin,
-                        targetPlayer.getUuid(),
-                        stats.getStaminaRegen()
+                        targetPlayer.getUuid()
                     );
                 }
                 
