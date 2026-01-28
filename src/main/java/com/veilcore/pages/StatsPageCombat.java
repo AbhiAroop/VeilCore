@@ -71,7 +71,14 @@ public class StatsPageCombat extends InteractiveCustomUIPage<StatsPageCombat.Sta
         
         // Combat Stats
         cmd.set("#Health.Text", String.format("%.0f / %.0f", currentHealth, maxHealth));
-        cmd.set("#Stamina.Text", String.valueOf(stats.getStamina()));
+        
+        // Get current stamina from EntityStatMap
+        int staminaIndex = DefaultEntityStatTypes.getStamina();
+        EntityStatValue staminaStat = statMap != null ? statMap.get(staminaIndex) : null;
+        float currentStamina = staminaStat != null ? staminaStat.get() : 0;
+        float maxStamina = staminaStat != null ? staminaStat.getMax() : stats.getStamina();
+        cmd.set("#Stamina.Text", String.format("%.0f / %.0f", currentStamina, maxStamina));
+        
         cmd.set("#Mana.Text", stats.getMana() + "/" + stats.getTotalMana());
         cmd.set("#Armor.Text", String.valueOf(stats.getArmor()));
         cmd.set("#MagicResist.Text", String.valueOf(stats.getMagicResist()));

@@ -31,6 +31,8 @@ import com.veilcore.listeners.PhysicalDamageListener;
 import com.veilcore.listeners.PlayerDeathListener;
 import com.veilcore.listeners.PlayerEventListener;
 import com.veilcore.listeners.SpeedSyncListener;
+import com.veilcore.listeners.StaminaRegenSystem;
+import com.veilcore.listeners.StaminaSyncListener;
 import com.veilcore.profile.PlayerProfileManager;
 import com.veilcore.profile.ProfileRepository;
 import com.veilcore.profile.ProfileStateManager;
@@ -65,6 +67,7 @@ public class VeilCorePlugin extends JavaPlugin {
         getEntityStoreRegistry().registerSystem(new PhysicalDamageListener(this));
         getEntityStoreRegistry().registerSystem(new LifestealListener(this));
         getEntityStoreRegistry().registerSystem(new HealthRegenSystem(this));
+        getEntityStoreRegistry().registerSystem(new StaminaRegenSystem(this));
         getEntityStoreRegistry().registerSystem(new NPCNameplateSystem());
         getEntityStoreRegistry().registerSystem(new NPCNameplateUpdateSystem());
         // Damage scaling disabled - Hytale's damage system works on percentages and can't be easily overridden
@@ -73,8 +76,10 @@ public class VeilCorePlugin extends JavaPlugin {
 
         // Register event listeners
         HealthSyncListener healthSyncListener = new HealthSyncListener(this);
+        StaminaSyncListener staminaSyncListener = new StaminaSyncListener(this);
         SpeedSyncListener speedSyncListener = new SpeedSyncListener(this);
         getEventRegistry().registerGlobal(PlayerReadyEvent.class, healthSyncListener::onPlayerReady);
+        getEventRegistry().registerGlobal(PlayerReadyEvent.class, staminaSyncListener::onPlayerReady);
         getEventRegistry().registerGlobal(PlayerReadyEvent.class, speedSyncListener::onPlayerReady);
         getEventRegistry().registerGlobal(PlayerReadyEvent.class, PlayerEventListener::onPlayerReady);
         getEventRegistry().registerGlobal(PlayerDisconnectEvent.class, PlayerEventListener::onPlayerDisconnect);

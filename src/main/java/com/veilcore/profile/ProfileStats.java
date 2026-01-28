@@ -26,6 +26,7 @@ public class ProfileStats {
     private double attackSpeed;
     private double omnivamp;
     private double healthRegen;
+    private double staminaRegen;
     
     // Fortune Stats
     private double miningFortune;
@@ -81,6 +82,7 @@ public class ProfileStats {
     private double defaultAttackSpeed = 0.5;
     private double defaultOmnivamp = 0;
     private double defaultHealthRegen = 0.3;
+    private double defaultStaminaRegen = 0.3;
     
     // Default Values - Fortune
     private double defaultMiningFortune = 1.00;
@@ -133,6 +135,7 @@ public class ProfileStats {
         this.attackSpeed = defaultAttackSpeed;
         this.omnivamp = defaultOmnivamp;
         this.healthRegen = defaultHealthRegen;
+        this.staminaRegen = defaultStaminaRegen;
         
         // Initialize fortune stats with defaults
         this.miningFortune = defaultMiningFortune;
@@ -321,6 +324,14 @@ public class ProfileStats {
     
     public void setHealthRegen(double healthRegen) {
         this.healthRegen = healthRegen;
+    }
+    
+    public double getStaminaRegen() {
+        return staminaRegen;
+    }
+    
+    public void setStaminaRegen(double staminaRegen) {
+        this.staminaRegen = staminaRegen;
     }
     
     // Fortune Stats Getters/Setters

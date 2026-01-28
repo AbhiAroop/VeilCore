@@ -96,6 +96,15 @@ public class SetStatsCommand extends AbstractPlayerCommand {
                     );
                 }
                 
+                // If stamina stat was modified, update the player's max stamina
+                if (statName.equals("stamina")) {
+                    com.veilcore.listeners.StaminaSyncListener.updatePlayerMaxStaminaByUuid(
+                        plugin, 
+                        targetPlayer.getUuid(), 
+                        stats.getStamina()
+                    );
+                }
+                
                 // If speed stat was modified, update the player's movement speed
                 if (statName.equals("speed")) {
                     com.veilcore.listeners.SpeedSyncListener.updatePlayerSpeedByUuid(
@@ -209,6 +218,10 @@ public class SetStatsCommand extends AbstractPlayerCommand {
             case "healthregen":
             case "regen":
                 stats.setHealthRegen(Double.parseDouble(valueStr));
+                return true;
+            case "staminaregen":
+            case "stamina_regen":
+                stats.setStaminaRegen(Double.parseDouble(valueStr));
                 return true;
                 
             // Fortune Stats (double)
