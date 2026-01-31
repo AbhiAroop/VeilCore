@@ -34,6 +34,7 @@ import com.veilcore.listeners.SpeedSyncListener;
 import com.veilcore.listeners.StaminaRegenModifier;
 import com.veilcore.listeners.StaminaRegenSystem;
 import com.veilcore.listeners.StaminaSyncListener;
+import com.veilcore.listeners.WoodcuttingListener;
 import com.veilcore.profile.PlayerProfileManager;
 import com.veilcore.profile.ProfileRepository;
 import com.veilcore.profile.ProfileStateManager;
@@ -65,6 +66,7 @@ public class VeilCorePlugin extends JavaPlugin {
         // Register ECS systems
         getEntityStoreRegistry().registerSystem(new PlayerDeathListener(this));
         getEntityStoreRegistry().registerSystem(new BlockBreakListener(this));
+        getEntityStoreRegistry().registerSystem(new WoodcuttingListener(this));
         getEntityStoreRegistry().registerSystem(new PhysicalDamageListener(this));
         getEntityStoreRegistry().registerSystem(new LifestealListener(this));
         getEntityStoreRegistry().registerSystem(new HealthRegenSystem(this));
