@@ -5,7 +5,7 @@ import com.veilcore.skills.subskills.Subskill;
 
 /**
  * Tree Felling subskill for Woodcutting
- * Awards XP when cutting down trees based on tree size (number of logs)
+ * Awards XP when cutting down trees based on tree size (number of logs) and wood type rarity
  */
 public class TreeFelling extends Subskill {
     
@@ -35,24 +35,83 @@ public class TreeFelling extends Subskill {
         }
     }
     
+    public enum WoodRarity {
+        // Common woods - 1.0x multiplier
+        COMMON(1.0, "Oak", "Birch", "Fir", "Ash", "Aspen", "Beech", "Maple"),
+        
+        // Uncommon woods - 1.25x multiplier
+        UNCOMMON(1.25, "Cedar", "Jungle", "Palm", "Bamboo", "Sallow", "Camphor"),
+        
+        // Rare woods - 1.5x multiplier
+        RARE(1.5, "Redwood", "Banyan", "Gumboab", "Bottletree", "Palo", "Windwillow"),
+        
+        // Epic woods - 2.0x multiplier
+        EPIC(2.0, "Amber", "Azure", "Crystal", "Wisteria", "Spiral", "Stormbark"),
+        
+        // Legendary woods - 2.5x multiplier
+        LEGENDARY(2.5, "Fire", "Ice", "Petrified", "Poisoned", "Burnt", "Dry", "Gnarled");
+        
+        private final double multiplier;
+        private final String[] woodTypes;
+        
+        WoodRarity(double multiplier, String... woodTypes) {
+            this.multiplier = multiplier;
+            this.woodTypes = woodTypes;
+        }
+        
+        public double getMultiplier() {
+            return multiplier;
+        }
+        
+        public String[] getWoodTypes() {
+            return woodTypes;
+        }
+        
+        /**
+         * Get wood rarity from block ID
+         * @param blockId The block ID to check
+         * @return The wood rarity, defaults to COMMON if not found
+         */
+        public static WoodRarity fromBlockId(String blockId) {
+            if (blockId == null) return COMMON;
+            
+            String lowerBlockId = blockId.toLowerCase();
+            
+            // Check each rarity tier
+            for (WoodRarity rarity : values()) {
+                for (String woodType : rarity.getWoodTypes()) {
+                    if (lowerBlockId.contains(woodType.toLowerCase())) {
+                        return rarity;
+                    }
+                }
+            }
+            
+            return COMMON;
+        }
+    }
+    
     public TreeFelling() {
         super(
             ID,
             "Tree Felling",
-            "Gain woodcutting XP when cutting down trees. Larger trees grant more XP.",
+            "Gain woodcutting XP when cutting down trees. Larger trees and rarer wood types grant more XP.",
             Skill.WOODCUTTING,
             SubskillType.PASSIVE
         );
     }
     
     /**
-     * Calculate XP for cutting down a tree based on size
+     * Calculate XP for cutting down a tree based on size and wood type
      * @param logCount The number of logs destroyed in the tree
+     * @param woodType The type of wood (block ID)
      * @return XP amount to award
      */
-    public static long calculateXp(int logCount) {
+    public static long calculateXp(int logCount, String woodType) {
         TreeSize size = getTreeSize(logCount);
-        return size.getXpAmount();
+        WoodRarity rarity = WoodRarity.fromBlockId(woodType);
+        
+        // Base XP from tree size, multiplied by wood rarity
+        return (long) (size.getXpAmount() * rarity.getMultiplier());
     }
     
     /**

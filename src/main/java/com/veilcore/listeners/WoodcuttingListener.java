@@ -103,11 +103,14 @@ public class WoodcuttingListener extends EntityEventSystem<EntityStore, BreakBlo
         int treeSize = countConnectedWoodBlocks(world, blockPos, blockId);
         
         if (treeSize > 0) {
-            // Calculate XP based on tree size
-            long xpAmount = TreeFelling.calculateXp(treeSize);
+            // Calculate XP based on tree size and wood type
+            long xpAmount = TreeFelling.calculateXp(treeSize, blockId);
+            
+            // Get wood rarity for logging
+            TreeFelling.WoodRarity rarity = TreeFelling.WoodRarity.fromBlockId(blockId);
             
             plugin.getLogger().at(Level.INFO).log(
-                "Player " + player.getDisplayName() + " cut tree with " + treeSize + " logs, gaining " + xpAmount + " woodcutting XP"
+                "Player " + player.getDisplayName() + " cut " + rarity.name() + " tree (" + blockId + ") with " + treeSize + " logs, gaining " + xpAmount + " woodcutting XP"
             );
             
             // Award woodcutting XP
