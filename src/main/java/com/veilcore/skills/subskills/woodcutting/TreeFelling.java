@@ -120,11 +120,11 @@ public class TreeFelling extends Subskill {
      * @return XP amount to award
      */
     public static long calculateXp(int logCount, String woodType) {
-        TreeSize size = getTreeSize(logCount);
         WoodRarity rarity = WoodRarity.fromBlockId(woodType);
         
-        // Base XP from tree size, multiplied by wood rarity
-        return (long) (size.getXpAmount() * rarity.getMultiplier());
+        // Base XP per block is 2, multiplied by wood rarity and total block count
+        long baseXpPerBlock = 2;
+        return (long) (baseXpPerBlock * logCount * rarity.getMultiplier());
     }
     
     /**
