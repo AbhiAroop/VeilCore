@@ -15,6 +15,9 @@ import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.io.PacketHandler;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
+import com.hypixel.hytale.server.core.universe.world.World;
+import com.hypixel.hytale.server.core.universe.world.chunk.BlockChunk;
+import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.NotificationUtil;
 import com.hypixel.hytale.server.core.Message;
@@ -26,15 +29,23 @@ import com.veilcore.skills.SkillLevel;
 import com.veilcore.skills.subskills.woodcutting.TreeFelling;
 
 import javax.annotation.Nonnull;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 
 /**
  * Listens for block break events using ECS event system
  * Awards woodcutting XP when players break wood blocks
+ * Detects entire tree structures to award XP for tree felling
  */
 public class WoodcuttingListener extends EntityEventSystem<EntityStore, BreakBlockEvent> {
 
     private final VeilCorePlugin plugin;
+    private static final int MAX_LOGS_TO_TRACK = 256;
+    
+    // Track recently processed blocks to avoid double XP when trees auto-break
+    private final Map<String, Long> recentlyProcessedBlocks = new ConcurrentHashMap<>();
+    private static final long BLOCK_TRACKING_DURATION_MS = 2000; // 2 seconds
 
     public WoodcuttingListener(VeilCorePlugin plugin) {
         super(BreakBlockEvent.class);
@@ -76,20 +87,49 @@ public class WoodcuttingListener extends EntityEventSystem<EntityStore, BreakBlo
             return; // Not a wood block, no woodcutting XP
         }
         
+        // Check if this block was recently processed (part of auto-collapsed tree)
+        String blockKey = vectorToKey(blockPos);
+        Long lastProcessed = recentlyProcessedBlocks.get(blockKey);
+        if (lastProcessed != null && (System.currentTimeMillis() - lastProcessed) < BLOCK_TRACKING_DURATION_MS) {
+            return; // This block was already counted as part of a tree
+        }
+        
         // Get player's profile
         Profile profile = plugin.getProfileManager().getActiveProfile(player.getUuid());
         if (profile == null) {
             return; // Player doesn't have an active profile
         }
         
-        // Calculate XP based on wood type (per block broken)
-        long xpAmount = TreeFelling.calculateXpPerBlock(blockId);
+        // Get player's world to count connected wood blocks
+        World world = player.getWorld();
+        if (world == null) {
+            return;
+        }
         
-        // Get wood rarity for logging
+        // Count the tree size by finding connected wood blocks
+        Set<Vector3i> treeBlocks = findConnectedWoodBlocks(world, blockPos, blockId);
+        int logCount = treeBlocks.size();
+        
+        // Mark all blocks in this tree as processed
+        long currentTime = System.currentTimeMillis();
+        for (Vector3i pos : treeBlocks) {
+            recentlyProcessedBlocks.put(vectorToKey(pos), currentTime);
+        }
+        
+        // Clean up old entries (older than tracking duration)
+        recentlyProcessedBlocks.entrySet().removeIf(entry -> 
+            (currentTime - entry.getValue()) > BLOCK_TRACKING_DURATION_MS
+        );
+        
+        // Calculate XP based on number of logs and wood type
+        long xpAmount = TreeFelling.calculateXp(logCount, blockId);
+        
+        // Get wood rarity and tree size for logging
         TreeFelling.WoodRarity rarity = TreeFelling.WoodRarity.fromBlockId(blockId);
+        TreeFelling.TreeSize treeSize = TreeFelling.getTreeSize(logCount);
         
         plugin.getLogger().at(Level.INFO).log(
-            "Player " + player.getDisplayName() + " broke " + rarity.name() + " wood block (" + blockId + "), gaining " + xpAmount + " woodcutting XP"
+            "Player " + player.getDisplayName() + " felled " + rarity.name() + " tree (" + blockId + ") with " + logCount + " logs, gaining " + xpAmount + " woodcutting XP"
         );
         
         // Award woodcutting XP
@@ -133,7 +173,9 @@ public class WoodcuttingListener extends EntityEventSystem<EntityStore, BreakBlo
         
         // Send XP gained notification
         String xpMessage = String.format("+%d Woodcutting XP", xpAmount);
-        String secondaryMessage = String.format("Tree Felling: %s wood", rarity.name());
+        String secondaryMessage = String.format("Tree Felling: %s tree (%s wood)", 
+            treeSize.name(), 
+            rarity.name());
         
         Message primaryMsg = Message.raw(xpMessage)
             .color("#8B4513")
@@ -147,5 +189,101 @@ public class WoodcuttingListener extends EntityEventSystem<EntityStore, BreakBlo
             secondaryMsg,
             icon
         );
+    }
+    
+    /**
+     * Find all connected wood blocks starting from a position using BFS
+     * 
+     * @param world The world to search in
+     * @param startPos The starting position
+     * @param woodBlockId The wood block type to match
+     * @return Set of all connected wood block positions
+     */
+    private Set<Vector3i> findConnectedWoodBlocks(@Nonnull World world, @Nonnull Vector3i startPos, String woodBlockId) {
+        Set<Vector3i> found = new HashSet<>();
+        Queue<Vector3i> queue = new ArrayDeque<>();
+        Set<String> visited = new HashSet<>();
+        
+        queue.add(new Vector3i(startPos));
+        visited.add(vectorToKey(startPos));
+        
+        // BFS to find all connected wood blocks
+        while (!queue.isEmpty() && found.size() < MAX_LOGS_TO_TRACK) {
+            Vector3i currentPos = queue.poll();
+            
+            // Get block at current position
+            BlockType currentBlock = getBlockAtPosition(world, currentPos);
+            if (currentBlock == null) {
+                continue;
+            }
+            
+            String currentBlockId = currentBlock.getId();
+            
+            // Only count wood blocks (not leaves)
+            if (TreeFelling.isWoodBlock(currentBlockId)) {
+                found.add(new Vector3i(currentPos));
+            }
+            
+            // Check all 6 adjacent blocks
+            Vector3i[] adjacentPositions = {
+                new Vector3i(currentPos.x + 1, currentPos.y, currentPos.z),
+                new Vector3i(currentPos.x - 1, currentPos.y, currentPos.z),
+                new Vector3i(currentPos.x, currentPos.y + 1, currentPos.z),
+                new Vector3i(currentPos.x, currentPos.y - 1, currentPos.z),
+                new Vector3i(currentPos.x, currentPos.y, currentPos.z + 1),
+                new Vector3i(currentPos.x, currentPos.y, currentPos.z - 1)
+            };
+            
+            for (Vector3i adjacentPos : adjacentPositions) {
+                String key = vectorToKey(adjacentPos);
+                if (visited.contains(key) || found.size() >= MAX_LOGS_TO_TRACK) {
+                    continue;
+                }
+                
+                BlockType adjacentBlock = getBlockAtPosition(world, adjacentPos);
+                if (adjacentBlock != null) {
+                    String adjacentBlockId = adjacentBlock.getId();
+                    
+                    // Add to queue if it's wood or leaves (to traverse through)
+                    if (TreeFelling.isWoodBlock(adjacentBlockId) || TreeFelling.isLeavesBlock(adjacentBlockId)) {
+                        visited.add(key);
+                        queue.add(new Vector3i(adjacentPos));
+                    }
+                }
+            }
+        }
+        
+        return found;
+    }
+    
+    /**
+     * Get the block type at a specific position in the world
+     */
+    private BlockType getBlockAtPosition(@Nonnull World world, @Nonnull Vector3i position) {
+        try {
+            WorldChunk worldChunk = world.getChunkIfLoaded(
+                com.hypixel.hytale.math.util.ChunkUtil.indexChunkFromBlock(position.x, position.z)
+            );
+            if (worldChunk == null) {
+                return null;
+            }
+            
+            BlockChunk blockChunk = worldChunk.getBlockChunk();
+            if (blockChunk == null) {
+                return null;
+            }
+            
+            int blockTypeId = blockChunk.getBlock(position.x, position.y, position.z);
+            return BlockType.getAssetMap().getAsset(blockTypeId);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    /**
+     * Convert a Vector3i position to a unique string key
+     */
+    private String vectorToKey(Vector3i vec) {
+        return vec.x + "," + vec.y + "," + vec.z;
     }
 }
