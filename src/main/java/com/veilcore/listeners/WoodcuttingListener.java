@@ -100,17 +100,18 @@ public class WoodcuttingListener extends EntityEventSystem<EntityStore, BreakBlo
         }
         
         // Count the tree size by finding connected wood blocks
-        int treeSize = countConnectedWoodBlocks(world, blockPos, blockId);
+        int logCount = countConnectedWoodBlocks(world, blockPos, blockId);
         
-        if (treeSize > 0) {
+        if (logCount > 0) {
             // Calculate XP based on tree size and wood type
-            long xpAmount = TreeFelling.calculateXp(treeSize, blockId);
+            long xpAmount = TreeFelling.calculateXp(logCount, blockId);
             
             // Get wood rarity for logging
             TreeFelling.WoodRarity rarity = TreeFelling.WoodRarity.fromBlockId(blockId);
+            TreeFelling.TreeSize treeSize = TreeFelling.getTreeSize(logCount);
             
             plugin.getLogger().at(Level.INFO).log(
-                "Player " + player.getDisplayName() + " cut " + rarity.name() + " tree (" + blockId + ") with " + treeSize + " logs, gaining " + xpAmount + " woodcutting XP"
+                "Player " + player.getDisplayName() + " cut " + rarity.name() + " tree (" + blockId + ") with " + logCount + " logs, gaining " + xpAmount + " woodcutting XP"
             );
             
             // Award woodcutting XP
@@ -151,6 +152,25 @@ public class WoodcuttingListener extends EntityEventSystem<EntityStore, BreakBlo
                     icon
                 );
             }
+            
+            // Send XP gained notification with tree info
+            String xpMessage = String.format("+%d Woodcutting XP", xpAmount);
+            String secondaryMessage = String.format("Tree Felling: %s tree (%s wood)", 
+                treeSize.name(), 
+                rarity.name());
+            
+            Message primaryMsg = Message.raw(xpMessage)
+                .color("#8B4513")
+                .bold(true);
+            Message secondaryMsg = Message.raw(secondaryMessage)
+                .color("#FFFFFF");
+            
+            NotificationUtil.sendNotification(
+                handler,
+                primaryMsg,
+                secondaryMsg,
+                icon
+            );
         }
     }
     
