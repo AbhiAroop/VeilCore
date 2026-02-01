@@ -94,10 +94,23 @@ public class TreeFelling extends Subskill {
         super(
             ID,
             "Tree Felling",
-            "Gain woodcutting XP when cutting down trees. Larger trees and rarer wood types grant more XP.",
+            "Gain woodcutting XP when breaking wood blocks. Rarer wood types grant more XP.",
             Skill.WOODCUTTING,
             SubskillType.PASSIVE
         );
+    }
+    
+    /**
+     * Calculate XP for breaking a single wood block based on wood type
+     * @param woodType The type of wood (block ID)
+     * @return XP amount to award
+     */
+    public static long calculateXpPerBlock(String woodType) {
+        WoodRarity rarity = WoodRarity.fromBlockId(woodType);
+        
+        // Base XP per wood block is 2, multiplied by wood rarity
+        long baseXp = 2;
+        return (long) (baseXp * rarity.getMultiplier());
     }
     
     /**
