@@ -74,6 +74,8 @@ public class VeilCorePlugin extends JavaPlugin {
         getEntityStoreRegistry().registerSystem(new StaminaRegenSystem(this));
         getEntityStoreRegistry().registerSystem(new NPCNameplateSystem());
         getEntityStoreRegistry().registerSystem(new NPCNameplateUpdateSystem());
+        // Guard AI - handled by GuardRole.json with NEUTRAL attitude
+        // getEntityStoreRegistry().registerSystem(new GuardAISystem());
         // Damage scaling disabled - Hytale's damage system works on percentages and can't be easily overridden
         // getEntityStoreRegistry().registerSystem(new DamageScalingListener(this));
         getLogger().at(Level.INFO).log("ECS systems registered");

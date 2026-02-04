@@ -5,6 +5,8 @@
   "MaxHealth": 100,
   "Invulnerable": false,
   "KnockbackScale": 1.0,
+  "DefaultPlayerAttitude": "NEUTRAL",
+  "DefaultNPCAttitude": "NEUTRAL",
   "Armor": [
     "Armor_Zone1_Warrior_Helmet",
     "Armor_Zone1_Warrior_Chestplate", 
