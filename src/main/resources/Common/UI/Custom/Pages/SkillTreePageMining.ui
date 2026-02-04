@@ -1,3 +1,5 @@
+$C = "../Common.ui";
+
 @CloseButtonStyle = TextButtonStyle(
   Default: (Background: #2c3e50, LabelStyle: (FontSize: 14, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
   Hovered: (Background: #34495e, LabelStyle: (FontSize: 14, TextColor: #00d4ff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
@@ -5,43 +7,115 @@
 );
 
 Group {
-  Anchor: (Width: 600, Height: 400);
-  Background: #141c26(0.98);
+  Anchor: (Width: 700, Height: 550);
+  Background: #141c26;
   LayoutMode: Top;
   Padding: (Full: 25);
 
-  Label #Title {
-    Text: "Mining Skill Tree";
-    Anchor: (Height: 40);
-    Style: (FontSize: 26, TextColor: #00d4ff, HorizontalAlignment: Center, RenderBold: true);
+  Label {
+    Text: "MINING SKILL TREE";
+    Anchor: (Height: 30);
+    Style: (FontSize: 16, TextColor: #FFD700, RenderBold: true, HorizontalAlignment: Center);
   }
 
-  Group { 
-    Anchor: (Height: 3);
-    Background: #00d4ff(0.6);
+  Group { Anchor: (Height: 10); }
+
+  Label #BasicTokens {
+    Text: "Basic: 0";
+    Anchor: (Height: 18);
+    Style: (FontSize: 11, TextColor: #AAAAAA);
+  }
+
+  Label #AdvancedTokens {
+    Text: "Advanced: 0";
+    Anchor: (Height: 18);
+    Style: (FontSize: 11, TextColor: #5555FF);
+  }
+
+  Label #MasterTokens {
+    Text: "Master: 0";
+    Anchor: (Height: 18);
+    Style: (FontSize: 11, TextColor: #FF55FF);
   }
 
   Group { Anchor: (Height: 15); }
 
-  Label #TokenDisplay {
-    Text: "Tokens: 0";
-    Anchor: (Height: 30);
-    Style: (FontSize: 16, TextColor: #ffffff, HorizontalAlignment: Center);
+  Label #TreeMessage {
+    Text: "Loading...";
+    Anchor: (Height: 200);
+    Style: (FontSize: 11, TextColor: #ffffff);
   }
 
-  Group { Anchor: (Height: 20); }
+  Group { Anchor: (Height: 10); }
 
-  Label #Message {
-    Text: "Skill tree system coming soon!";
-    Anchor: (Height: 100);
-    Style: (FontSize: 14, TextColor: #96a9be, HorizontalAlignment: Center, VerticalAlignment: Center);
+  Label #NodeName {
+    Text: "Node";
+    Anchor: (Height: 18);
+    Style: (FontSize: 12, TextColor: #ffffff, RenderBold: true);
+  }
+
+  Label #NodeLevel {
+    Text: "Level";
+    Anchor: (Height: 16);
+    Style: (FontSize: 10, TextColor: #00d4ff);
+  }
+
+  Label #NodeDescription {
+    Text: "Description";
+    Anchor: (Height: 30);
+    Style: (FontSize: 10, TextColor: #cbd5e0);
+  }
+
+  Label #NodeCost {
+    Text: "Cost";
+    Anchor: (Height: 16);
+    Style: (FontSize: 10, TextColor: #FFD700);
+  }
+
+  Group { Anchor: (Height: 8); }
+
+  TextButton #UpgradeButton {
+    Text: "UPGRADE";
+    Anchor: (Height: 35);
+    Style: TextButtonStyle(
+      Default: (Background: #00d4ff, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+      Hovered: (Background: #00e4ff, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+      Pressed: (Background: #00c4df, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+    );
+  }
+
+  Label #NodeStatus {
+    Text: "Status";
+    Anchor: (Height: 18);
+    Style: (FontSize: 9, TextColor: #e53e3e);
   }
 
   Group { FlexWeight: 1; }
 
-  TextButton #CloseButton {
-    Text: "CLOSE";
-    Anchor: (Height: 50);
-    Style: @CloseButtonStyle;
+  Group {
+    LayoutMode: Center;
+    Anchor: (Height: 40);
+
+    TextButton #ResetButton {
+      Text: "RESET";
+      Anchor: (Width: 100, Height: 36);
+      Style: TextButtonStyle(
+        Default: (Background: #e53e3e, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+        Hovered: (Background: #fc8181, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center)),
+        Pressed: (Background: #c53030, LabelStyle: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center, VerticalAlignment: Center))
+      );
+    }
+
+    Group { Anchor: (Width: 12); }
+
+    TextButton #CloseButton {
+      Text: "CLOSE";
+      Anchor: (Width: 100, Height: 36);
+      Style: @CloseButtonStyle;
+    }
   }
+}
+
+Group #TreeGrid {
+  Anchor: (Width: 0, Height: 0);
 }

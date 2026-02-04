@@ -1,0 +1,15 @@
+{
+  "Type": "Role",
+  "Spawnable": true,
+  "Abstract": "Test_Tag_PlayerTestModel_V",
+  "MaxHealth": 100,
+  "Invulnerable": false,
+  "KnockbackScale": 1.0,
+  "Armor": [
+    "Armor_Zone1_Warrior_Helmet",
+    "Armor_Zone1_Warrior_Chestplate", 
+    "Armor_Zone1_Warrior_Leggings",
+    "Armor_Zone1_Warrior_Boots"
+  ],
+  "HotbarItems": ["Weapon_Spear_Iron"]
+}

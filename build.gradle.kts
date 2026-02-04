@@ -83,6 +83,27 @@ idea {
     }
 }
 
+// Create asset pack ZIP task
+val createAssetPack = tasks.register<Zip>("createAssetPack") {
+    group = "build"
+    description = "Creates VeilCore asset pack ZIP file"
+    
+    archiveBaseName.set("VeilCore")
+    destinationDirectory.set(file("${projectDir}/build/assetpack"))
+    
+    from("src/main/resources") {
+        include("manifest.json", "NPC/**")
+    }
+    
+    doLast {
+        println("✅ Asset pack created at: ${archiveFile.get().asFile.absolutePath}")
+    }
+}
+
+tasks.named("build") {
+    dependsOn(createAssetPack)
+}
+
 val syncAssets = tasks.register<Copy>("syncAssets") {
     group = "hytale"
     description = "Automatically syncs assets from Build back to Source after server stops."
