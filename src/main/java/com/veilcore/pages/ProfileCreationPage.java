@@ -159,6 +159,9 @@ public class ProfileCreationPage extends InteractiveCustomUIPage<ProfileCreation
                 // Mark profile as created so onDismiss doesn't reopen
                 profileCreated = true;
                 
+                // Remove from pending profile creation
+                VeilCorePlugin.getInstance().removePendingProfileCreation(player.getUuid());
+                
                 // Reset player to spawn (clear inventory, reset stats, teleport)
                 VeilCorePlugin.getInstance().getStateManager()
                     .resetPlayerToSpawn(ref, store, player);

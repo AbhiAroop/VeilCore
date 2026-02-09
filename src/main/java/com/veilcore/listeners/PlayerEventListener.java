@@ -54,11 +54,11 @@ public class PlayerEventListener {
         List<Profile> profiles = plugin.getProfileManager().getProfiles(playerUUID);
         
         if (profiles.isEmpty()) {
-            // First-time player - send message, don't force UI on join
-            playerRef.sendMessage(Message.raw("Welcome! Use /profile to create your first profile.").color("#FFD700"));
-            // Commented out auto-open to prevent crashes
-            // ProfileCreationPage creationPage = new ProfileCreationPage(playerRef, false);
-            // player.getPageManager().openCustomPage(ref, store, creationPage);
+            // First-time player - FORCE profile creation
+            plugin.addPendingProfileCreation(playerUUID);
+            ProfileCreationPage creationPage = new ProfileCreationPage(playerRef, false);
+            player.getPageManager().openCustomPage(ref, store, creationPage);
+            playerRef.sendMessage(Message.raw("Welcome! Please create your first profile to begin.").color("#FFD700"));
         } else {
             // Returning player - check for last active profile
             UUID lastActiveId = plugin.getProfileManager().getLastActiveProfileId(playerUUID);
@@ -93,6 +93,9 @@ public class PlayerEventListener {
         UUID playerUUID = playerRef.getUuid();
         
         VeilCorePlugin plugin = VeilCorePlugin.getInstance();
+        
+        // Remove from pending if they disconnect
+        plugin.removePendingProfileCreation(playerUUID);
         
         // Get active profile
         UUID activeProfileId = plugin.getProfileManager().getActiveProfileId(playerUUID);

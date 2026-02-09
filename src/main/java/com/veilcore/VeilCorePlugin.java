@@ -46,6 +46,7 @@ public class VeilCorePlugin extends JavaPlugin {
     private PlayerProfileManager profileManager;
     private ProfileStateManager stateManager;
     private java.util.concurrent.ScheduledExecutorService playtimeScheduler;
+    private final java.util.Set<java.util.UUID> pendingProfileCreation = new java.util.concurrent.ConcurrentHashMap<java.util.UUID, Boolean>().keySet(true);
 
     public VeilCorePlugin(@Nonnull JavaPluginInit init) {
         super(init);
@@ -159,6 +160,18 @@ public class VeilCorePlugin extends JavaPlugin {
     
     public java.util.concurrent.ScheduledExecutorService getScheduler() {
         return playtimeScheduler;
+    }
+    
+    public void addPendingProfileCreation(java.util.UUID playerUUID) {
+        pendingProfileCreation.add(playerUUID);
+    }
+    
+    public void removePendingProfileCreation(java.util.UUID playerUUID) {
+        pendingProfileCreation.remove(playerUUID);
+    }
+    
+    public boolean isPendingProfileCreation(java.util.UUID playerUUID) {
+        return pendingProfileCreation.contains(playerUUID);
     }
     
     private java.io.File getDataFolder() {

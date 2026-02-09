@@ -36,6 +36,12 @@ public class ProfileCommand extends AbstractPlayerCommand {
     ) {
         Player player = store.getComponent(ref, Player.getComponentType());
         
+        // Block command if player is pending profile creation
+        if (VeilCorePlugin.getInstance().isPendingProfileCreation(player.getUuid())) {
+            playerRef.sendMessage(Message.raw("Please complete creating your first profile in the UI!").color("#FF5555"));
+            return;
+        }
+        
         List<Profile> profiles = VeilCorePlugin.getInstance().getProfileManager()
             .getProfiles(player.getUuid());
         
