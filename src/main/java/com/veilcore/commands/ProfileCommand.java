@@ -36,24 +36,17 @@ public class ProfileCommand extends AbstractPlayerCommand {
     ) {
         Player player = store.getComponent(ref, Player.getComponentType());
         
-        // Dynamic UIs not supported yet - show profile info via chat
         List<Profile> profiles = VeilCorePlugin.getInstance().getProfileManager()
             .getProfiles(player.getUuid());
         
         if (profiles.isEmpty()) {
-            playerRef.sendMessage(Message.raw("No profiles found. Profile system coming soon!").color("#FF5555"));
+            // No profiles exist - open creation page (not cancellable - player must create one)
+            ProfileCreationPage creationPage = new ProfileCreationPage(playerRef, false);
+            player.getPageManager().openCustomPage(ref, store, creationPage);
         } else {
-            Profile activeProfile = VeilCorePlugin.getInstance().getProfileManager()
-                .getActiveProfile(player.getUuid());
-                
-            playerRef.sendMessage(Message.raw("=== Your Profiles ===").color("#FFD700").bold(true));
-            
-            for (Profile profile : profiles) {
-                String marker = (activeProfile != null && profile.getProfileId().equals(activeProfile.getProfileId())) ? " (ACTIVE)" : "";
-                playerRef.sendMessage(Message.raw("  - " + profile.getProfileName() + marker).color("#FFFFFF"));
-            }
-            
-            playerRef.sendMessage(Message.raw("Profile UI coming soon!").color("#AAAAAA"));
+            // Profiles exist - open selection/management page
+            ProfileSelectionPage selectionPage = new ProfileSelectionPage(playerRef, profiles);
+            player.getPageManager().openCustomPage(ref, store, selectionPage);
         }
     }
 }
