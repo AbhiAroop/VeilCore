@@ -54,39 +54,37 @@ public class PlayerEventListener {
         List<Profile> profiles = plugin.getProfileManager().getProfiles(playerUUID);
         
         if (profiles.isEmpty()) {
-            // First-time player - FORCE profile creation (delayed to ensure player is fully loaded)
+            // First-time player - mark as pending, do everything after a delay
+            // IMPORTANT: Do NOT send any packets synchronously here - it can crash the client
+            // during world initialization before ClientReady is sent
             plugin.addPendingProfileCreation(playerUUID);
-            playerRef.sendMessage(Message.raw("Welcome! Please create your first profile to begin.").color("#FFD700"));
             
-            // Delay UI opening by 2 seconds to ensure player is fully loaded
             plugin.getScheduler().schedule(() -> {
-                // Double-check player is still online
                 PlayerRef checkPlayerRef = Universe.get().getPlayer(playerUUID);
                 if (checkPlayerRef != null && plugin.isPendingProfileCreation(playerUUID)) {
+                    checkPlayerRef.sendMessage(Message.raw("Welcome! Please create your first profile to begin.").color("#FFD700"));
                     ProfileCreationPage creationPage = new ProfileCreationPage(playerRef, false);
                     player.getPageManager().openCustomPage(ref, store, creationPage);
                 }
-            }, 2, java.util.concurrent.TimeUnit.SECONDS);
+            }, 3, java.util.concurrent.TimeUnit.SECONDS);
         } else {
-            // Returning player - check for last active profile
-            UUID lastActiveId = plugin.getProfileManager().getLastActiveProfileId(playerUUID);
-            
-            if (lastActiveId != null) {
-                // Auto-load last active profile
-                Profile lastProfile = plugin.getProfileManager().getProfile(playerUUID, lastActiveId);
-                if (lastProfile != null) {
-                    plugin.getProfileManager().setActiveProfile(playerUUID, lastActiveId);
-                    playerRef.sendMessage(Message.raw("Welcome back! Loaded profile: " + lastProfile.getProfileName()).color("#55FF55"));
-                    playerRef.sendMessage(Message.raw("Use /profile to switch profiles").color("#AAAAAA"));
-                    return;
+            // Returning player - also delay so no packets are sent during world init
+            plugin.getScheduler().schedule(() -> {
+                PlayerRef checkPlayerRef = Universe.get().getPlayer(playerUUID);
+                if (checkPlayerRef == null) return;
+                
+                UUID lastActiveId = plugin.getProfileManager().getLastActiveProfileId(playerUUID);
+                if (lastActiveId != null) {
+                    Profile lastProfile = plugin.getProfileManager().getProfile(playerUUID, lastActiveId);
+                    if (lastProfile != null) {
+                        plugin.getProfileManager().setActiveProfile(playerUUID, lastActiveId);
+                        checkPlayerRef.sendMessage(Message.raw("Welcome back! Loaded profile: " + lastProfile.getProfileName()).color("#55FF55"));
+                        checkPlayerRef.sendMessage(Message.raw("Use /profile to switch profiles").color("#AAAAAA"));
+                        return;
+                    }
                 }
-            }
-            
-            // No valid last active profile - send message, don't force UI
-            playerRef.sendMessage(Message.raw("Use /profile to select a profile").color("#FFD700"));
-            // Commented out auto-open to prevent crashes
-            // ProfileSelectionPage selectionPage = new ProfileSelectionPage(playerRef, profiles);
-            // player.getPageManager().openCustomPage(ref, store, selectionPage);
+                checkPlayerRef.sendMessage(Message.raw("Use /profile to select a profile").color("#FFD700"));
+            }, 3, java.util.concurrent.TimeUnit.SECONDS);
         }
     }
 
