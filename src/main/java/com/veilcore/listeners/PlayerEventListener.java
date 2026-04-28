@@ -54,11 +54,19 @@ public class PlayerEventListener {
         List<Profile> profiles = plugin.getProfileManager().getProfiles(playerUUID);
         
         if (profiles.isEmpty()) {
-            // First-time player - FORCE profile creation
+            // First-time player - FORCE profile creation (delayed to ensure player is fully loaded)
             plugin.addPendingProfileCreation(playerUUID);
-            ProfileCreationPage creationPage = new ProfileCreationPage(playerRef, false);
-            player.getPageManager().openCustomPage(ref, store, creationPage);
             playerRef.sendMessage(Message.raw("Welcome! Please create your first profile to begin.").color("#FFD700"));
+            
+            // Delay UI opening by 2 seconds to ensure player is fully loaded
+            plugin.getScheduler().schedule(() -> {
+                // Double-check player is still online
+                PlayerRef checkPlayerRef = Universe.get().getPlayer(playerUUID);
+                if (checkPlayerRef != null && plugin.isPendingProfileCreation(playerUUID)) {
+                    ProfileCreationPage creationPage = new ProfileCreationPage(playerRef, false);
+                    player.getPageManager().openCustomPage(ref, store, creationPage);
+                }
+            }, 2, java.util.concurrent.TimeUnit.SECONDS);
         } else {
             // Returning player - check for last active profile
             UUID lastActiveId = plugin.getProfileManager().getLastActiveProfileId(playerUUID);
