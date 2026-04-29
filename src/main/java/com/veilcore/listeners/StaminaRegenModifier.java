@@ -13,6 +13,7 @@ import com.veilcore.VeilCorePlugin;
 
 import javax.annotation.Nonnull;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Disables Hytale's built-in stamina regen so that only our StaminaRegenSystem handles regeneration.
@@ -37,9 +38,20 @@ public class StaminaRegenModifier {
             return;
         }
 
-        // Suppress built-in stamina regen so only our system handles it
+        // IMPORTANT: Do NOT call setStatValue synchronously here.
+        // PlayerReadyEvent fires BEFORE JoinWorld is sent to the client. Calling setStatValue
+        // triggers a stat sync packet which causes the server to wait for ClientReady - but
+        // the client hasn't even received JoinWorld yet, so it times out (~1 second) and crashes.
+        // Delay this call until after the client is fully loaded and has sent ClientReady.
+        UUID playerUUID = player.getUuid();
         Store<EntityStore> store = player.getWorld().getEntityStore().getStore();
-        suppressBuiltInStaminaRegen(store, player.getReference());
+        Ref<EntityStore> ref = player.getReference();
+
+        VeilCorePlugin.getInstance().getScheduler().schedule(() -> {
+            if (Universe.get().getPlayer(playerUUID) != null) {
+                suppressBuiltInStaminaRegen(store, ref);
+            }
+        }, 3, TimeUnit.SECONDS);
     }
 
     /**
